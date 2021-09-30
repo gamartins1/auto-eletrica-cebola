@@ -18,7 +18,7 @@ public class Usuario {
 
     private boolean ativo;
 
-    private String usuario;
+    private String user;
 
     private String senha;
 
@@ -46,12 +46,12 @@ public class Usuario {
         this.ativo = ativo;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getSenha() {

@@ -4,8 +4,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Auto Elétrica Cebola</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/menuStyle.css" th:href="@{/css/menuStyle.css}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!--JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    <h1>Bem vindo</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid container-navbar-menu">
+            <a class="navbar-brand" href="#"><img th:src="@{/img/Avatar.png}" src="../static/img/Avatar.png" alt="" class="d-inline-block align-text-top img-icon-logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Página Principal</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuClientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Clientes
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
+                            <li><a class="dropdown-item" href="#">Cadastrar cliente</a></li>
+                            <li><a class="dropdown-item" href="#">Consultar clientes</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuServicos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Serviços
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropDownMenuServicos">
+                            <li><a class="dropdown-item" href="#">Registrar novo serviço</a></li>
+                            <li><a class="dropdown-item" href="#">Finalizar serviço</a></li>
+                            <li><a class="dropdown-item" href="#">Consultar serviços</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuAdministracao" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Administração
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropDownMenuAdministracao">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-outline-light">Sair</button>
+        </div>
+    </nav>
+    <h6 class="text-num-services">Serviços em andamento: <span class="badge bg-primary badge-num-services">0</span></h6>
+    <section>
+<!--        <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="servico : ${servicos}">-->
+<!--            <div class="card-body">-->
+<!--                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">-->
+<!--                    Serviço aberto em <span th:text="${servico.veiculo.modelo}"></span>-->
+<!--                </p>-->
+<!--                &lt;!&ndash;Esse CBC são as iniciais em camel case do controller - CodeBlogController&ndash;&gt;-->
+<!--                <a th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.titulo}"></span></h4></a>-->
+<!--                <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>-->
+<!--            </div>-->
+<!--        </div>-->
+    </section>
 </body>
 </html>

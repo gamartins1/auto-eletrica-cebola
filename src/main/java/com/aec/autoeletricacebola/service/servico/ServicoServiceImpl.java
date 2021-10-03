@@ -25,7 +25,7 @@ public class ServicoServiceImpl implements ServicoService {
 
     @Override
     public List <Servico> findByServicesUnfinished() {
-        return null;
+        return servicoRepository.findByServicesUnfinished();
     }
 
     @Override

@@ -59,18 +59,24 @@
             <button type="button" class="btn btn-outline-light">Sair</button>
         </div>
     </nav>
-    <h6 class="text-num-services">Serviços em andamento: <span class="badge bg-primary badge-num-services">0</span></h6>
+    <h6 class="text-num-services">Serviços em andamento: <span class="badge bg-primary badge-num-services" th:text="${quantidadeServicos}"> </span></h6>
     <section>
-<!--        <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="servico : ${servicos}">-->
-<!--            <div class="card-body">-->
-<!--                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">-->
-<!--                    Serviço aberto em <span th:text="${servico.veiculo.modelo}"></span>-->
-<!--                </p>-->
-<!--                &lt;!&ndash;Esse CBC são as iniciais em camel case do controller - CodeBlogController&ndash;&gt;-->
-<!--                <a th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.titulo}"></span></h4></a>-->
-<!--                <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="container container-car-service">
+            <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="servico : ${servicos}">
+                <div class="card-body">
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                        Serviço aberto em <span th:text="${servico.abertura}"></span>
+                    </p>
+                    <!--Esse CBC são as iniciais em camel case do controller - CodeBlogController-->
+                    <!--th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"-->
+                    <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modelo}"></span></h5></a>
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                        Placa: <b><span th:text="${servico.veiculo.placa}"></span></b>
+                    </p>
+                    <!--                <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>-->
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 </html>

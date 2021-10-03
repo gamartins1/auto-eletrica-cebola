@@ -20,8 +20,7 @@ public class Cliente {
 
     private String nome;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate dataCadastro;
+    private String dataCadastro;
 
     public Long getId() {
         return id;
@@ -39,11 +38,11 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public LocalDate getDataCadastro() {
+    public String getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(LocalDate dataCadastro) {
+    public void setDataCadastro(String dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 }

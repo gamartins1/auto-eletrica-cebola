@@ -10,10 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity//Anotação para identificar uma tabela
 @Table(name = "TB_SERVICO")
@@ -25,11 +22,9 @@ public class Servico {
 
     private String status;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime abertura;
+    private String abertura;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime encerramento;
+    private String encerramento;
 
     @Column(columnDefinition="Decimal(10,2) default '000.00'")
     private double valor;
@@ -71,19 +66,19 @@ public class Servico {
         this.status = status;
     }
 
-    public LocalDateTime getAbertura() {
+    public String getAbertura() {
         return abertura;
     }
 
-    public void setAbertura(LocalDateTime abertura) {
+    public void setAbertura(String abertura) {
         this.abertura = abertura;
     }
 
-    public LocalDateTime getEncerramento() {
+    public String getEncerramento() {
         return encerramento;
     }
 
-    public void setEncerramento(LocalDateTime encerramento) {
+    public void setEncerramento(String encerramento) {
         this.encerramento = encerramento;
     }
 

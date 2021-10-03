@@ -7,3 +7,15 @@
     margin-top: 10px;
     font-size: 13px;
 }
+
+.carname-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    padding-top: 5px;
+}
+
+.container-car-service {
+    width: 70%;
+    padding-bottom: 30px;
+}

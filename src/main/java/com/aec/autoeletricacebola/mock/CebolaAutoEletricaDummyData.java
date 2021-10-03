@@ -1,9 +1,12 @@
 package com.aec.autoeletricacebola.mock;
 
+import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.DEFAULT_DATE_PATTERN;
+
 import javax.annotation.PostConstruct;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +41,9 @@ public class CebolaAutoEletricaDummyData {
     @Autowired
     private ServicoRepository servicoRepository;
 
-//    @PostConstruct
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN);
+
+    //    @PostConstruct
     public void initializeDatabase() {
         insertUsuario();
         insertCliente();
@@ -73,17 +78,17 @@ public class CebolaAutoEletricaDummyData {
         List <Cliente> clientes = new ArrayList <>();
 
         Cliente cliente1 = new Cliente();
-        cliente1.setDataCadastro(LocalDate.now());
+        cliente1.setDataCadastro(LocalDateTime.now().format(formatter));
         cliente1.setNome("Gabriel Martins");
         clientes.add(cliente1);
 
         Cliente cliente2 = new Cliente();
-        cliente2.setDataCadastro(LocalDate.now());
+        cliente2.setDataCadastro(LocalDateTime.now().format(formatter));
         cliente2.setNome("Gabriel Pacheco");
         clientes.add(cliente2);
 
         Cliente cliente3 = new Cliente();
-        cliente3.setDataCadastro(LocalDate.now());
+        cliente3.setDataCadastro(LocalDateTime.now().format(formatter));
         cliente3.setNome("Amaury Alves");
         clientes.add(cliente3);
 
@@ -137,7 +142,7 @@ public class CebolaAutoEletricaDummyData {
 
     private void insertServico() {
         Servico servico1 = new Servico();
-        servico1.setAbertura(LocalDateTime.now());
+        servico1.setAbertura(LocalDateTime.now().format(formatter));
         servico1.setStatus("Aberto");
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);

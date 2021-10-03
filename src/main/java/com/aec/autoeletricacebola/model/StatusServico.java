@@ -20,8 +20,7 @@ public class StatusServico {
 
     private String status;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime dataHoraStatus;
+    private String dataHoraStatus;
 
     public Long getId() {
         return id;
@@ -39,11 +38,11 @@ public class StatusServico {
         this.status = status;
     }
 
-    public LocalDateTime getDataHoraStatus() {
+    public String getDataHoraStatus() {
         return dataHoraStatus;
     }
 
-    public void setDataHoraStatus(LocalDateTime dataHoraStatus) {
+    public void setDataHoraStatus(String dataHoraStatus) {
         this.dataHoraStatus = dataHoraStatus;
     }
 }

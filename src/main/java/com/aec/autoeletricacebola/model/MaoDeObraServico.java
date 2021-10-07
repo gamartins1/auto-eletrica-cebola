@@ -22,6 +22,9 @@ public class MaoDeObraServico {
     private String tempoGarantia;
 
     @ManyToOne
+    private Servico servico;
+
+    @ManyToOne
     private Mecanico mecanico;
 
     public Long getId() {
@@ -54,5 +57,13 @@ public class MaoDeObraServico {
 
     public void setMecanico(Mecanico mecanico) {
         this.mecanico = mecanico;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 }

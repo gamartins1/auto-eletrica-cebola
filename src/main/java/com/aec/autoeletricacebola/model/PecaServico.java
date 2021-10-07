@@ -19,4 +19,39 @@ public class PecaServico {
 
     @ManyToOne
     private PecaEstoque pecaEstoque;
+
+    @ManyToOne
+    private Servico servico;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public PecaEstoque getPecaEstoque() {
+        return pecaEstoque;
+    }
+
+    public void setPecaEstoque(PecaEstoque pecaEstoque) {
+        this.pecaEstoque = pecaEstoque;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
+    }
 }

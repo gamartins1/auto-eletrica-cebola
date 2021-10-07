@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +15,9 @@ public class DescricaoServico {
     private Long id;
 
     private String descricao;
+
+    @ManyToOne
+    private Servico servico;
 
     public Long getId() {
         return id;
@@ -29,5 +33,13 @@ public class DescricaoServico {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 }

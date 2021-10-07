@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,9 @@ public class StatusServico {
     private String status;
 
     private String dataHoraStatus;
+
+    @ManyToOne
+    private Servico servico;
 
     public Long getId() {
         return id;
@@ -44,5 +48,13 @@ public class StatusServico {
 
     public void setDataHoraStatus(String dataHoraStatus) {
         this.dataHoraStatus = dataHoraStatus;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
     }
 }

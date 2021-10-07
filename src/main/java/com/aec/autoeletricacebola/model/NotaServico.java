@@ -13,6 +13,7 @@ public class NotaServico {
 
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
+    @Column(name = "ID_NOTA_SERVICO")
     private Long id;
 
     @Column(columnDefinition="Decimal(10,2) default '00.00'")

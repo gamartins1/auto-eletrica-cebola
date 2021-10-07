@@ -1,5 +1,6 @@
 package com.aec.autoeletricacebola.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ public class EnderecoCliente {
 
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
+    @Column(name = "ID_END_CLIENTE")
     private Long id;
 
     private String rua;

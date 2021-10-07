@@ -18,6 +18,7 @@ public class Servico {
 
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
+    @Column(name = "ID_SERVICO")
     private Long id;
 
     private String status;
@@ -36,13 +37,13 @@ public class Servico {
     private Veiculo veiculo;
 
     @OneToMany(targetEntity = StatusServico.class)
-    private List stausServico;
+    private List<StatusServico> stausServico;
 
     @OneToMany(targetEntity = DescricaoServico.class)
-    private List descricaoServico;
+    private List<DescricaoServico> descricaoServico;
 
     @OneToMany(targetEntity = PecaServico.class)
-    private List pecasServico;
+    private List<PecaServico> pecasServico;
 
     @OneToMany(targetEntity = MaoDeObraServico.class)
     private List maoDeObraServico;
@@ -106,27 +107,27 @@ public class Servico {
         this.veiculo = veiculo;
     }
 
-    public List getStausServico() {
+    public List<StatusServico> getStausServico() {
         return stausServico;
     }
 
-    public void setStausServico(List stausServico) {
+    public void setStausServico(List<StatusServico> stausServico) {
         this.stausServico = stausServico;
     }
 
-    public List getDescricaoServico() {
+    public List<DescricaoServico> getDescricaoServico() {
         return descricaoServico;
     }
 
-    public void setDescricaoServico(List descricaoServico) {
+    public void setDescricaoServico(List<DescricaoServico> descricaoServico) {
         this.descricaoServico = descricaoServico;
     }
 
-    public List getPecasServico() {
+    public List<PecaServico> getPecasServico() {
         return pecasServico;
     }
 
-    public void setPecasServico(List pecasServico) {
+    public void setPecasServico(List<PecaServico> pecasServico) {
         this.pecasServico = pecasServico;
     }
 

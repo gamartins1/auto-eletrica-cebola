@@ -13,6 +13,7 @@ public class PecaEstoque {
 
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
+    @Column(name = "ID_PECA_ESTOQUE")
     private Long id;
 
     private String nome;

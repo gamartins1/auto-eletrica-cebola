@@ -59,6 +59,7 @@
             <button type="button" class="btn btn-outline-light">Sair</button>
         </div>
     </nav>
+    continuar montando o layout dos serviços em andamento
     <h6 class="text-num-services">Serviços em andamento: <span class="badge bg-primary badge-num-services" th:text="${quantidadeServicos}"> </span></h6>
     <section>
         <div class="container container-car-service">
@@ -74,6 +75,20 @@
                         Placa: <b><span th:text="${servico.veiculo.placa}"></span></b>
                     </p>
                     <!--                <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>-->
+                </div>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOnes">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#accordion'+${servico.id}" aria-expanded="true" aria-controls="accordion19">
+                                Ver serviços
+                            </button>
+                        </h2>
+                        <div th:attr="id='accordion'+${servico.id}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

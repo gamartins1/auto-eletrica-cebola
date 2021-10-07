@@ -1,9 +1,11 @@
 package com.aec.autoeletricacebola.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,6 +16,7 @@ public class MaoDeObraServico {
 
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
+    @Column(name = "ID_MAO_OBRA_SERVICO")
     private Long id;
 
     @Lob//Indica texto longo no banco
@@ -22,9 +25,11 @@ public class MaoDeObraServico {
     private String tempoGarantia;
 
     @ManyToOne
+    @JoinColumn(name = "servico_id_servico")
     private Servico servico;
 
     @ManyToOne
+    @JoinColumn(name = "mecanico_id_mecanico")
     private Mecanico mecanico;
 
     public Long getId() {

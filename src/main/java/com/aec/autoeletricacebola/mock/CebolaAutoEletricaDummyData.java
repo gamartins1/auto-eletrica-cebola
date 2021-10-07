@@ -11,17 +11,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.aec.autoeletricacebola.model.Cliente;
+import com.aec.autoeletricacebola.model.DescricaoServico;
 import com.aec.autoeletricacebola.model.Mecanico;
 import com.aec.autoeletricacebola.model.Servico;
 import com.aec.autoeletricacebola.model.Usuario;
 import com.aec.autoeletricacebola.model.Veiculo;
 import com.aec.autoeletricacebola.repository.ClienteRepository;
+import com.aec.autoeletricacebola.repository.DescricaoServicoRepository;
 import com.aec.autoeletricacebola.repository.MecanicoRepository;
 import com.aec.autoeletricacebola.repository.ServicoRepository;
 import com.aec.autoeletricacebola.repository.UsuarioRepository;
 import com.aec.autoeletricacebola.repository.VeiculoRepository;
+import org.hibernate.validator.internal.util.CollectionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.util.ListUtils;
 
 @Component
 public class CebolaAutoEletricaDummyData {
@@ -40,6 +44,9 @@ public class CebolaAutoEletricaDummyData {
 
     @Autowired
     private ServicoRepository servicoRepository;
+
+    @Autowired
+    private DescricaoServicoRepository descricaoServicoRepository;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN);
 
@@ -146,14 +153,30 @@ public class CebolaAutoEletricaDummyData {
         servico1.setStatus("Aberto");
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);
-        veiculo2.setId(8L);
+        veiculo2.setId(6L);
         Cliente cliente2 = new Cliente();
         cliente2.setId(3L);
         veiculo2.setCliente(cliente2);
         servico1.setVeiculo(veiculo2);
         servico1.setCliente(cliente2);
-
         Servico servicoInserido = servicoRepository.save(servico1);
-        System.out.println("Servico salvo: " + servicoInserido.getStatus());
+
+        List<DescricaoServico> descricoes = new ArrayList <>();
+
+        DescricaoServico descricaoServico = new DescricaoServico();
+        descricaoServico.setDescricao("Troca de bateria");
+        descricaoServico.setServico(servico1);
+        descricoes.add(descricaoServico);
+
+        DescricaoServico descricaoServico1 = new DescricaoServico();
+        descricaoServico1.setDescricao("Falha na trava elétrica");
+        descricaoServico1.setServico(servico1);
+        descricoes.add(descricaoServico1);
+
+        List<DescricaoServico> descricoesServicoSalvos = this.descricaoServicoRepository.saveAll(descricoes);
+
+        servico1.setDescricaoServico(descricoesServicoSalvos);
+        Servico servicoAtualizado = servicoRepository.save(servico1);
+        System.out.println("Servico salvo: " + servicoAtualizado.getStatus());
     }
 }

@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity//Anotação para identificar uma tabela
 @Table(name = "TB_STATUS_SERVICO")
 public class StatusServico {
 

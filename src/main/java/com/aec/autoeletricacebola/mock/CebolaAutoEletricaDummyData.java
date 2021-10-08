@@ -14,12 +14,14 @@ import com.aec.autoeletricacebola.model.Cliente;
 import com.aec.autoeletricacebola.model.DescricaoServico;
 import com.aec.autoeletricacebola.model.Mecanico;
 import com.aec.autoeletricacebola.model.Servico;
+import com.aec.autoeletricacebola.model.TelefoneCliente;
 import com.aec.autoeletricacebola.model.Usuario;
 import com.aec.autoeletricacebola.model.Veiculo;
 import com.aec.autoeletricacebola.repository.ClienteRepository;
 import com.aec.autoeletricacebola.repository.DescricaoServicoRepository;
 import com.aec.autoeletricacebola.repository.MecanicoRepository;
 import com.aec.autoeletricacebola.repository.ServicoRepository;
+import com.aec.autoeletricacebola.repository.TelefoneClienteRepository;
 import com.aec.autoeletricacebola.repository.UsuarioRepository;
 import com.aec.autoeletricacebola.repository.VeiculoRepository;
 import org.hibernate.validator.internal.util.CollectionHelper;
@@ -48,6 +50,9 @@ public class CebolaAutoEletricaDummyData {
     @Autowired
     private DescricaoServicoRepository descricaoServicoRepository;
 
+    @Autowired
+    private TelefoneClienteRepository telefoneClienteRepository;
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN);
 
     //    @PostConstruct
@@ -57,7 +62,7 @@ public class CebolaAutoEletricaDummyData {
         insertVeiculo();
         insertMecanico();
         insertServico();
-
+        insertTelefoneCliente();
     }
 
     private void insertUsuario() {
@@ -153,9 +158,9 @@ public class CebolaAutoEletricaDummyData {
         servico1.setStatus("Aberto");
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);
-        veiculo2.setId(6L);
+        veiculo2.setId(7L);
         Cliente cliente2 = new Cliente();
-        cliente2.setId(3L);
+        cliente2.setId(4L);
         veiculo2.setCliente(cliente2);
         servico1.setVeiculo(veiculo2);
         servico1.setCliente(cliente2);
@@ -164,12 +169,12 @@ public class CebolaAutoEletricaDummyData {
         List<DescricaoServico> descricoes = new ArrayList <>();
 
         DescricaoServico descricaoServico = new DescricaoServico();
-        descricaoServico.setDescricao("Troca de bateria");
+        descricaoServico.setDescricao("Instalação de alarme");
         descricaoServico.setServico(servico1);
         descricoes.add(descricaoServico);
 
         DescricaoServico descricaoServico1 = new DescricaoServico();
-        descricaoServico1.setDescricao("Falha na trava elétrica");
+        descricaoServico1.setDescricao("Troca de lâmpada do farol esquerdo");
         descricaoServico1.setServico(servico1);
         descricoes.add(descricaoServico1);
 
@@ -178,5 +183,46 @@ public class CebolaAutoEletricaDummyData {
         servico1.setDescricaoServico(descricoesServicoSalvos);
         Servico servicoAtualizado = servicoRepository.save(servico1);
         System.out.println("Servico salvo: " + servicoAtualizado.getStatus());
+    }
+
+    public void insertTelefoneCliente() {
+        List<TelefoneCliente> telefonesCliente = new ArrayList <>();
+        Cliente cliente1 = new Cliente();
+        cliente1.setDataCadastro(LocalDateTime.now().format(formatter));
+        cliente1.setNome("Gabriel Martins");
+        cliente1.setId(3L);
+
+        TelefoneCliente telefoneCliente = new TelefoneCliente();
+        telefoneCliente.setAtivo(true);
+        telefoneCliente.setNumero("(11)99237-3162");
+        telefoneCliente.setCliente(cliente1);
+        telefonesCliente.add(telefoneCliente);
+        cliente1.addTelefoneCliente(telefoneCliente);
+
+        TelefoneCliente telefoneCliente1 = new TelefoneCliente();
+        telefoneCliente1.setAtivo(true);
+        telefoneCliente1.setNumero("(11)97037-6278");
+        telefoneCliente1.setCliente(cliente1);
+        telefonesCliente.add(telefoneCliente1);
+        cliente1.addTelefoneCliente(telefoneCliente1);
+
+
+        Cliente cliente2 = new Cliente();
+        cliente2.setDataCadastro(LocalDateTime.now().format(formatter));
+        cliente2.setNome("Gabriel Pacheco");
+        cliente2.setId(4L);
+
+        TelefoneCliente telefoneCliente2 = new TelefoneCliente();
+        telefoneCliente2.setAtivo(true);
+        telefoneCliente2.setNumero("(11)94031-2020");
+        telefoneCliente2.setCliente(cliente2);
+        telefonesCliente.add(telefoneCliente2);
+        cliente2.addTelefoneCliente(telefoneCliente2);
+
+        List<TelefoneCliente> telefonesClientesSalvos = this.telefoneClienteRepository.saveAll(telefonesCliente);
+
+        cliente1 = this.clienteRepository.save(cliente1);
+        cliente2 = clienteRepository.save(cliente2);
+        System.out.println("Foram salvos " + telefonesClientesSalvos.size() + " telefones de clientes");
     }
 }

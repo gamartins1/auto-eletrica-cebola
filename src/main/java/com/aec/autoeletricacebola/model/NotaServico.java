@@ -14,24 +14,24 @@ public class NotaServico {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_NOTA_SERVICO")
-    private Long id;
+    private Long idNotaServico;
 
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
-    private double nota;
+    private double notaServico;
 
-    public Long getId() {
-        return id;
+    public Long getIdNotaServico() {
+        return idNotaServico;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdNotaServico(Long idNotaServico) {
+        this.idNotaServico = idNotaServico;
     }
 
-    public double getNota() {
-        return nota;
+    public double getNotaServico() {
+        return notaServico;
     }
 
-    public void setNota(double nota) {
-        this.nota = nota;
+    public void setNotaServico(double notaServico) {
+        this.notaServico = notaServico;
     }
 }

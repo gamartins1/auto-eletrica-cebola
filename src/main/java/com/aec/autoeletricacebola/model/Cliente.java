@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.Where;
-import org.hibernate.annotations.WhereJoinTable;
 
 @Entity//Anotação para identificar uma tabela
 @Table(name = "TB_CLIENTE")
@@ -21,38 +20,38 @@ public class Cliente {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_CLIENTE")
-    private Long id;
+    private Long idCliente;
 
-    private String nome;
+    private String nomeCliente;
 
-    private String dataCadastro;
+    private String dataCadastroCliente;
 
     @OneToMany(targetEntity = TelefoneCliente.class)
     @Where(clause = "ativo = 1")
     private List <TelefoneCliente> telefoneCliente;
 
-    public Long getId() {
-        return id;
+    public Long getIdCliente() {
+        return idCliente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeCliente() {
+        return nomeCliente;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
     }
 
-    public String getDataCadastro() {
-        return dataCadastro;
+    public String getDataCadastroCliente() {
+        return dataCadastroCliente;
     }
 
-    public void setDataCadastro(String dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public void setDataCadastroCliente(String dataCadastroCliente) {
+        this.dataCadastroCliente = dataCadastroCliente;
     }
 
     public List <TelefoneCliente> getTelefoneCliente() {

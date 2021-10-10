@@ -14,26 +14,26 @@ public class Mecanico {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_MECANICO")
-    private Long id;
+    private Long idMecanico;
 
-    private String nome;
+    private String nomeMecanico;
 
     private boolean ativo;
 
-    public Long getId() {
-        return id;
+    public Long getIdMecanico() {
+        return idMecanico;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdMecanico(Long idMecanico) {
+        this.idMecanico = idMecanico;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeMecanico() {
+        return nomeMecanico;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeMecanico(String nomeMecanico) {
+        this.nomeMecanico = nomeMecanico;
     }
 
     public boolean isAtivo() {

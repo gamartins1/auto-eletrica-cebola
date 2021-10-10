@@ -16,32 +16,32 @@ public class TelefoneCliente {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_TEL_CLIENTE")
-    private Long id;
+    private Long idTelefoneCliente;
 
-    private String numero;
+    private String numeroTelefoneCliente;
 
     private boolean ativo;
 
-    private String observacoes;
+    private String observacoesTelefoneCliente;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id_cliente")
     private Cliente cliente;
 
-    public Long getId() {
-        return id;
+    public Long getIdTelefoneCliente() {
+        return idTelefoneCliente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdTelefoneCliente(Long idTelefoneCliente) {
+        this.idTelefoneCliente = idTelefoneCliente;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getNumeroTelefoneCliente() {
+        return numeroTelefoneCliente;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNumeroTelefoneCliente(String numeroTelefoneCliente) {
+        this.numeroTelefoneCliente = numeroTelefoneCliente;
     }
 
     public boolean isAtivo() {
@@ -52,12 +52,12 @@ public class TelefoneCliente {
         this.ativo = ativo;
     }
 
-    public String getObservacoes() {
-        return observacoes;
+    public String getObservacoesTelefoneCliente() {
+        return observacoesTelefoneCliente;
     }
 
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setObservacoesTelefoneCliente(String observacoesTelefoneCliente) {
+        this.observacoesTelefoneCliente = observacoesTelefoneCliente;
     }
 
     public Cliente getCliente() {

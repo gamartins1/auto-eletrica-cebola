@@ -15,28 +15,28 @@ public class DescricaoServico {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_DESC_SERVICO")
-    private Long id;
+    private Long idDescricaoServico;
 
-    private String descricao;
+    private String descricaoDoServico;
 
     @ManyToOne
     @JoinColumn(name = "servico_id")
     private Servico servico;
 
-    public Long getId() {
-        return id;
+    public Long getIdDescricaoServico() {
+        return idDescricaoServico;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdDescricaoServico(Long idDescricaoServico) {
+        this.idDescricaoServico = idDescricaoServico;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescricaoDoServico() {
+        return descricaoDoServico;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricaoDoServico(String descricaoDoServico) {
+        this.descricaoDoServico = descricaoDoServico;
     }
 
     public Servico getServico() {

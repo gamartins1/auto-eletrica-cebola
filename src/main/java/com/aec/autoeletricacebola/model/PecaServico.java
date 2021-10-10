@@ -16,9 +16,9 @@ public class PecaServico {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_PECA_SERVICO")
-    private Long id;
+    private Long idPecaServico;
 
-    private int quantidade;
+    private int quantidadePecaServico;
 
     @ManyToOne
     @JoinColumn(name = "peca_estoque_id_peca_estoque")
@@ -28,20 +28,20 @@ public class PecaServico {
     @JoinColumn(name = "servico_id_servico")
     private Servico servico;
 
-    public Long getId() {
-        return id;
+    public Long getIdPecaServico() {
+        return idPecaServico;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdPecaServico(Long idPecaServico) {
+        this.idPecaServico = idPecaServico;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantidadePecaServico() {
+        return quantidadePecaServico;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidadePecaServico(int quantidadePecaServico) {
+        this.quantidadePecaServico = quantidadePecaServico;
     }
 
     public PecaEstoque getPecaEstoque() {

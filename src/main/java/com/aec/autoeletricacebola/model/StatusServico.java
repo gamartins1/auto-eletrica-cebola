@@ -16,38 +16,38 @@ public class StatusServico {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_STATUS_SERVICO")
-    private Long id;
+    private Long idStatusServico;
 
-    private String status;
+    private String statusServico;
 
-    private String dataHoraStatus;
+    private String dataHoraStatusServico;
 
     @ManyToOne
     @JoinColumn(name = "servico_id_servico")
     private Servico servico;
 
-    public Long getId() {
-        return id;
+    public Long getIdStatusServico() {
+        return idStatusServico;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdStatusServico(Long idStatusServico) {
+        this.idStatusServico = idStatusServico;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusServico() {
+        return statusServico;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusServico(String statusServico) {
+        this.statusServico = statusServico;
     }
 
-    public String getDataHoraStatus() {
-        return dataHoraStatus;
+    public String getDataHoraStatusServico() {
+        return dataHoraStatusServico;
     }
 
-    public void setDataHoraStatus(String dataHoraStatus) {
-        this.dataHoraStatus = dataHoraStatus;
+    public void setDataHoraStatusServico(String dataHoraStatusServico) {
+        this.dataHoraStatusServico = dataHoraStatusServico;
     }
 
     public Servico getServico() {

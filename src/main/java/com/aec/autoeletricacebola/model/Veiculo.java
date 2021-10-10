@@ -15,49 +15,49 @@ public class Veiculo {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_VEICULO")
-    private Long id;
+    private Long idVeiculo;
 
-    private String modelo;
+    private String modeloVeiculo;
 
-    private String placa;
+    private String placaVeiculo;
 
-    private String observacoes;
+    private String observacoesVeiculo;
 
     private boolean ativo;
 
     @ManyToOne
     private Cliente cliente;
 
-    public Long getId() {
-        return id;
+    public Long getIdVeiculo() {
+        return idVeiculo;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdVeiculo(Long idVeiculo) {
+        this.idVeiculo = idVeiculo;
     }
 
-    public String getModelo() {
-        return modelo;
+    public String getModeloVeiculo() {
+        return modeloVeiculo;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setModeloVeiculo(String modeloVeiculo) {
+        this.modeloVeiculo = modeloVeiculo;
     }
 
-    public String getPlaca() {
-        return placa;
+    public String getPlacaVeiculo() {
+        return placaVeiculo;
     }
 
-    public void setPlaca(String placa) {
-        this.placa = placa;
+    public void setPlacaVeiculo(String placaVeiculo) {
+        this.placaVeiculo = placaVeiculo;
     }
 
-    public String getObservacoes() {
-        return observacoes;
+    public String getObservacoesVeiculo() {
+        return observacoesVeiculo;
     }
 
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+    public void setObservacoesVeiculo(String observacoesVeiculo) {
+        this.observacoesVeiculo = observacoesVeiculo;
     }
 
     public boolean isAtivo() {

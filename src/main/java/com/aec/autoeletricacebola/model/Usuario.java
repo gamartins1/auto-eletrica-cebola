@@ -14,30 +14,30 @@ public class Usuario {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_USER")
-    private Long id;
+    private Long idUsuario;
 
-    private String nome;
+    private String nomeUsuario;
 
     private boolean ativo;
 
-    private String user;
+    private String userUsuario;
 
-    private String senha;
+    private String senhaUsuario;
 
-    public Long getId() {
-        return id;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
     public boolean isAtivo() {
@@ -48,19 +48,19 @@ public class Usuario {
         this.ativo = ativo;
     }
 
-    public String getUser() {
-        return user;
+    public String getUserUsuario() {
+        return userUsuario;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserUsuario(String userUsuario) {
+        this.userUsuario = userUsuario;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getSenhaUsuario() {
+        return senhaUsuario;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setSenhaUsuario(String senhaUsuario) {
+        this.senhaUsuario = senhaUsuario;
     }
 }

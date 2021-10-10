@@ -15,47 +15,47 @@ public class EnderecoCliente {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_END_CLIENTE")
-    private Long id;
+    private Long idEnderecoCliente;
 
-    private String rua;
+    private String ruaEnderecoCliente;
 
-    private String numero;
+    private String numeroEnderecoCliente;
 
-    private String cep;
+    private String cepEnderecoCliente;
 
     @OneToOne
     private Cliente cliente;
 
-    public Long getId() {
-        return id;
+    public Long getIdEnderecoCliente() {
+        return idEnderecoCliente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdEnderecoCliente(Long idEnderecoCliente) {
+        this.idEnderecoCliente = idEnderecoCliente;
     }
 
-    public String getRua() {
-        return rua;
+    public String getRuaEnderecoCliente() {
+        return ruaEnderecoCliente;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setRuaEnderecoCliente(String ruaEnderecoCliente) {
+        this.ruaEnderecoCliente = ruaEnderecoCliente;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getNumeroEnderecoCliente() {
+        return numeroEnderecoCliente;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public void setNumeroEnderecoCliente(String numeroEnderecoCliente) {
+        this.numeroEnderecoCliente = numeroEnderecoCliente;
     }
 
-    public String getCep() {
-        return cep;
+    public String getCepEnderecoCliente() {
+        return cepEnderecoCliente;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setCepEnderecoCliente(String cepEnderecoCliente) {
+        this.cepEnderecoCliente = cepEnderecoCliente;
     }
 
     public Cliente getCliente() {

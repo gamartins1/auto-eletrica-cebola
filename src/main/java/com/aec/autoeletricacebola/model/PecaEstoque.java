@@ -14,65 +14,65 @@ public class PecaEstoque {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_PECA_ESTOQUE")
-    private Long id;
+    private Long idPecaEstoque;
 
-    private String nome;
+    private String nomePecaEstoque;
 
-    private int quantidade;
+    private int quantidadePecaEstoque;
 
-    private String tempoGarantia;
-
-    @Column(columnDefinition="Decimal(10,2) default '000.00'")
-    private double valorCompra;
+    private String tempoGarantiaPecaEstoque;
 
     @Column(columnDefinition="Decimal(10,2) default '000.00'")
-    private double valorVenda;
+    private double valorCompraPecaEstoque;
 
-    public Long getId() {
-        return id;
+    @Column(columnDefinition="Decimal(10,2) default '000.00'")
+    private double valorVendaPecaEstoque;
+
+    public Long getIdPecaEstoque() {
+        return idPecaEstoque;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdPecaEstoque(Long idPecaEstoque) {
+        this.idPecaEstoque = idPecaEstoque;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomePecaEstoque() {
+        return nomePecaEstoque;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomePecaEstoque(String nomePecaEstoque) {
+        this.nomePecaEstoque = nomePecaEstoque;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantidadePecaEstoque() {
+        return quantidadePecaEstoque;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidadePecaEstoque(int quantidadePecaEstoque) {
+        this.quantidadePecaEstoque = quantidadePecaEstoque;
     }
 
-    public String getTempoGarantia() {
-        return tempoGarantia;
+    public String getTempoGarantiaPecaEstoque() {
+        return tempoGarantiaPecaEstoque;
     }
 
-    public void setTempoGarantia(String tempoGarantia) {
-        this.tempoGarantia = tempoGarantia;
+    public void setTempoGarantiaPecaEstoque(String tempoGarantiaPecaEstoque) {
+        this.tempoGarantiaPecaEstoque = tempoGarantiaPecaEstoque;
     }
 
-    public double getValorCompra() {
-        return valorCompra;
+    public double getValorCompraPecaEstoque() {
+        return valorCompraPecaEstoque;
     }
 
-    public void setValorCompra(double valorCompra) {
-        this.valorCompra = valorCompra;
+    public void setValorCompraPecaEstoque(double valorCompraPecaEstoque) {
+        this.valorCompraPecaEstoque = valorCompraPecaEstoque;
     }
 
-    public double getValorVenda() {
-        return valorVenda;
+    public double getValorVendaPecaEstoque() {
+        return valorVendaPecaEstoque;
     }
 
-    public void setValorVenda(double valorVenda) {
-        this.valorVenda = valorVenda;
+    public void setValorVendaPecaEstoque(double valorVendaPecaEstoque) {
+        this.valorVendaPecaEstoque = valorVendaPecaEstoque;
     }
 }

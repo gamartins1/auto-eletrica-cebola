@@ -17,12 +17,12 @@ public class MaoDeObraServico {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_MAO_OBRA_SERVICO")
-    private Long id;
+    private Long idMaoDeObraServico;
 
     @Lob//Indica texto longo no banco
-    private String descricao;
+    private String descricaoMaoDeObraServico;
 
-    private String tempoGarantia;
+    private String tempoGarantiaMaoDeObraServico;
 
     @ManyToOne
     @JoinColumn(name = "servico_id_servico")
@@ -32,28 +32,28 @@ public class MaoDeObraServico {
     @JoinColumn(name = "mecanico_id_mecanico")
     private Mecanico mecanico;
 
-    public Long getId() {
-        return id;
+    public Long getIdMaoDeObraServico() {
+        return idMaoDeObraServico;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdMaoDeObraServico(Long idMaoDeObraServico) {
+        this.idMaoDeObraServico = idMaoDeObraServico;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescricaoMaoDeObraServico() {
+        return descricaoMaoDeObraServico;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricaoMaoDeObraServico(String descricaoMaoDeObraServico) {
+        this.descricaoMaoDeObraServico = descricaoMaoDeObraServico;
     }
 
-    public String getTempoGarantia() {
-        return tempoGarantia;
+    public String getTempoGarantiaMaoDeObraServico() {
+        return tempoGarantiaMaoDeObraServico;
     }
 
-    public void setTempoGarantia(String tempoGarantia) {
-        this.tempoGarantia = tempoGarantia;
+    public void setTempoGarantiaMaoDeObraServico(String tempoGarantiaMaoDeObraServico) {
+        this.tempoGarantiaMaoDeObraServico = tempoGarantiaMaoDeObraServico;
     }
 
     public Mecanico getMecanico() {

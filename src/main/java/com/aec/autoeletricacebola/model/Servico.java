@@ -19,16 +19,16 @@ public class Servico {
     @Id//Indica chave primária no banco
     @GeneratedValue(strategy = GenerationType.AUTO)//Valor auto-gerado
     @Column(name = "ID_SERVICO")
-    private Long id;
+    private Long idServico;
 
-    private String status;
+    private String statusAtualServico;
 
-    private String abertura;
+    private String aberturaServico;
 
-    private String encerramento;
+    private String encerramentoServico;
 
     @Column(columnDefinition="Decimal(10,2) default '000.00'")
-    private double valor;
+    private double valorFinalServico;
 
     @ManyToOne
     private Cliente cliente;
@@ -51,44 +51,44 @@ public class Servico {
     @OneToOne
     private NotaServico notaServico;
 
-    public Long getId() {
-        return id;
+    public Long getIdServico() {
+        return idServico;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdServico(Long idServico) {
+        this.idServico = idServico;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusAtualServico() {
+        return statusAtualServico;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatusAtualServico(String statusAtualServico) {
+        this.statusAtualServico = statusAtualServico;
     }
 
-    public String getAbertura() {
-        return abertura;
+    public String getAberturaServico() {
+        return aberturaServico;
     }
 
-    public void setAbertura(String abertura) {
-        this.abertura = abertura;
+    public void setAberturaServico(String aberturaServico) {
+        this.aberturaServico = aberturaServico;
     }
 
-    public String getEncerramento() {
-        return encerramento;
+    public String getEncerramentoServico() {
+        return encerramentoServico;
     }
 
-    public void setEncerramento(String encerramento) {
-        this.encerramento = encerramento;
+    public void setEncerramentoServico(String encerramentoServico) {
+        this.encerramentoServico = encerramentoServico;
     }
 
-    public double getValor() {
-        return valor;
+    public double getValorFinalServico() {
+        return valorFinalServico;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setValorFinalServico(double valorFinalServico) {
+        this.valorFinalServico = valorFinalServico;
     }
 
     public Cliente getCliente() {

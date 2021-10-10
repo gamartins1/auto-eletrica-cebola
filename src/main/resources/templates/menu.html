@@ -30,7 +30,7 @@
                             Clientes
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
-                            <li><a class="dropdown-item" href="#">Cadastrar cliente</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cadastrar cliente</a></li>
                             <li><a class="dropdown-item" href="#">Consultar clientes</a></li>
                         </ul>
                     </li>
@@ -65,21 +65,21 @@
             <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="servico : ${servicos}">
                 <div class="card-body">
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
-                        Serviço aberto em <span th:text="${servico.abertura}"></span>
+                        Serviço aberto em <span th:text="${servico.aberturaServico}"></span>
                     </p>
                     <!--Esse CBC são as iniciais em camel case do controller - CodeBlogController-->
                     <!--th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"-->
-                    <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modelo}"></span></h5></a>
+                    <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
-                        Cliente: <b><span th:text="${servico.cliente.nome}"></span></b>
+                        Cliente: <b><span th:text="${servico.cliente.nomeCliente}"></span></b>
                     </p>
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.75rem;">
-                        Placa: <b><span th:text="${servico.veiculo.placa}"></span></b>
+                        Placa: <b><span th:text="${servico.veiculo.placaVeiculo}"></span></b>
                     </p>
                     <div class="div-tels">
                         <p class="card-subtitle mb-2 text-muted" style="font-size: 0.75rem;">Telefones</p>
                         <div th:each="telCliente : ${servico.cliente.telefoneCliente}">
-                            <b><span th:text="${telCliente.numero}" class="card-subtitle mb-2 text-muted" style="font-size: 0.70rem;"></span></b>
+                            <b><span th:text="${telCliente.numeroTelefoneCliente}" class="card-subtitle mb-2 text-muted" style="font-size: 0.70rem;"></span></b>
                         </div>
                     </div>
                     <!--                <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>-->
@@ -92,14 +92,14 @@
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOnes">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#accordion'+${servico.id}" aria-expanded="true" aria-controls="accordion19">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#accordion'+${servico.idServico}" aria-expanded="true">
                                 Ver serviços solicitados
                             </button>
                         </h2>
-                        <div th:attr="id='accordion'+${servico.id}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div th:attr="id='accordion'+${servico.idServico}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div th:each="descricaoServico : ${servico.descricaoServico}">
-                                    <span th:text="${descricaoServico.descricao}"></span>
+                                    <span th:text="${descricaoServico.descricaoDoServico}"></span>
                                 </div>
                             </div>
                         </div>
@@ -108,5 +108,9 @@
             </div>
         </div>
     </section>
+    <!--Esse modal representa a tela de cadastro de cliente que é chamada dentro do menu-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div th:replace="/modal/cadastro_cliente::modalCadastrarCliente"></div>
+    </div>
 </body>
 </html>

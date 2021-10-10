@@ -14,6 +14,6 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public Usuario findUserLogin(Usuario usuario) {
 
-        return usuarioRepository.findUserLogin(usuario.getUser(), usuario.getSenha());
+        return usuarioRepository.findUserLogin(usuario.getUserUsuario(), usuario.getSenhaUsuario());
     }
 }

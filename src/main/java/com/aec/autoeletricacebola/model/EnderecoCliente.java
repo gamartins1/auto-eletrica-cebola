@@ -23,6 +23,10 @@ public class EnderecoCliente {
 
     private String cepEnderecoCliente;
 
+    private String bairroEnderecoCliente;
+
+    private String cidadeEnderecoCliente;
+
     @OneToOne
     private Cliente cliente;
 
@@ -56,6 +60,22 @@ public class EnderecoCliente {
 
     public void setCepEnderecoCliente(String cepEnderecoCliente) {
         this.cepEnderecoCliente = cepEnderecoCliente;
+    }
+
+    public String getBairroEnderecoCliente() {
+        return bairroEnderecoCliente;
+    }
+
+    public void setBairroEnderecoCliente(String bairroEnderecoCliente) {
+        this.bairroEnderecoCliente = bairroEnderecoCliente;
+    }
+
+    public String getCidadeEnderecoCliente() {
+        return cidadeEnderecoCliente;
+    }
+
+    public void setCidadeEnderecoCliente(String cidadeEnderecoCliente) {
+        this.cidadeEnderecoCliente = cidadeEnderecoCliente;
     }
 
     public Cliente getCliente() {

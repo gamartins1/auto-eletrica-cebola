@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.util.ArrayList;
@@ -29,6 +30,9 @@ public class Cliente {
     @OneToMany(targetEntity = TelefoneCliente.class)
     @Where(clause = "ativo = 1")
     private List <TelefoneCliente> telefoneCliente;
+
+    @OneToOne
+    private EnderecoCliente enderecoCliente;
 
     public Long getIdCliente() {
         return idCliente;
@@ -67,5 +71,13 @@ public class Cliente {
             this.telefoneCliente = new ArrayList <>();
         }
         this.telefoneCliente.add(telefoneCliente);
+    }
+
+    public EnderecoCliente getEnderecoCliente() {
+        return enderecoCliente;
+    }
+
+    public void setEnderecoCliente(EnderecoCliente enderecoCliente) {
+        this.enderecoCliente = enderecoCliente;
     }
 }

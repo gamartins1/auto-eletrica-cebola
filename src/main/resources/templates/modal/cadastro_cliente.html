@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Cadastrar cliente</title>
-    <link rel="stylesheet" type="text/css" media="all" href="../../static/css/cadastroCliente.css" th:href="@{/css/cadastroCliente.css}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <!--JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
@@ -23,34 +22,51 @@
                         <h6 class="modal-title titles-cadastro">Cliente</h6>
                         <div class="col-md-6 position-relative">
                             <label for="nomeCliente" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="nomeCliente" name="nome" required>
+                            <input type="text" class="form-control" id="nomeCliente" name="nomeCliente" required>
                             <div class="invalid-tooltip">
                                 Digite um nome para o cliente
                             </div>
                         </div>
 
+                        <h6 class="modal-title titles-cadastro" data-bs-toggle="collapse" data-bs-target="#expandAdicionarEnderecoCliente" aria-expanded="false" aria-controls="expandAdicionarEnderecoCliente">Adicionar endereço</h6>
+                        <div class="col-md-6 position-relative collapse multi-collapse" id="expandAdicionarEnderecoCliente">
+                            <label for="cepEnderecoCliente" class="form-label">CEP</label>
+                            <input type="text" class="form-control" id="cepEnderecoCliente" name="cepEnderecoCliente">
+
+                            <label for="ruaEnderecoCliente" class="form-label">Rua</label>
+                            <input type="text" class="form-control" id="ruaEnderecoCliente" name="ruaEnderecoCliente">
+
+                            <label for="numeroEnderecoCliente" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="numeroEnderecoCliente" name="numeroEnderecoCliente">
+
+                            <label for="bairroEnderecoCliente" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="bairroEnderecoCliente" name="bairroEnderecoCliente">
+
+                            <label for="cidadeEnderecoCliente" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="cidadeEnderecoCliente" name="cidadeEnderecoCliente" onkeypress="$(this).mask('00000-000')">
+                        </div>
+
                         <h6 class="modal-title titles-cadastro" data-bs-toggle="collapse" data-bs-target="#expandAdicionarVeiculo" aria-expanded="false" aria-controls="expandAdicionarVeiculo">Adicionar um veículo</h6>
                         <div class="col-md-6 position-relative collapse multi-collapse" id="expandAdicionarVeiculo">
                             <label for="modeloVeiculo" class="form-label">Modelo</label>
-                            <input type="text" class="form-control" id="modeloVeiculo" name="modelo">
+                            <input type="text" class="form-control" id="modeloVeiculo" name="modeloVeiculo">
 
                             <label for="placaVeiculo" class="form-label">Placa</label>
-                            <input type="text" class="form-control" id="placaVeiculo" name="placa">
+                            <input type="text" class="form-control" id="placaVeiculo" name="placaVeiculo">
 
                             <label for="observacoesVeiculo" class="form-label">Observações</label>
-                            <textarea class="form-control" id="observacoesVeiculo" name="veiculo.observacoes"></textarea>
+                            <textarea class="form-control" id="observacoesVeiculo" name="observacoesVeiculo"></textarea>
                         </div>
 
-                        <h6 class="modal-title titles-cadastro"  data-bs-toggle="c
-                        ollapse" data-bs-target="#expandAdicionarTelefone" aria-expanded="false" aria-controls="expandAdicionarTelefone">Adicionar um telefone</h6>
+                        <h6 class="modal-title titles-cadastro"  data-bs-toggle="collapse" data-bs-target="#expandAdicionarTelefone" aria-expanded="false" aria-controls="expandAdicionarTelefone">Adicionar um telefone</h6>
                         <div class="col-md-6 position-relative collapse multi-collapse" id="expandAdicionarTelefone">
                             <label for="telefoneCliente" class="form-label">Telefone</label>
-                            <input type="text" class="form-control" id="telefoneCliente" name="numero">
+                            <input type="text" class="form-control" id="telefoneCliente" name="numeroTelefoneCliente">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-secondary">Cadastrar</button>
-                        <button type="button" class="btn btn-primary">Fechar</button>
+                        <button type="button" class="btn btn-primary" th:onclick="showAlert()">Fechar</button>
                     </div>
                 </form>
             </div>

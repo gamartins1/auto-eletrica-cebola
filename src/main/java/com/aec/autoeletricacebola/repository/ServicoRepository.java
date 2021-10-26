@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ServicoRepository extends JpaRepository <Servico, Long> {
 
-    @Query(value = "SELECT * FROM TB_SERVICO WHERE status = '" + ABERTO + "'", nativeQuery = true)
+    @Query(value = "SELECT * FROM TB_SERVICO WHERE status_atual_servico = '" + ABERTO + "'", nativeQuery = true)
     List<Servico> findByServicesUnfinished();
 }

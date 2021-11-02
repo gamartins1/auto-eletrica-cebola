@@ -1,5 +1,7 @@
 package com.aec.autoeletricacebola.controller;
 
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MENSAGEM;
+
 import com.aec.autoeletricacebola.model.Usuario;
 import com.aec.autoeletricacebola.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,7 @@ public class LoginController {
         Usuario user = loginService.findUserLogin(usuario);
 
         if(user == null) {
-            attributes.addFlashAttribute("mensagem", "Erro ao fazer login, verifique o usuário/senha");
+            attributes.addFlashAttribute(MENSAGEM, "Erro ao fazer login, verifique o usuário/senha");
             return "redirect:/login";
         }
 

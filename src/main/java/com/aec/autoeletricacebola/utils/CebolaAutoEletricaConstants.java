@@ -8,4 +8,5 @@ public class CebolaAutoEletricaConstants {
 
     public static final DateTimeFormatter APPLICATION_DATE_FORMAT = DateTimeFormatter.ofPattern(DEFAULT_DATE_PATTERN);
 
+    public static final String EMPTY = "";
 }

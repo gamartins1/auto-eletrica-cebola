@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    //Carrega os clientes ao renderizar a página
+    $("#content-lista-clientes").load("/newConsultaCliente");
+
     $(window).keydown(function(event){
         if(event.keyCode == 13) {
             event.preventDefault();
@@ -66,4 +69,10 @@ $(document).ready(function() {
             limpa_formulário_cep();
         }
     });
+
+    $("#btn-search-cliente").on("click", function () {
+        var telefoneCliente = $('#telefoneCliente').val();
+        var nomeCliente = $('#nomeCliente').val();
+        $("#content-lista-clientes").load("/cliente/reSearchClientUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente});
+    })
 });

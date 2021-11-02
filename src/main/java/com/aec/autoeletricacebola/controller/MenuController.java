@@ -1,5 +1,8 @@
 package com.aec.autoeletricacebola.controller;
 
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_SERVICOS;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICOS;
+
 import java.util.List;
 
 import com.aec.autoeletricacebola.model.Servico;
@@ -21,8 +24,8 @@ public class MenuController {
         ModelAndView modelAndView = new ModelAndView("menu");
         List<Servico> servicos = getOpenedServices();
 
-        modelAndView.addObject("servicos", servicos);
-        modelAndView.addObject("quantidadeServicos", servicos.size());
+        modelAndView.addObject(SERVICOS, servicos);
+        modelAndView.addObject(QUANTIDADE_SERVICOS, servicos.size());
 
         return modelAndView;
     }

@@ -1,0 +1,26 @@
+.cursor-client-items {
+    cursor: pointer;
+}
+
+.client-icons {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bi {
+    margin-left: 10px;
+    padding: 3px;
+}
+
+.input-search-cliente {
+    margin-left: 10px;
+}
+
+.section-input-search-cliente {
+    width: 15%;
+}
+
+.form-search-client {
+    margin-top: 10px;
+}

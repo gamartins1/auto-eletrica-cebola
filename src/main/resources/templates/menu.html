@@ -36,7 +36,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
                             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cadastrar cliente</a></li>
-                            <li><a class="dropdown-item" href="#">Consultar clientes</a></li>
+                            <li><a class="dropdown-item" th:href="@{/consultaClientes}" href="consultaClientes.html">Consultar clientes</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -67,7 +67,7 @@
     <h6 class="text-num-services">Serviços em andamento: <span class="badge bg-primary badge-num-services" th:text="${quantidadeServicos}"> </span></h6>
     <section>
         <div class="container container-car-service">
-            <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="servico : ${servicos}">
+            <div class="card shadow-sm bg-white rounded div-cliente" style="margin-top: 20px;" th:each="servico : ${servicos}">
                 <div class="card-body">
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
                         Serviço aberto em <span th:text="${servico.aberturaServico}"></span>

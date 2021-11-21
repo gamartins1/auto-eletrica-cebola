@@ -10,4 +10,6 @@ public class ModelAttributeKeys {
 
     public static final String SERVICOS = "servicos";
     public static final String QUANTIDADE_SERVICOS = "quantidadeServicos";
+
+    public static final String VEICULOS = "veiculos";
 }

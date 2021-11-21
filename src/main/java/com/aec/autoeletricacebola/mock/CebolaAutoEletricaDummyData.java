@@ -2,6 +2,8 @@ package com.aec.autoeletricacebola.mock;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_FORMAT;
 
+import javax.annotation.PostConstruct;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,13 +108,25 @@ public class CebolaAutoEletricaDummyData {
 
         Veiculo veiculo1 = new Veiculo();
         veiculo1.setAtivo(true);
-        veiculo1.setModeloVeiculo("GM Corsa Maxx 2011");
-        veiculo1.setPlacaVeiculo("EUH4I76");
-        veiculo1.setObservacoesVeiculo("Rebaixado; Não possui alarme");
+        veiculo1.setModeloVeiculo("Yamaha Fazer 2014/2015 Preta");
+        veiculo1.setPlacaVeiculo("FPB8169");
+        veiculo1.setObservacoesVeiculo("Moto com alarme");
+
+        Veiculo veiculo3 = new Veiculo();
+        veiculo3.setAtivo(true);
+        veiculo3.setModeloVeiculo("GM Corsa Maxx 2011");
+        veiculo3.setPlacaVeiculo("EUH4I76");
+        veiculo3.setObservacoesVeiculo("Rebaixado; Não possui alarme");
+
         Cliente cliente1 = new Cliente();
         cliente1.setIdCliente(4L);
+        cliente1.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente1.setNomeCliente("Gabriel Martins");
         veiculo1.setCliente(cliente1);
+        veiculo3.setCliente(cliente1);
+
         veiculos.add(veiculo1);
+        veiculos.add(veiculo3);
 
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);
@@ -121,10 +135,20 @@ public class CebolaAutoEletricaDummyData {
         veiculo2.setObservacoesVeiculo("Não possui alarme");
         Cliente cliente2 = new Cliente();
         cliente2.setIdCliente(3L);
+        cliente2.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente2.setNomeCliente("Gabriel Pacheco");
         veiculo2.setCliente(cliente2);
         veiculos.add(veiculo2);
 
         List<Veiculo> veiculosInseridos = veiculoRepository.saveAll(veiculos);
+        cliente1.addVeiculoCliente(veiculosInseridos.get(0));
+        cliente1.addVeiculoCliente(veiculosInseridos.get(2));
+        cliente2.addVeiculoCliente(veiculosInseridos.get(1));
+        cliente1 = this.clienteRepository.save(cliente1);
+        cliente2 = this.clienteRepository.save(cliente2);
+        System.out.println(cliente2.getNomeCliente());
+        System.out.println(cliente1.getNomeCliente());
+
         System.out.println("Foram inseridos " + veiculosInseridos.size() + " veículos");
     }
 

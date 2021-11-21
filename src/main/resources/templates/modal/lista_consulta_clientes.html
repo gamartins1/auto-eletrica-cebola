@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!--CSS-->
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/menuStyle.css" th:href="@{/css/menuStyle.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../static/css/style.css" th:href="@{/css/style.css}" />
     <link rel="stylesheet" type="text/css" media="all" href="../../static/css/cadastroCliente.css" th:href="@{/css/cadastroCliente.css}" />
     <link rel="stylesheet" type="text/css" media="all" href="../../static/css/consultaCliente.css" th:href="@{/css/consultaCliente.css}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
@@ -20,7 +21,7 @@
 </head>
 <body>
 <div th:fragment="clientesLista">
-    <h6 class="text-num-services">Clientes encontrados: <span class="badge bg-primary badge-num-services" th:text="${quantidadeClientes}"> </span></h6>
+    <h6 class="text-content-identifier-page">Clientes encontrados: <span class="badge bg-primary badge-num-services" th:text="${quantidadeClientes}"> </span></h6>
 
     <div class="list-group-item list-group-item-action" th:each="cliente : ${clientesLista}">
         <div class="client-icons pull-right">

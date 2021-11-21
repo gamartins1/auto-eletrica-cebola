@@ -34,6 +34,10 @@ public class Cliente {
     @OneToOne
     private EnderecoCliente enderecoCliente;
 
+    @OneToMany(targetEntity = Veiculo.class)
+    @Where(clause = "ativo = 1")
+    private List <Veiculo> veiculosCliente;
+
     public Long getIdCliente() {
         return idCliente;
     }
@@ -79,5 +83,20 @@ public class Cliente {
 
     public void setEnderecoCliente(EnderecoCliente enderecoCliente) {
         this.enderecoCliente = enderecoCliente;
+    }
+
+    public List <Veiculo> getVeiculosCliente() {
+        return veiculosCliente;
+    }
+
+    public void setVeiculosCliente(List <Veiculo> veiculosCliente) {
+        this.veiculosCliente = veiculosCliente;
+    }
+
+    public void addVeiculoCliente(Veiculo veiculo) {
+        if(this.veiculosCliente == null) {
+            this.veiculosCliente = new ArrayList <>();
+        }
+        this.veiculosCliente.add(veiculo);
     }
 }

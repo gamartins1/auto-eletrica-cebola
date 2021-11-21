@@ -9,16 +9,17 @@
     <!--CSS-->
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/menuStyle.css" th:href="@{/css/menuStyle.css}" />
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/style.css" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" type="text/css" media="all" href="../static/css/cadastroCliente.css" th:href="@{/css/cadastroCliente.css}" />
-    <link rel="stylesheet" type="text/css" media="all" href="../static/css/consultaCliente.css" th:href="@{/css/consultaCliente.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/cadastroServico.css" th:href="@{/css/cadastroServico.css}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/radiobuttonStyle.css" th:href="@{/css/radiobuttonStyle.css}" />
+
     <!--JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/cliente/cliente.js}"></script>
+    <script type="text/javascript" th:src="@{/js/servico/servico.js}"></script>
+
 
 </head>
 <body>
@@ -34,7 +35,7 @@
                     <a class="nav-link" aria-current="page" href="#">Página Principal</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="dropDownMenuClientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle " href="#" id="dropDownMenuClientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Clientes
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
@@ -43,7 +44,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuServicos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle active" href="#" id="dropDownMenuServicos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Serviços
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuServicos">
@@ -67,31 +68,48 @@
         <button type="button" class="btn btn-outline-light">Sair</button>
     </div>
 </nav>
-<section class="container section-input-search-cliente">
-    <div class="input-group input-group-sm mb-3">
-        <form class="input-group input-group-sm mb-3 form-search-client" method="post">
-            <span class="input-group-text input-search-cliente" id="inputGroup-sizing-sm-nome">Nome</span>
-            <input id="nomeCliente" type="text" name="nomeCliente" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm-nome">
+<h6 class="text-content-identifier-page">Cadastro de um novo serviço</h6>
 
-            <span class="input-group-text input-search-cliente" id="inputGroup-sizing-sm-telefone">Telefone</span>
-            <input id="telefoneCliente" name="telefoneCliente" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm-telefone">
+<div class="container container-main list-group-item">
+    <form>
+        <div class="div-header-form">
+            <div>
+                <label for="pickerCliente"><h6 class="modal-title titles-cadastro">Cliente</h6></label><br>
+                <div class="col-8">
+                    <input list="data-list-clientes" class=" form-control" id="pickerCliente">
+                </div>
+                <datalist id="data-list-clientes">
+                    <option th:each="cliente : ${clientes}" th:attr="id=${cliente.idCliente}, value=${cliente.nomeCliente}">
+                </datalist>
+            </div>
+            <div id="optsVeiculos"></div>
 
-            <button class="btn btn-outline-secondary" type="button" id="btn-search-cliente">Pesquisar</button>
-        </form>
+            <div>
+                <label><h6 class="modal-title titles-cadastro">Serviços solicitados/problemas relatados</h6></label>
+                <div class="div-add-descricao">
+                    <div class="col-6">
+                        <input class="form-control" id="inputDescServico" placeholder="Descreva o serviço solicitado pelo cliente" aria-describedby="basic-addon2">
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary btn-sm" id="adicionarNovaDescricaoServico">Adicionar</button>
+                    </div>
+                </div>
 
-    </div>
-</section>
-<section id="section-clientes">
-    <div class="container container-main">
-        <div class="list-group">
-            <div id="content-lista-clientes"></div>
+                <div class="col-8 list-group-servicos-solicitados">
+                    <ul class="list-group list-group-flush" id="list-descricoes-servicos">
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </form>
+</div>
+
 <!--Esse modal representa a tela de cadastro de cliente que é chamada dentro do menu-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div th:replace="/modal/cadastro_cliente::modalCadastrarCliente"></div>
 </div>
+<script>
 
+</script>
 </body>
 </html>

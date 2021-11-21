@@ -5,6 +5,7 @@ import static com.aec.autoeletricacebola.utils.ClienteUtils.initializeClient;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.CLIENTE;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.CLIENTES_LISTA;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_CLIENTES;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.VEICULOS;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.util.ListUtils;
 
 @Controller
 public class ClienteController {
@@ -129,5 +129,14 @@ public class ClienteController {
 
         m.addAttribute(CLIENTES_LISTA, clientes);
         return "modal/lista_consulta_clientes :: clientesLista";
+    }
+
+    @RequestMapping(value = "cliente/getVeiculosCliente", method = RequestMethod.POST)
+    public String searchVeiculosCliente(String idCliente, Model m) {
+
+        Cliente cliente = this.clienteRepository.findById(Long.parseLong(idCliente)).get();
+
+        m.addAttribute(VEICULOS, cliente.getVeiculosCliente());
+        return "modal/opcoes_veiculos_cliente :: opcoesVeiculoCliente";
     }
 }

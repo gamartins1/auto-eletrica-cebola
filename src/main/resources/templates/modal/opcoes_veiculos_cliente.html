@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset = "UTF-8">
+    <title></title>
+</head>
+<body>
+<div th:fragment="opcoesVeiculoCliente">
+    <label><h6 class="modal-title titles-cadastro">Selecione um veículo</h6></label>
+    <section class="" th:each="veiculo : ${veiculos}">
+        <input type="radio" class="form-check-input" name="example" th:attr="id=${veiculo.idVeiculo}" />
+        <label class="form-check-label" th:attr="for=${veiculo.idVeiculo}" th:text="${veiculo.modeloVeiculo}"></label>
+    </section>
+</div>
+</body>
+</html>

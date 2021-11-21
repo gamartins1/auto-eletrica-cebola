@@ -46,4 +46,12 @@ public class DescricaoServico {
     public void setServico(Servico servico) {
         this.servico = servico;
     }
+
+    public DescricaoServico() {
+    }
+
+    public DescricaoServico(String descricaoDoServico, Servico servico) {
+        this.descricaoDoServico = descricaoDoServico;
+        this.servico = servico;
+    }
 }

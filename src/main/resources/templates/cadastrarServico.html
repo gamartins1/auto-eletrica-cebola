@@ -71,7 +71,7 @@
 <h6 class="text-content-identifier-page">Cadastro de um novo serviço</h6>
 
 <div class="container container-main list-group-item">
-    <form>
+    <form method="post" id="form-cadastrar-servico">
         <div class="div-header-form">
             <div>
                 <label for="pickerCliente"><h6 class="modal-title titles-cadastro">Cliente</h6></label><br>
@@ -99,11 +99,30 @@
                     <ul class="list-group list-group-flush" id="list-descricoes-servicos">
                     </ul>
                 </div>
+
+                <button type="submit" class="btn btn-primary btn-sm" id="btnCadastrarNovoServico">Cadastrar Serviço</button>
             </div>
         </div>
     </form>
 </div>
 
+<div id="toastSucesso" role="alert" style="position: relative; min-height: 50px; background-color: #90EE90;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Cadastro realizado</strong>
+    </div>
+    <div class="toast-body">
+        Sucesso ao cadastrar novo serviço
+    </div>
+</div>
+
+<div id="toastErro" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Erro ao cadastrar</strong>
+    </div>
+    <div class="toast-body">
+        Não foi possível cadastrar o serviço. Verifique as informações e tente novamente
+    </div>
+</div>
 <!--Esse modal representa a tela de cadastro de cliente que é chamada dentro do menu-->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div th:replace="/modal/cadastro_cliente::modalCadastrarCliente"></div>

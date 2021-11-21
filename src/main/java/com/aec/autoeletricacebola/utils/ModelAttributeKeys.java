@@ -2,6 +2,9 @@ package com.aec.autoeletricacebola.utils;
 
 public class ModelAttributeKeys {
 
+    public static final String ID_CLIENTE = "idCliente";
+    public static final String ID_VEICULO = "idVeiculo";
+    public static final String DESCRICAO_SERVICOS = "descricaoServicos";
     public static final String CLIENTE = "cliente";
     public static final String QUANTIDADE_CLIENTES = "quantidadeClientes";
     public static final String CLIENTES_LISTA = "clientesLista";

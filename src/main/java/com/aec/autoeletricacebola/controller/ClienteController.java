@@ -137,6 +137,6 @@ public class ClienteController {
         Cliente cliente = this.clienteRepository.findById(Long.parseLong(idCliente)).get();
 
         m.addAttribute(VEICULOS, cliente.getVeiculosCliente());
-        return "modal/opcoes_veiculos_cliente :: opcoesVeiculoCliente";
+        return "modal/veiculos_descricao_servicos :: opcoesVeiculoCliente";
     }
 }

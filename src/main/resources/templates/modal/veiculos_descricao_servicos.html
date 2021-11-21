@@ -3,12 +3,16 @@
 <head>
     <meta charset = "UTF-8">
     <title></title>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/servico/servico.js}"></script>
+
 </head>
 <body>
 <div th:fragment="opcoesVeiculoCliente">
     <label><h6 class="modal-title titles-cadastro">Selecione um veículo</h6></label>
     <section class="" th:each="veiculo : ${veiculos}">
-        <input type="radio" class="form-check-input" name="example" th:attr="id=${veiculo.idVeiculo}" />
+        <input type="radio" class="form-check-input" name="rbVeiculos" th:attr="id=${veiculo.idVeiculo}" />
         <label class="form-check-label" th:attr="for=${veiculo.idVeiculo}" th:text="${veiculo.modeloVeiculo}"></label>
     </section>
 </div>

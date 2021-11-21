@@ -1,6 +1,7 @@
 package com.aec.autoeletricacebola.mock;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_FORMAT;
+import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
 
 import javax.annotation.PostConstruct;
 
@@ -177,7 +178,7 @@ public class CebolaAutoEletricaDummyData {
     private void insertFirstService() {
         Servico servico1 = new Servico();
         servico1.setAberturaServico(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
-        servico1.setStatusAtualServico("Aberto");
+        servico1.setStatusAtualServico(ABERTO);
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);
         veiculo2.setIdVeiculo(6L);
@@ -210,7 +211,7 @@ public class CebolaAutoEletricaDummyData {
     private void insertSecondService() {
         Servico servico1 = new Servico();
         servico1.setAberturaServico(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
-        servico1.setStatusAtualServico("Aberto");
+        servico1.setStatusAtualServico(ABERTO);
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);
         veiculo2.setIdVeiculo(7L);

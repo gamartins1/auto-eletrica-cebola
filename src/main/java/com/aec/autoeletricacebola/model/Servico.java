@@ -146,4 +146,15 @@ public class Servico {
     public void setNotaServico(NotaServico notaServico) {
         this.notaServico = notaServico;
     }
+
+    public Servico(Cliente cliente, Veiculo veiculo, String aberturaServico, String statusAtualServico) {
+        this.aberturaServico = aberturaServico;
+        this.cliente = cliente;
+        this.veiculo = veiculo;
+        this.statusAtualServico = statusAtualServico;
+    }
+
+    public Servico() {
+
+    }
 }

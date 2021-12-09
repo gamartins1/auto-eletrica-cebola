@@ -8,6 +8,6 @@ public interface ClienteService {
 
     List <Cliente> findAll();
     Cliente findById(Long id);
-    Cliente findByName(String nome);
+    List<Cliente> findByName(String nome);
     Cliente save(Cliente cliente);
 }

@@ -37,10 +37,6 @@ $(document).ready(function() {
         //stop submit the form event. Do this manually using ajax post function
         event.preventDefault();
 
-        var loginForm = {}
-        loginForm["username"] = $("#username").val();
-        loginForm["password"] = $("#password").val();
-
         var idCliente = $('#data-list-clientes option[value="' + $('#pickerCliente').val() + '"]').attr("id");
         var idVeiculo = $('input[name="rbVeiculos"]:checked').attr("id");
 

@@ -15,17 +15,17 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public List <Cliente> findAll() {
-        return null;
+        return clienteRepository.findAll();
     }
 
     @Override
     public Cliente findById(Long id) {
-        return null;
+        return clienteRepository.findById(id).get();
     }
 
     @Override
-    public Cliente findByName(String nome) {
-        return null;
+    public List<Cliente> findByName(String nome) {
+        return clienteRepository.findByNome(nome);
     }
 
     @Override

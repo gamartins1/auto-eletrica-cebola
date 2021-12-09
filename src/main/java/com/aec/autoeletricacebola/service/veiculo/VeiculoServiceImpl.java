@@ -15,7 +15,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Override
     public List <Veiculo> findAll() {
-        return null;
+        return veiculoRepository.findAll();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Override
     public Veiculo findById(Long id) {
-        return null;
+        return veiculoRepository.findById(id).get();
     }
 
     @Override

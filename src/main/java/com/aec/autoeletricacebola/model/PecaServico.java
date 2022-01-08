@@ -20,6 +20,13 @@ public class PecaServico {
 
     private int quantidadePecaServico;
 
+    @Column(columnDefinition="Decimal(10,2) default '000.00'")
+    private double valorPeca;
+
+    private String tempoGarantiaPecaServico;
+
+    private String nomePecaEstoque;
+
     @ManyToOne
     @JoinColumn(name = "peca_estoque_id_peca_estoque")
     private PecaEstoque pecaEstoque;
@@ -58,5 +65,29 @@ public class PecaServico {
 
     public void setServico(Servico servico) {
         this.servico = servico;
+    }
+
+    public double getValorPeca() {
+        return valorPeca;
+    }
+
+    public void setValorPeca(double valorPeca) {
+        this.valorPeca = valorPeca;
+    }
+
+    public String getTempoGarantiaPecaServico() {
+        return tempoGarantiaPecaServico;
+    }
+
+    public void setTempoGarantiaPecaServico(String tempoGarantiaPecaServico) {
+        this.tempoGarantiaPecaServico = tempoGarantiaPecaServico;
+    }
+
+    public String getNomePecaEstoque() {
+        return nomePecaEstoque;
+    }
+
+    public void setNomePecaEstoque(String nomePecaEstoque) {
+        this.nomePecaEstoque = nomePecaEstoque;
     }
 }

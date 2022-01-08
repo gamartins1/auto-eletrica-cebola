@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Elétrica Cebola</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/menuStyle.css" th:href="@{/css/menuStyle.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/cadastroCliente.css" th:href="@{/css/cadastroCliente.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/consultaCliente.css" th:href="@{/css/consultaCliente.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/cadastroServico.css" th:href="@{/css/cadastroServico.css}" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!--JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/cliente/cliente.js}"></script>
+    <script type="text/javascript" th:src="@{/js/veiculo/veiculo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/servico/servico.js}"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid container-navbar-menu">
+        <a class="navbar-brand" href="#"><img th:src="@{/img/Avatar.png}" src="../static/img/Avatar.png" alt="" class="d-inline-block align-text-top img-icon-logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{~/menu}">Página Principal</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuClientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Clientes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cadastrar cliente</a></li>
+                        <li><a class="dropdown-item" th:href="@{~/consultaClientes}">Consultar clientes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle " href="#" id="dropDownMenuVeiculos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Veículos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
+                        <li><a class="dropdown-item" th:href="@{~/cadastrarVeiculo}">Cadastrar veículo</a></li>
+                        <li><a class="dropdown-item" href="#">Consultar veículos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="dropDownMenuServicos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Serviços
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuServicos">
+                        <li><a class="dropdown-item" th:href="@{~/cadastrarServico}">Registrar novo serviço</a></li>
+                        <li><a class="dropdown-item" href="#">Finalizar serviço</a></li>
+                        <li><a class="dropdown-item" href="#">Consultar serviços</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuAdministracao" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administração
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuAdministracao">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-outline-light">Sair</button>
+    </div>
+</nav>
+<h6 class="text-content-identifier-page">Finalizar um serviço</h6>
+<div id="toastSucesso" role="alert" style="position: relative; min-height: 50px; background-color: #90EE90;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Serviço finalizado</strong>
+    </div>
+    <div class="toast-body">
+        Sucesso ao finalizar o serviço serviço
+    </div>
+</div>
+
+<div id="toastErro" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Erro ao finalizar serviço</strong>
+    </div>
+    <div class="toast-body">
+        Não foi possível finalizar o serviço. Verifique as informações e tente novamente
+    </div>
+</div>
+
+<section>
+    <div class="container container-car-service">
+        <div class="card shadow-sm bg-white rounded div-cliente" style="margin-top: 20px;">
+            <div class="card-body">
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                    Serviço aberto em <span th:text="${servico.aberturaServico}"></span>
+                </p>
+                <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                    Cliente: <b><span th:text="${servico.cliente.nomeCliente}"></span></b>
+                </p>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.75rem;">
+                    Placa: <b><span th:text="${servico.veiculo.placaVeiculo}"></span></b>
+                </p>
+                <div class="div-tels">
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.75rem;">Telefones</p>
+                    <div th:each="telCliente : ${servico.cliente.telefoneCliente}">
+                        <b><span th:text="${telCliente.numeroTelefoneCliente}" class="card-subtitle mb-2 text-muted" style="font-size: 0.70rem;"></span></b>
+                    </div>
+                </div>
+            </div>
+
+            <form method="post" id="form-finalizar-servico" th:attr="name=${servico.idServico}">
+                <div>
+                    <label><h6 class="modal-title titles-cadastro">Serviços solicitados/problemas relatados</h6></label>
+                    <div class="div-add-descricao">
+                        <div class="col-6">
+                            <input class="form-control" id="inputDescServico" placeholder="Descreva o serviço solicitado pelo cliente" aria-describedby="basic-addon2">
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary btn-sm" id="adicionarNovaDescricaoServico">Adicionar</button>
+                        </div>
+                    </div>
+
+                    <div class="col-8 list-group-servicos-solicitados">
+                        <ul class="list-group list-group-flush" id="list-descricoes-servicos">
+                            <li class="list-group-item" th:each="descricaoServico, userStat : ${servico.descricaoServico}" th:attr="id='descServico'+${userStat.index}">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-8 flex-grow-1">
+                                        <h6 class="descricoes-servicos-values"><span th:text="${descricaoServico.descricaoDoServico}"></span></h6>
+                                    </div>
+                                    <div>
+                                        <h6 th:onclick="|removerLI('descServico${userStat.index}');|" ><span class="badge bg-primary rounded-pill"><i class="bi bi-x-circle"></i></span></h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <label><h6 class="modal-title titles-cadastro">Descrição de mão de obra</h6></label>
+                    <div class="div-add-descricao div-add-mao-de-obra">
+                        <div class="col-2 input-group input-group-sm mb-3">
+                            <div class="col">
+                                <input class="form-control" id="inputDescMaoDeObra" placeholder="Mão de obra realizada" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Descreva a de mão de obra realizada">
+                            </div>
+                            <div class="col">
+                                <input id="inputMecanicoMaoDeObra" list="data-list-mecanicos" class=" form-control" placeholder="Mecânico responsável" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Mecânico responsável pelo serviço">
+                            </div>
+                            <datalist id="data-list-mecanicos">
+                                <option th:each="mecanico : ${mecanicos}" th:attr="id=${mecanico.idMecanico}, value= ${mecanico.idMecanico} + ' - ' + ${mecanico.nomeMecanico}">
+                            </datalist>
+                            <div class="col-md-2">
+                                <input class="form-control" id="inputGarantiaMaoDeObra" placeholder="Garantia" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" step="0.1" data-decimals="3" class="form-control" id="inputValorMaoDeObra" placeholder="Valor" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="col col-lg-2">
+                                <button type="button" class="btn btn-primary btn-sm" id="adicionarNovaMaoDeObra">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-8 list-group-servicos-solicitados">
+                        <ul class="list-group list-group-flush" id="list-descricoes-mao-de-obra">
+                            <li class="list-group-item" th:each="maoDeObraServico, userStat : ${servico.maoDeObraServico}" th:attr="id='maoDeObra'+${userStat.index}">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-8 flex-grow-1">
+                                        <h6 class="maosdeobra-servicos-values"><span th:attr="id='textoMaoObra'+${userStat.index}" th:text="${maoDeObraServico.descricaoMaoDeObraServico} + ' - R$' + ${maoDeObraServico.valorMaoDeObraServico} + ' (único). Garantia de ' + ${maoDeObraServico.tempoGarantiaMaoDeObraServico} + '. Realizado por: ' + ${maoDeObraServico.mecanico.idMecanico} + ' - ' + ${maoDeObraServico.mecanico.nomeMecanico}"></span></h6>
+                                    </div>
+                                    <div>
+                                        <h6 th:onclick="|removerLIDecrementarValorFinal('maoDeObra${userStat.index}', 'textoMaoObra${userStat.index}');|"><span class="badge bg-primary rounded-pill"><i class="bi bi-x-circle"></i></span></h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <label><h6 class="modal-title titles-cadastro">Peças</h6></label>
+                    <div class="div-add-descricao div-add-mao-de-obra">
+                        <div class="col-6 input-group input-group-sm mb-3">
+                            <div class="col">
+                                <input class="form-control" id="inputDescPeca" placeholder="Peça usada" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe a peça utilizada no serviço">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" id="inputQtdPeca" placeholder="Quantidade" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="col-md-2">
+                                <input class="form-control" id="inputGarantiaPeca" placeholder="Garantia" aria-describedby="basic-addon2">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" step="0.1" data-decimals="3" class="form-control" id="inputValorPeca" placeholder="Valor" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe o valor unitário da peça">
+                            </div>
+                            <div class="col col-lg-2">
+                                <button type="button" class="btn btn-primary btn-sm" id="adicionarNovaPeca">Adicionar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8 list-group-servicos-solicitados">
+                        <ul class="list-group list-group-flush" id="list-descricoes-pecas">
+                            <li class="list-group-item"  th:each="pecaServico, userStat : ${servico.pecasServico}" th:attr="id='peca'+${userStat.index}">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-8 flex-grow-1">
+                                        <h6 class="pecas-servicos-values"><span th:attr="id='textoPeca'+${userStat.index}" th:text="${pecaServico.nomePecaEstoque} + ' - R$' + ${pecaServico.valorPeca} + ' (único). Garantia de ' + ${pecaServico.tempoGarantiaPecaServico} + '. Quantidade ' + ${pecaServico.quantidadePecaServico}"></span></h6>
+                                    </div>
+                                    <div>
+                                        <h6 th:onclick="|removerLIDecrementarValorFinal('peca${userStat.index}', 'textoPeca${userStat.index}');|"><span class="badge bg-primary rounded-pill"><i class="bi bi-x-circle"></i></span></h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <h6>Valor final: <b>R$<span id="lbl-valor-final-servico" th:text="${servico.valorFinalServico}"></span></b></h6>
+                    <button id="btnFinalizarServico" type="submit" class="btn btn-primary">Finalizar Serviço</button>
+                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+</html>

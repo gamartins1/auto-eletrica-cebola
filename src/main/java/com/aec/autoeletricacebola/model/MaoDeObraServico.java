@@ -24,6 +24,9 @@ public class MaoDeObraServico {
 
     private String tempoGarantiaMaoDeObraServico;
 
+    @Column(columnDefinition="Decimal(10,2) default '000.00'")
+    private double valorMaoDeObraServico;
+
     @ManyToOne
     @JoinColumn(name = "servico_id_servico")
     private Servico servico;
@@ -70,5 +73,13 @@ public class MaoDeObraServico {
 
     public void setServico(Servico servico) {
         this.servico = servico;
+    }
+
+    public double getValorMaoDeObraServico() {
+        return valorMaoDeObraServico;
+    }
+
+    public void setValorMaoDeObraServico(double valorMaoDeObraServico) {
+        this.valorMaoDeObraServico = valorMaoDeObraServico;
     }
 }

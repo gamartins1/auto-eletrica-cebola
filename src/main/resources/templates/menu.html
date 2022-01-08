@@ -82,9 +82,7 @@
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
                         Serviço aberto em <span th:text="${servico.aberturaServico}"></span>
                     </p>
-                    <!--Esse CBC são as iniciais em camel case do controller - CodeBlogController-->
-                    <!--th:href="${(#mvc.url('CBC#getPostDetails').arg(0, post.id)).build()}"-->
-                    <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
+                    <a class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
                         Cliente: <b><span th:text="${servico.cliente.nomeCliente}"></span></b>
                     </p>
@@ -97,11 +95,10 @@
                             <b><span th:text="${telCliente.numeroTelefoneCliente}" class="card-subtitle mb-2 text-muted" style="font-size: 0.70rem;"></span></b>
                         </div>
                     </div>
-                    <!--                <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>-->
                 </div>
                 <div class="d-grid gap-2 d-md-block btn-group-actions">
                     <button type="button" class="btn btn-primary btn-sm">Ver mais detalhes</button>
-                    <button type="button" class="btn btn-primary btn-sm">Finalizar serviço</button>
+                    <a th:href="${(#mvc.url('SC#redirectFinalizarServicoForm').arg(0, servico.idServico)).build()}"><button type="button" class="btn btn-primary btn-sm">Finalizar serviço</button></a>
                     <button type="button" class="btn btn-primary btn-sm">Editar serviço</button>
                 </div>
                 <div class="accordion" id="accordionExample">

@@ -15,12 +15,12 @@ public class MecanicoServiceImpl implements MecanicoService {
 
     @Override
     public List <Mecanico> findAll() {
-        return null;
+        return mecanicoRepository.findAll();
     }
 
     @Override
     public Mecanico findById(Long id) {
-        return null;
+        return mecanicoRepository.findById(id).get();
     }
 
     @Override

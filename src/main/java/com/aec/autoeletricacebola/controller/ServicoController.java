@@ -2,7 +2,13 @@ package com.aec.autoeletricacebola.controller;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_FORMAT;
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.*;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.DESCRICAO_SERVICOS;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_CLIENTE;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_SERVICO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_VEICULO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MAOS_DE_OBRA_SERVICO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_SERVICO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.VALOR_FINAL_SERVICO;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.FECHADO;
 
@@ -66,19 +72,6 @@ public class ServicoController {
         return modelAndView;
     }
 
-    @GetMapping("/finalizarServico")
-    @RequestMapping(value = "/finalizarServico/{idServico}", method = RequestMethod.GET)
-    public ModelAndView redirectFinalizarServicoForm(@PathVariable("idServico") Long id) {
-        ModelAndView modelAndView = new ModelAndView("finalizarServico");
-        Servico servico = servicoService.findById(id);
-        List<Mecanico> mecanicos = mecanicoService.findAll();
-
-        modelAndView.addObject("servico", servico);
-        modelAndView.addObject("mecanicos", mecanicos);
-
-        return modelAndView;
-    }
-
     @RequestMapping(value = "servico/cadastrarNovoServico", method = RequestMethod.POST)
     public @ResponseBody String cadastrarNovoServico(@RequestBody Map descricaoServicos, BindingResult result, RedirectAttributes attributes) {
 
@@ -101,6 +94,19 @@ public class ServicoController {
 
         System.out.println("Servico salvo com sucesso. ID: " + servico.getIdServico());
         return "Servico salvo com sucesso";
+    }
+
+    @GetMapping("/finalizarServico")
+    @RequestMapping(value = "/finalizarServico/{idServico}", method = RequestMethod.GET)
+    public ModelAndView redirectFinalizarServicoForm(@PathVariable("idServico") Long id) {
+        ModelAndView modelAndView = new ModelAndView("finalizarServico");
+        Servico servico = servicoService.findById(id);
+        List<Mecanico> mecanicos = mecanicoService.findAll();
+
+        modelAndView.addObject("servico", servico);
+        modelAndView.addObject("mecanicos", mecanicos);
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "finalizarServico/servico/{idServico}/finalizarUmServico", method = RequestMethod.POST)
@@ -131,6 +137,49 @@ public class ServicoController {
         System.out.println("Serviço salvo e finalizado. Id: " + servico.getIdServico());
 
         return "Servico finalizado com sucesso";
+    }
+
+    @GetMapping("/editarServico")
+    @RequestMapping(value = "/editarServico/{idServico}", method = RequestMethod.GET)
+    public ModelAndView redirectEditarServicoForm(@PathVariable("idServico") Long id) {
+        ModelAndView modelAndView = new ModelAndView("editarServico");
+        Servico servico = servicoService.findById(id);
+        List<Mecanico> mecanicos = mecanicoService.findAll();
+
+        modelAndView.addObject("servico", servico);
+        modelAndView.addObject("mecanicos", mecanicos);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "editarServico/servico/{idServico}/editarUmServico", method = RequestMethod.POST)
+    public @ResponseBody String editarServico(@RequestBody Map atributosServico, BindingResult result, RedirectAttributes attributes, @PathVariable String idServico) {
+
+        if(idServico == null) {
+            return "";
+        }
+
+        Long idDoServico = Long.parseLong((String) atributosServico.get(ID_SERVICO));
+
+        Servico servico = servicoService.findById(idDoServico);
+
+        double valorFinal = Double.parseDouble(((String) atributosServico.get(VALOR_FINAL_SERVICO)).replace(",", "."));
+
+        if(valorFinal < 0) {
+            return EMPTY;
+        }
+
+        servico.setDescricaoServico(this.servicoUtils.criarDescricoesServico(servico, (List <String>) atributosServico.get(DESCRICAO_SERVICOS)));
+        servico.setMaoDeObraServico(this.servicoUtils.criarMaosDeObraServico(servico, (List<String>) atributosServico.get(MAOS_DE_OBRA_SERVICO)));
+        servico.setPecasServico(this.servicoUtils.criarPecasServico(servico, (List<String>) atributosServico.get(PECAS_SERVICO)));
+        servico.setValorFinalServico(valorFinal);
+        servico.setEncerramentoServico(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        servico.setStatusAtualServico(ABERTO);
+
+        servico = this.servicoService.save(servico);
+        System.out.println("Serviço salvo. Id: " + servico.getIdServico());
+
+        return "Servico editado com sucesso";
     }
 
 }

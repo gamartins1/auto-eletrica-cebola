@@ -208,6 +208,66 @@ $(document).ready(function() {
         });
     });
 
+    $("#form-editar-servico").submit(function (event) {
+        //stop submit the form event. Do this manually using ajax post function
+        event.preventDefault();
+
+        var idServico = document.forms['form-editar-servico'].name;
+        var valorFinalServico = document.getElementById('lbl-valor-final-servico').innerText;
+
+        var descricaoServicos = [];
+        var descricoes = document.getElementsByClassName("descricoes-servicos-values");
+        for (var i = 0; i < descricoes.length; i++) {
+            descricaoServicos[i] = descricoes[i].innerText;
+        }
+
+        var maosDeObraServico = [];
+        var maosDeObra = document.getElementsByClassName("maosdeobra-servicos-values");
+        for (var i = 0; i < maosDeObra.length; i++) {
+            maosDeObraServico[i] = maosDeObra[i].innerText;
+        }
+
+        var pecasServico = [];
+        var pecas = document.getElementsByClassName("pecas-servicos-values");
+        for (var i = 0; i < pecas.length; i++) {
+            pecasServico[i] = pecas[i].innerText;
+        }
+
+        const objRequest = {idServico : idServico, descricaoServicos : descricaoServicos, maosDeObraServico : maosDeObraServico, pecasServico : pecasServico, valorFinalServico : valorFinalServico};
+
+        $("#btnFinalizarServico").prop("disabled", true);
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "servico/" + idServico +"/editarUmServico",
+            data: JSON.stringify(objRequest),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            error: function (e) {
+
+                if(e.responseText === "Servico editado com sucesso") {
+                    $('#toastSucesso').toast('show');
+
+                    setTimeout(function() {
+                        window.location.href = "/menu";
+                    }, 3500);
+                }
+                else {
+                    $('#toastErro').toast('show');
+                    setTimeout(function() {
+                        console.log("ERROR : ", e.responseText);
+                    }, 5500);
+
+                }
+
+                $("#btnFinalizarServico").prop("disabled", false);
+
+            }
+        });
+    });
+
 });
 
 function removerLI(id) {

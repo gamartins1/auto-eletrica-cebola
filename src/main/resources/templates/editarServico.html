@@ -80,22 +80,22 @@
         <button type="button" class="btn btn-outline-light">Sair</button>
     </div>
 </nav>
-<h6 class="text-content-identifier-page">Finalizar um serviço</h6>
+<h6 class="text-content-identifier-page">Editar um serviço</h6>
 <div id="toastSucesso" role="alert" style="position: relative; min-height: 50px; background-color: #90EE90;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
     <div class="toast-header">
-        <strong class="mr-auto">Serviço finalizado</strong>
+        <strong class="mr-auto">Serviço editado</strong>
     </div>
     <div class="toast-body">
-        Sucesso ao finalizar o serviço
+        Sucesso ao editar o serviço
     </div>
 </div>
 
 <div id="toastErro" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
     <div class="toast-header">
-        <strong class="mr-auto">Erro ao finalizar serviço</strong>
+        <strong class="mr-auto">Erro ao editar serviço</strong>
     </div>
     <div class="toast-body">
-        Não foi possível finalizar o serviço. Verifique as informações e tente novamente
+        Não foi possível editar o serviço. Verifique as informações e tente novamente
     </div>
 </div>
 
@@ -121,7 +121,7 @@
                 </div>
             </div>
 
-            <form method="post" id="form-finalizar-servico" th:attr="name=${servico.idServico}">
+            <form method="post" id="form-editar-servico" th:attr="name=${servico.idServico}">
                 <div>
                     <label><h6 class="modal-title titles-cadastro">Serviços solicitados/problemas relatados</h6></label>
                     <div class="div-add-descricao">
@@ -226,7 +226,7 @@
                 </div>
                 <div class="modal-footer">
                     <h6>Valor final: <b>R$<span id="lbl-valor-final-servico" th:text="${servico.valorFinalServico}"></span></b></h6>
-                    <button id="btnFinalizarServico" type="submit" class="btn btn-primary">Finalizar Serviço</button>
+                    <button id="btnSalvarEdicaoServico" type="submit" class="btn btn-primary">Salvar Serviço</button>
                     <button type="button" class="btn btn-secondary">Cancelar</button>
                 </div>
             </form>

@@ -173,13 +173,25 @@ public class ServicoController {
         servico.setMaoDeObraServico(this.servicoUtils.criarMaosDeObraServico(servico, (List<String>) atributosServico.get(MAOS_DE_OBRA_SERVICO)));
         servico.setPecasServico(this.servicoUtils.criarPecasServico(servico, (List<String>) atributosServico.get(PECAS_SERVICO)));
         servico.setValorFinalServico(valorFinal);
-        servico.setEncerramentoServico(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
         servico.setStatusAtualServico(ABERTO);
 
         servico = this.servicoService.save(servico);
         System.out.println("Serviço salvo. Id: " + servico.getIdServico());
 
         return "Servico editado com sucesso";
+    }
+
+    @GetMapping("/consultarServico")
+    @RequestMapping(value = "/consultarServico/{idServico}", method = RequestMethod.GET)
+    public ModelAndView redirectConsultarServicoForm(@PathVariable("idServico") Long id) {
+        ModelAndView modelAndView = new ModelAndView("consultarServico");
+        Servico servico = servicoService.findById(id);
+        List<Mecanico> mecanicos = mecanicoService.findAll();
+
+        modelAndView.addObject("servico", servico);
+        modelAndView.addObject("mecanicos", mecanicos);
+
+        return modelAndView;
     }
 
 }

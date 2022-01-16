@@ -74,5 +74,5 @@ $(document).ready(function() {
         var telefoneCliente = $('#telefoneCliente').val();
         var nomeCliente = $('#nomeCliente').val();
         $("#content-lista-clientes").load("/cliente/reSearchClientUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente});
-    })
+    });
 });

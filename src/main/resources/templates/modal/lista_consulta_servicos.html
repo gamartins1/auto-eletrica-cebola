@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset = "UTF-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/menuStyle.css" th:href="@{/css/menuStyle.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../static/css/cadastroCliente.css" th:href="@{/css/cadastroCliente.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../static/css/consultaCliente.css" th:href="@{/css/consultaCliente.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../static/css/servico.css" th:href="@{/css/servico.css}" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <!--JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/cliente/cliente.js}"></script>
+    <script type="text/javascript" th:src="@{/js/servico/servico.js}"></script>
+</head>
+<body>
+<div th:fragment="servicosLista">
+    <h6 class="text-num-services">Serviços encontrados: <span class="badge bg-primary badge-num-services" th:text="${quantidadeServicos}"> </span></h6>
+    <section>
+        <div class="container container-car-service">
+            <div class="card shadow-sm bg-white rounded div-cliente" style="margin-top: 20px;" th:each="servico : ${servicos}">
+                <div class="card-body">
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                        Serviço aberto em <span th:text="${servico.aberturaServico}"></span>
+                    </p>
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                        Status atual do serviço: <span th:text="${servico.statusAtualServico}"></span>
+                    </p>
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                        <span th:if="${servico.encerramentoServico != null}" th:text="'Serviço finalizado em ' + ${servico.encerramentoServico}"></span>
+                    </p>
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem; margin-bottom: 30px;">
+                        <span th:text="${servico.encerramentoServico} ? 'Valor final do serviço: R$' + ${servico.valorFinalServico} : 'Valor parcial do serviço: R$' + ${servico.valorFinalServico} "></span>
+                    </p>
+
+                    <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                        Cliente: <b><span th:text="${servico.cliente.nomeCliente}"></span></b>
+                    </p>
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.75rem;">
+                        Placa: <b><span th:text="${servico.veiculo.placaVeiculo}"></span></b>
+                    </p>
+                    <div class="div-tels">
+                        <p class="card-subtitle mb-2 text-muted" style="font-size: 0.75rem;">Telefones</p>
+                        <div th:each="telCliente : ${servico.cliente.telefoneCliente}">
+                            <b><span th:text="${telCliente.numeroTelefoneCliente}" class="card-subtitle mb-2 text-muted" style="font-size: 0.70rem;"></span></b>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 d-md-block btn-group-actions">
+                    <a th:href="${(#mvc.url('SC#redirectConsultarServicoForm').arg(0, servico.idServico)).build()}"><button type="button" class="btn btn-primary btn-sm">Ver mais detalhes</button></a>
+                </div>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOnes">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#accordion'+${servico.idServico}" aria-expanded="true">
+                                Ver serviços solicitados
+                            </button>
+                        </h2>
+                        <div th:attr="id='accordion'+${servico.idServico}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div th:each="descricaoServico : ${servico.descricaoServico}">
+                                    <span th:text="${descricaoServico.descricaoDoServico}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

@@ -1,9 +1,7 @@
 package com.aec.autoeletricacebola.mock;
 
-import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_FORMAT;
+import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_TIME_FORMAT;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
-
-import javax.annotation.PostConstruct;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -86,17 +84,17 @@ public class CebolaAutoEletricaDummyData {
         List <Cliente> clientes = new ArrayList <>();
 
         Cliente cliente1 = new Cliente();
-        cliente1.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente1.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         cliente1.setNomeCliente("Gabriel Martins");
         clientes.add(cliente1);
 
         Cliente cliente2 = new Cliente();
-        cliente2.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente2.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         cliente2.setNomeCliente("Gabriel Pacheco");
         clientes.add(cliente2);
 
         Cliente cliente3 = new Cliente();
-        cliente3.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente3.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         cliente3.setNomeCliente("Amaury Alves");
         clientes.add(cliente3);
 
@@ -121,7 +119,7 @@ public class CebolaAutoEletricaDummyData {
 
         Cliente cliente1 = new Cliente();
         cliente1.setIdCliente(4L);
-        cliente1.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente1.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         cliente1.setNomeCliente("Gabriel Martins");
         veiculo1.setCliente(cliente1);
         veiculo3.setCliente(cliente1);
@@ -136,7 +134,7 @@ public class CebolaAutoEletricaDummyData {
         veiculo2.setObservacoesVeiculo("Não possui alarme");
         Cliente cliente2 = new Cliente();
         cliente2.setIdCliente(3L);
-        cliente2.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente2.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         cliente2.setNomeCliente("Gabriel Pacheco");
         veiculo2.setCliente(cliente2);
         veiculos.add(veiculo2);
@@ -177,7 +175,7 @@ public class CebolaAutoEletricaDummyData {
 
     private void insertFirstService() {
         Servico servico1 = new Servico();
-        servico1.setAberturaServico(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        servico1.setAberturaServico(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         servico1.setStatusAtualServico(ABERTO);
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);
@@ -210,7 +208,7 @@ public class CebolaAutoEletricaDummyData {
 
     private void insertSecondService() {
         Servico servico1 = new Servico();
-        servico1.setAberturaServico(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        servico1.setAberturaServico(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         servico1.setStatusAtualServico(ABERTO);
         Veiculo veiculo2 = new Veiculo();
         veiculo2.setAtivo(true);
@@ -244,7 +242,7 @@ public class CebolaAutoEletricaDummyData {
     public void insertTelefoneCliente() {
         List<TelefoneCliente> telefonesCliente = new ArrayList <>();
         Cliente cliente1 = new Cliente();
-        cliente1.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente1.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         cliente1.setNomeCliente("Gabriel Martins");
         cliente1.setIdCliente(3L);
 
@@ -264,7 +262,7 @@ public class CebolaAutoEletricaDummyData {
 
 
         Cliente cliente2 = new Cliente();
-        cliente2.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente2.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         cliente2.setNomeCliente("Gabriel Pacheco");
         cliente2.setIdCliente(4L);
 

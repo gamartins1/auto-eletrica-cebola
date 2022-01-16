@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    $("#placaVeiculo").mask("AAA-0A00");
+    $("#telefoneCliente").mask("(00)00000-0000");
+    $("#content-lista-servicos").load("/newConsultaServicosPadrao");
+
     $("#pickerCarro").change(function (){
         var idCarro = $('#data-list-veiculos option[value="' + $('#pickerCarro').val() + '"]').attr("id");
 
@@ -268,6 +272,15 @@ $(document).ready(function() {
         });
     });
 
+    $("#btn-search-servicos").on("click", function () {
+        var telefoneCliente = $('#telefoneCliente').val();
+        var nomeCliente = $('#nomeCliente').val();
+        var placaVeiculo = $('#placaVeiculo').val();
+        var dataAte = $('#dataAte').val();
+        var dataDe = $('#dataDe').val();
+
+        $("#content-lista-servicos").load("/servico/reSearchServicesUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente, placaVeiculo:placaVeiculo, dataAte:dataAte, dataDe:dataDe});
+    });
 });
 
 function removerLI(id) {

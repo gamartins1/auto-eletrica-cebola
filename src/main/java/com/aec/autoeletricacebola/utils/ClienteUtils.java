@@ -1,6 +1,6 @@
 package com.aec.autoeletricacebola.utils;
 
-import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_FORMAT;
+import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_TIME_FORMAT;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +14,7 @@ public class ClienteUtils {
      * @return cliente
      */
     public static Cliente initializeClient(Cliente cliente) {
-        cliente.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_FORMAT));
+        cliente.setDataCadastroCliente(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
 
         return cliente;
     }

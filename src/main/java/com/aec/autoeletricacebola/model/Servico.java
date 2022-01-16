@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import java.sql.Date;
 import java.util.List;
 
 @Entity//Anotação para identificar uma tabela
@@ -29,6 +30,10 @@ public class Servico {
 
     @Column(columnDefinition="Decimal(10,2) default '000.00'")
     private double valorFinalServico;
+
+    private Date dataAberturaServico;
+
+    private Date dataEncerramentoServico;
 
     @ManyToOne
     private Cliente cliente;
@@ -147,11 +152,28 @@ public class Servico {
         this.notaServico = notaServico;
     }
 
-    public Servico(Cliente cliente, Veiculo veiculo, String aberturaServico, String statusAtualServico) {
+    public Date getDataAberturaServico() {
+        return dataAberturaServico;
+    }
+
+    public void setDataAberturaServico(Date dataAberturaServico) {
+        this.dataAberturaServico = dataAberturaServico;
+    }
+
+    public Date getDataEncerramentoServico() {
+        return dataEncerramentoServico;
+    }
+
+    public void setDataEncerramentoServico(Date dataEncerramentoServico) {
+        this.dataEncerramentoServico = dataEncerramentoServico;
+    }
+
+    public Servico(Cliente cliente, Veiculo veiculo, String aberturaServico, String statusAtualServico, Date dataAberturaServico) {
         this.aberturaServico = aberturaServico;
         this.cliente = cliente;
         this.veiculo = veiculo;
         this.statusAtualServico = statusAtualServico;
+        this.dataAberturaServico = dataAberturaServico;
     }
 
     public Servico() {

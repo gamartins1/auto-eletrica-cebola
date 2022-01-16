@@ -12,6 +12,7 @@ public class ModelAttributeKeys {
     public static final String CLIENTE = "cliente";
     public static final String QUANTIDADE_CLIENTES = "quantidadeClientes";
     public static final String CLIENTES_LISTA = "clientesLista";
+    public static final String SERVICOS_LISTA = "servicosLista";
 
     public static final String MAOS_DE_OBRA_SERVICO = "maosDeObraServico";
 

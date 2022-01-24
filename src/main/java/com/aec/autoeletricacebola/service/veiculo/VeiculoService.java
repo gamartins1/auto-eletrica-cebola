@@ -7,7 +7,9 @@ import com.aec.autoeletricacebola.model.Veiculo;
 public interface VeiculoService {
     List <Veiculo> findAll();
     List <Veiculo> findByModelo(String modelo);
+    List <Veiculo> findByPlacas(String placa);
+    List <Veiculo> findByClientName(String nome);
+    List <Veiculo> findByClientNameAndModel(String nome, String modelo);
     Veiculo findById(Long id);
-    Veiculo findByPlaca(String placa);
     Veiculo save(Veiculo veiculo);
 }

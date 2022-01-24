@@ -20,7 +20,7 @@ public class VeiculoServiceImpl implements VeiculoService {
 
     @Override
     public List <Veiculo> findByModelo(String modelo) {
-        return null;
+        return this.veiculoRepository.findByModelo(modelo);
     }
 
     @Override
@@ -29,8 +29,18 @@ public class VeiculoServiceImpl implements VeiculoService {
     }
 
     @Override
-    public Veiculo findByPlaca(String placa) {
-        return null;
+    public List<Veiculo> findByPlacas(String placa) {
+        return this.veiculoRepository.findByPlaca(placa);
+    }
+
+    @Override
+    public List <Veiculo> findByClientName(String nome) {
+        return this.veiculoRepository.findByClientName(nome);
+    }
+
+    @Override
+    public List <Veiculo> findByClientNameAndModel(String nome, String modelo) {
+        return this.veiculoRepository.findByClientNameAndModel(nome, modelo);
     }
 
     @Override

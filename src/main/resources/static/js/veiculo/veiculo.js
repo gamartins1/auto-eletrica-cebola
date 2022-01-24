@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+    $("#content-lista-veiculos").load("/newConsultaVeiculosPadrao");
     $("#form-cadastrar-veiculo").submit(function (event) {
         //stop submit the form event. Do this manually using ajax post function
         event.preventDefault();
@@ -47,4 +48,12 @@ $(document).ready(function() {
 
     });
 
+    $("#btn-search-veiculo").on("click", function () {
+        var nomeCliente = $('#nomeCliente').val();
+        var placaVeiculo = $('#placaVeiculo').val();
+        var modeloVeiculo = $('#modeloVeiculo').val();
+
+        $("#content-lista-veiculos").load("veiculo/reSearchCarsUsingParams", {nomeCliente:nomeCliente, placaVeiculo:placaVeiculo, modeloVeiculo:modeloVeiculo});
+
+    });
 });

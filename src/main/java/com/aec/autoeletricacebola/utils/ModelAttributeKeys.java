@@ -29,4 +29,6 @@ public class ModelAttributeKeys {
     public static final String PECAS_SERVICO = "pecasServico";
 
     public static final String QUANTIDADE_VEICULOS = "quantidadeVeiculos";
+
+    public static final String NOTA_SERVICO = "notaServico";
 }

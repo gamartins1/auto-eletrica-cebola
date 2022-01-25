@@ -7,6 +7,7 @@ import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_CLIENTE;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_SERVICO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_VEICULO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MAOS_DE_OBRA_SERVICO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.NOTA_SERVICO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_SERVICO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_SERVICOS;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICOS;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 
 import com.aec.autoeletricacebola.model.Cliente;
 import com.aec.autoeletricacebola.model.Mecanico;
+import com.aec.autoeletricacebola.model.NotaServico;
 import com.aec.autoeletricacebola.model.Servico;
 import com.aec.autoeletricacebola.model.TelefoneCliente;
 import com.aec.autoeletricacebola.model.Veiculo;
@@ -33,6 +35,7 @@ import com.aec.autoeletricacebola.repository.ClienteRepository;
 import com.aec.autoeletricacebola.repository.DescricaoServicoRepository;
 import com.aec.autoeletricacebola.repository.VeiculoRepository;
 import com.aec.autoeletricacebola.service.mecanico.MecanicoService;
+import com.aec.autoeletricacebola.service.nota_servico.NotaServicoService;
 import com.aec.autoeletricacebola.service.servico.ServicoService;
 import com.aec.autoeletricacebola.service.telefone_cliente.TelefoneClienteService;
 import com.aec.autoeletricacebola.utils.ServicoUtils;
@@ -72,6 +75,9 @@ public class ServicoController {
 
     @Autowired
     private TelefoneClienteService telefoneClienteService;
+
+    @Autowired
+    private NotaServicoService notaServicoService;
 
     @GetMapping("/cadastrarServico")
     @RequestMapping(value = "/cadastrarServico", method = RequestMethod.GET)
@@ -140,6 +146,10 @@ public class ServicoController {
             return EMPTY;
         }
 
+        double notaFinal = Double.parseDouble(((String) atributosServico.get(NOTA_SERVICO)));
+        NotaServico notaServico = this.notaServicoService.save(new NotaServico(notaFinal, servico));
+
+        servico.setNotaServico(notaServico);
         servico.setDescricaoServico(this.servicoUtils.criarDescricoesServico(servico, (List <String>) atributosServico.get(DESCRICAO_SERVICOS)));
         servico.setMaoDeObraServico(this.servicoUtils.criarMaosDeObraServico(servico, (List<String>) atributosServico.get(MAOS_DE_OBRA_SERVICO)));
         servico.setPecasServico(this.servicoUtils.criarPecasServico(servico, (List<String>) atributosServico.get(PECAS_SERVICO)));

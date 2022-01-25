@@ -8,7 +8,8 @@ $(document).ready(function() {
         if (sim < 3) {
             $('.myratings').css('color','red'); $(".myratings").text(sim);
         }
-        else { $('.myratings').css('color','green'); $(".myratings").text(sim);
+        else {
+            $('.myratings').css('color','green'); $(".myratings").text(sim);
         }
     });
 
@@ -25,8 +26,6 @@ $(document).ready(function() {
 
     $("#adicionarNovaDescricaoServico").click(function () {
         var idNewLI = "descServico" + (parseInt($("#list-descricoes-servicos").children().length) + 1);
-
-        // alert(idNewLI);
 
         var descricao = $('#inputDescServico').val();
 
@@ -119,15 +118,10 @@ $(document).ready(function() {
 
         var descricoes = document.getElementsByClassName("descricoes-servicos-values");
         for (var i = 0; i < descricoes.length; i++) {
-            var descricaoServico = {}
-
-            // descricaoServico["descricaoDoServico"] = descricoes[i].innerText;
-
             descricaoServicos[i] = descricoes[i].innerText;
         }
 
         const objRequest = {idCliente: idCliente, idVeiculo: idVeiculo, descricaoServicos: descricaoServicos};
-
 
         $("#btnCadastrarNovoServico").prop("disabled", true);
 
@@ -167,6 +161,7 @@ $(document).ready(function() {
 
         var idServico = document.forms['form-finalizar-servico'].name;
         var valorFinalServico = document.getElementById('lbl-valor-final-servico').innerText;
+        var notaServico = $("input[type='radio']:checked").val();
 
         var descricaoServicos = [];
         var descricoes = document.getElementsByClassName("descricoes-servicos-values");
@@ -186,7 +181,7 @@ $(document).ready(function() {
             pecasServico[i] = pecas[i].innerText;
         }
 
-        const objRequest = {idServico : idServico, descricaoServicos : descricaoServicos, maosDeObraServico : maosDeObraServico, pecasServico : pecasServico, valorFinalServico : valorFinalServico};
+        const objRequest = {idServico : idServico, descricaoServicos : descricaoServicos, maosDeObraServico : maosDeObraServico, pecasServico : pecasServico, valorFinalServico : valorFinalServico, notaServico : notaServico};
 
         $("#btnFinalizarServico").prop("disabled", true);
 

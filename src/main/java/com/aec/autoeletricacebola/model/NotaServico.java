@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,9 @@ public class NotaServico {
 
     @Column(columnDefinition="Decimal(10,2) default '00.00'")
     private double notaServico;
+
+    @OneToOne
+    private Servico servico;
 
     public Long getIdNotaServico() {
         return idNotaServico;
@@ -33,5 +37,22 @@ public class NotaServico {
 
     public void setNotaServico(double notaServico) {
         this.notaServico = notaServico;
+    }
+
+    public Servico getServico() {
+        return servico;
+    }
+
+    public void setServico(Servico servico) {
+        this.servico = servico;
+    }
+
+    public NotaServico(double notaServico, Servico servico) {
+        this.notaServico = notaServico;
+        this.servico = servico;
+    }
+
+    public NotaServico() {
+
     }
 }

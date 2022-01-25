@@ -41,7 +41,9 @@
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem; margin-bottom: 30px;">
                         <span th:text="${servico.encerramentoServico} ? 'Valor final do serviço: R$' + ${servico.valorFinalServico} : 'Valor parcial do serviço: R$' + ${servico.valorFinalServico} "></span>
                     </p>
-
+                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                        <span th:if="${servico.notaServico != null}" th:text="'Nota atribuída ao serviço ' + ${servico.notaServico.notaServico}"></span>
+                    </p>
                     <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
                         Cliente: <b><span th:text="${servico.cliente.nomeCliente}"></span></b>

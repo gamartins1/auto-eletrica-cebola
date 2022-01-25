@@ -3,6 +3,15 @@ $(document).ready(function() {
     $("#telefoneCliente").mask("(00)00000-0000");
     $("#content-lista-servicos").load("/newConsultaServicosPadrao");
 
+    $("input[type='radio']").click(function(){
+        var sim = $("input[type='radio']:checked").val();
+        if (sim < 3) {
+            $('.myratings').css('color','red'); $(".myratings").text(sim);
+        }
+        else { $('.myratings').css('color','green'); $(".myratings").text(sim);
+        }
+    });
+
     $("#pickerCarro").change(function (){
         var idCarro = $('#data-list-veiculos option[value="' + $('#pickerCarro').val() + '"]').attr("id");
 

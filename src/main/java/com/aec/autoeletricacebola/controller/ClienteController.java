@@ -10,7 +10,6 @@ import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.VEICULOS;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.aec.autoeletricacebola.model.Cliente;
 import com.aec.autoeletricacebola.model.EnderecoCliente;
@@ -25,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -138,5 +138,16 @@ public class ClienteController {
 
         m.addAttribute(VEICULOS, cliente.getVeiculosCliente());
         return "modal/veiculos_descricao_servicos :: opcoesVeiculoCliente";
+    }
+
+    @GetMapping("/consultarCliente")
+    @RequestMapping(value = "/consultarCliente/{idCliente}", method = RequestMethod.GET)
+    public ModelAndView redirectConsultarClienteForm(@PathVariable("idCliente") Long id) {
+        ModelAndView modelAndView = new ModelAndView("consultaCliente");
+        Cliente cliente = this.clienteRepository.findById(id).get();
+
+        modelAndView.addObject("cliente", cliente);
+
+        return modelAndView;
     }
 }

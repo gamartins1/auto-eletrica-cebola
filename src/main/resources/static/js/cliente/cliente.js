@@ -75,4 +75,87 @@ $(document).ready(function() {
         var nomeCliente = $('#nomeCliente').val();
         $("#content-lista-clientes").load("/cliente/reSearchClientUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente});
     });
+
+    $("#adicionarNovoTelefone").click(function () {
+        var idNewLI = "telefone" + (parseInt($("#list-telefones-cliente").children().length) + 1);
+
+        var telefone = $('#telefoneCliente').val();
+
+        if(telefone === "") {
+            return;
+        }
+
+        var _li = "<li class='list-group-item' id='" + idNewLI + "'>" +
+            "<div class='d-flex justify-content-between'>" +
+            "<div class='col-md-8 flex-grow-1'>" +
+            "<h6 class='telefones-cliente-values'>" + telefone + "</h6>" +
+            "</div>" +
+            "<div>" +
+            "<h6 onclick=removerLITelefoneCliente('" + idNewLI +"')><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6>" +
+            "</div>" +
+            "</div>" +
+            "</li>";
+        $("#list-telefones-cliente").append(_li);
+
+        $('#telefoneCliente').val("");
+    });
+
+    $("#form-editar-cliente").submit(function (event) {
+        //stop submit the form event. Do this manually using ajax post function
+        event.preventDefault();
+
+        var idCliente = document.forms['form-editar-cliente'].name;
+
+        var telefonesCliente = [];
+        var telefones = document.getElementsByClassName("telefones-cliente-values");
+        for (var i = 0; i < telefones.length; i++) {
+            telefonesCliente[i] = telefones[i].innerText;
+        }
+
+        var nomeCliente = $("#inputNomeCliente").val();
+
+        var ruaEnderecoCliente = $("#ruaEnderecoCliente").val();
+        var numeroEnderecoCliente = $("#numeroEnderecoCliente").val();
+        var bairroEnderecoCliente = $("#bairroEnderecoCliente").val();
+        var cidadeEnderecoCliente = $("#cidadeEnderecoCliente").val();
+        var cepEnderecoCliente = $("#cepEnderecoCliente").val();
+
+        const objRequest = {idCliente : idCliente, nomeCliente : nomeCliente, telefonesCliente : telefonesCliente, ruaEnderecoCliente : ruaEnderecoCliente, numeroEnderecoCliente : numeroEnderecoCliente, bairroEnderecoCliente : bairroEnderecoCliente, cidadeEnderecoCliente : cidadeEnderecoCliente, cepEnderecoCliente : cepEnderecoCliente};
+
+        $("#btnSalvarEdicaoCliente").prop("disabled", true);
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "cliente/" + idCliente +"/editarUmCliente",
+            data: JSON.stringify(objRequest),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            error: function (e) {
+
+                if(e.responseText === "Cliente editado com sucesso") {
+                    $('#toastSucesso').toast('show');
+
+                    setTimeout(function() {
+                        window.location.href = "/menu";
+                    }, 3500);
+                }
+                else {
+                    $('#toastErro').toast('show');
+                    setTimeout(function() {
+                        console.log("ERROR : ", e.responseText);
+                    }, 5500);
+
+                }
+
+                $("#btnSalvarEdicaoCliente").prop("disabled", false);
+
+            }
+        });
+    });
 });
+
+function removerLITelefoneCliente(id) {
+    $("#" + id).remove();
+}

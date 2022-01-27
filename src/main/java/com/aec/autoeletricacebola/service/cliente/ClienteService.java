@@ -10,4 +10,5 @@ public interface ClienteService {
     Cliente findById(Long id);
     List<Cliente> findByName(String nome);
     Cliente save(Cliente cliente);
+    List<Cliente> saveAll(List<Cliente> clientes);
 }

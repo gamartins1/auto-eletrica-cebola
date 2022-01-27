@@ -10,4 +10,5 @@ public interface TelefoneClienteService {
     TelefoneCliente findById(Long id);
     List<TelefoneCliente> findByUser(Long id);
     TelefoneCliente save(TelefoneCliente telCliente);
+    List<TelefoneCliente> saveAll(List<TelefoneCliente> telefonesCliente);
 }

@@ -26,7 +26,7 @@
     <div class="list-group-item list-group-item-action" th:each="cliente : ${clientesLista}">
         <div class="client-icons pull-right">
             <a th:href="${(#mvc.url('CC#redirectConsultarClienteForm').arg(0, cliente.idCliente)).build()}"><i class="bi bi-search"></i></a>
-            <i class="bi bi-pencil"></i>
+            <a th:href="${(#mvc.url('CC#redirectEditarClienteForm').arg(0, cliente.idCliente)).build()}"><i class="bi bi-pencil"></i></a>
         </div>
 
         <div class="d-flex w-100 justify-content-between cursor-client-items">

@@ -31,4 +31,19 @@ public class ModelAttributeKeys {
     public static final String QUANTIDADE_VEICULOS = "quantidadeVeiculos";
 
     public static final String NOTA_SERVICO = "notaServico";
+
+    public static final String NOME_CLIENTE = "nomeCliente";
+
+    public static final String BAIRRO_ENDERECO_CLIENTE = "bairroEnderecoCliente";
+
+    public static final String CEP_ENDERECO_CLIENTE = "cepEnderecoCliente";
+
+    public static final String RUA_ENDERECO_CLIENTE = "ruaEnderecoCliente";
+
+    public static final String NUMERO_ENDERECO_CLIENTE = "numeroEnderecoCliente";
+
+    public static final String CIDADE_ENDERECO_CLIENTE = "cidadeEnderecoCliente";
+
+    public static final String TELEFONES_CLIENTE = "telefonesCliente";
+
 }

@@ -32,4 +32,9 @@ public class TelefoneClienteServiceImpl implements TelefoneClienteService {
     public TelefoneCliente save(TelefoneCliente telCliente) {
         return telefoneClienteRepository.save(telCliente);
     }
+
+    @Override
+    public List <TelefoneCliente> saveAll(List <TelefoneCliente> telefonesCliente) {
+        return this.telefoneClienteRepository.saveAll(telefonesCliente);
+    }
 }

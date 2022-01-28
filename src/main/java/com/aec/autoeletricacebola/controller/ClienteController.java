@@ -199,6 +199,10 @@ public class ClienteController {
         cliente.setNomeCliente((String) atributosCliente.get(NOME_CLIENTE));
 
         EnderecoCliente enderecoCliente = cliente.getEnderecoCliente();
+        if(enderecoCliente == null) {
+            enderecoCliente = new EnderecoCliente();
+        }
+
         enderecoCliente.setCliente(cliente);
         enderecoCliente.setBairroEnderecoCliente((String) atributosCliente.get(BAIRRO_ENDERECO_CLIENTE));
         enderecoCliente.setCepEnderecoCliente((String) atributosCliente.get(CEP_ENDERECO_CLIENTE));

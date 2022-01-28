@@ -27,8 +27,12 @@
 <div th:fragment="veiculosLista">
     <h6 class="text-num-services">Veículos encontrados: <span class="badge bg-primary badge-num-services" th:text="${quantidadeVeiculos}"> </span></h6>
     <section>
-        <div class="container container-car-service">
-            <div class="card shadow-sm bg-white rounded div-cliente" style="margin-top: 20px;" th:each="veiculo : ${veiculos}">
+        <div class="container container-car-service ">
+            <div class="card shadow-sm bg-white rounded div-cliente list-group-item list-group-item-action" style="margin-top: 20px;" th:each="veiculo : ${veiculos}">
+                <div class="client-icons pull-right">
+                    <a th:href="${(#mvc.url('VC#redirectEditarVeiculoForm').arg(0, veiculo.idVeiculo)).build()}"><i class="bi bi-pencil"></i></a>
+                </div>
+
                 <div class="card-body">
                     <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${veiculo.modeloVeiculo}"></span></h5></a>
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">

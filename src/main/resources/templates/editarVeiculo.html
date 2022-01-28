@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{menu}">Página Principal</a>
+                    <a class="nav-link" aria-current="page" th:href="@{~/menu}">Página Principal</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " href="#" id="dropDownMenuClientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,7 +41,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
                         <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cadastrar cliente</a></li>
-                        <li><a class="dropdown-item" th:href="@{consultaClientes}">Consultar clientes</a></li>
+                        <li><a class="dropdown-item" th:href="@{~/consultaClientes}">Consultar clientes</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -49,8 +49,8 @@
                         Veículos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
-                        <li><a class="dropdown-item" th:href="@{cadastrarVeiculo}">Cadastrar veículo</a></li>
-                        <li><a class="dropdown-item" th:href="@{consultarVeiculos}">Consultar veículos</a></li>
+                        <li><a class="dropdown-item" th:href="@{~/cadastrarVeiculo}">Cadastrar veículo</a></li>
+                        <li><a class="dropdown-item" th:href="@{~/consultarVeiculos}">Consultar veículos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -58,8 +58,8 @@
                         Serviços
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuServicos">
-                        <li><a class="dropdown-item" th:href="@{cadastrarServico}">Registrar novo serviço</a></li>
-                        <li><a class="dropdown-item" th:href="@{consultarServicos}">Consultar serviços</a></li>
+                        <li><a class="dropdown-item" th:href="@{~/cadastrarServico}">Registrar novo serviço</a></li>
+                        <li><a class="dropdown-item" th:href="@{~/consultarServicos}">Consultar serviços</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -77,53 +77,48 @@
         <button type="button" class="btn btn-outline-light">Sair</button>
     </div>
 </nav>
-<h6 class="text-content-identifier-page">Cadastro de um novo veículo</h6>
+<h6 class="text-content-identifier-page">Editar um veículo</h6>
 <div class="container container-main list-group-item">
-    <form class="row g-3 needs-validation" id="form-cadastrar-veiculo">
+    <form class="row g-3 needs-validation" id="form-editar-veiculo" th:attr="name=${veiculo.idVeiculo}">
         <div class="modal-body">
             <div class="col-md-6 position-relative">
-                <label for="pickerCliente"><h6 class="modal-title titles-cadastro">Cliente</h6></label><br>
+                <label><h6 class="modal-title titles-cadastro">Cliente</h6></label><br>
                 <div class="col-8">
-                    <input list="data-list-clientes" class=" form-control" id="pickerCliente">
+                    <p class="mb-1">Nome: <span th:text="${veiculo.cliente.nomeCliente}"></span></p>
                 </div>
-                <datalist id="data-list-clientes">
-                    <option th:each="cliente : ${clientes}" th:attr="id=${cliente.idCliente}, value=${cliente.nomeCliente}">
-                </datalist>
             </div>
 
             <h6 class="modal-title titles-cadastro">Veículo</h6>
             <div class="col-md-6 position-relative">
-                <label for="modeloVeiculo" class="form-label">Modelo</label>
-                <input type="text" class="form-control" id="modeloVeiculo" name="modeloVeiculo">
+                <p class="mb-1">Placa: <span th:text="${veiculo.placaVeiculo}"></span></p>
 
-                <label for="placaVeiculo" class="form-label">Placa</label>
-                <input type="text" class="form-control" id="placaVeiculo" name="placaVeiculo">
+                <label for="modeloVeiculo" class="form-label">Modelo</label>
+                <input type="text" class="form-control" id="modeloVeiculo" name="modeloVeiculo" th:attr="value=${veiculo.modeloVeiculo}">
 
                 <label for="observacoesVeiculo" class="form-label">Observações</label>
-                <textarea class="form-control" id="observacoesVeiculo" name="observacoesVeiculo"></textarea>
+                <textarea class="form-control" id="observacoesVeiculo" name="observacoesVeiculo" th:text="${veiculo.observacoesVeiculo}"></textarea>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" id="btnCadastrarNovoVeiculo">Cadastrar</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-primary" id="btnEditarVeiculo">Salvar</button>
         </div>
     </form>
 </div>
 <div id="toastSucesso" role="alert" style="position: relative; min-height: 50px; background-color: #90EE90;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
     <div class="toast-header">
-        <strong class="mr-auto">Cadastro realizado</strong>
+        <strong class="mr-auto">Edição realizada</strong>
     </div>
     <div class="toast-body">
-        Sucesso ao cadastrar novo veículo
+        Sucesso ao editar veículo
     </div>
 </div>
 
 <div id="toastErro" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
     <div class="toast-header">
-        <strong class="mr-auto">Erro ao cadastrar</strong>
+        <strong class="mr-auto">Erro ao editar</strong>
     </div>
     <div class="toast-body">
-        Não foi possível cadastrar o veículo. Verifique as informações e tente novamente
+        Não foi possível editar o veículo. Verifique as informações e tente novamente
     </div>
 </div>
 

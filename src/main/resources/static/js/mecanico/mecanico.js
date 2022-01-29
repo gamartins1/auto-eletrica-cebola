@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    $("#content-lista-mecanicos").load("/newConsultaMecanicosPadrao");
+
     $("#form-cadastrar-mecanico").submit(function (event) {
         //stop submit the form event. Do this manually using ajax post function
         event.preventDefault();
@@ -45,4 +47,9 @@ $(document).ready(function() {
 
     });
 
+    $("#btn-search-mecanicos").on("click", function () {
+        var nomeMecanico = $('#nomeMecanico').val();
+
+        $("#content-lista-mecanicos").load("mecanico/reSearchMecanicoUsingParams", {nomeMecanico : nomeMecanico});
+    });
 });

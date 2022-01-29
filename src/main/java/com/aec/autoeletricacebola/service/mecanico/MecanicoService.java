@@ -6,7 +6,7 @@ import com.aec.autoeletricacebola.model.Mecanico;
 
 public interface MecanicoService {
     List <Mecanico> findAll();
+    List <Mecanico> findByName(String nome);
     Mecanico findById(Long id);
-    Mecanico findByName(String nome);
     Mecanico save(Mecanico mecanico);
 }

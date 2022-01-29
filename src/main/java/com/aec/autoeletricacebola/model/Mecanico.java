@@ -22,7 +22,7 @@ public class Mecanico {
 
     public Mecanico(String nomeMecanico, boolean isAtivo) {
         this.nomeMecanico = nomeMecanico;
-        this.setAtivo(ativo);
+        this.setAtivo(isAtivo);
     }
 
     public Mecanico() {

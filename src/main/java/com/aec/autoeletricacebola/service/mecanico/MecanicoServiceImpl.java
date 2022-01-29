@@ -24,8 +24,8 @@ public class MecanicoServiceImpl implements MecanicoService {
     }
 
     @Override
-    public Mecanico findByName(String nome) {
-        return null;
+    public List <Mecanico> findByName(String nome) {
+        return this.mecanicoRepository.findByName(nome);
     }
 
     @Override

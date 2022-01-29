@@ -1,24 +1,16 @@
 package com.aec.autoeletricacebola.controller;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.CLIENTE;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.CLIENTES_LISTA;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MECANICOS;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MECANICOS_LISTA;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.NOME_MECANICO;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_CLIENTES;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_MECANICOS;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.aec.autoeletricacebola.model.Cliente;
 import com.aec.autoeletricacebola.model.Mecanico;
-import com.aec.autoeletricacebola.model.Servico;
-import com.aec.autoeletricacebola.model.TelefoneCliente;
 import com.aec.autoeletricacebola.service.mecanico.MecanicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

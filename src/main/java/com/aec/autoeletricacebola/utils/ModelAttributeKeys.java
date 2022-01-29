@@ -46,4 +46,5 @@ public class ModelAttributeKeys {
 
     public static final String TELEFONES_CLIENTE = "telefonesCliente";
 
+    public static final String NOME_MECANICO = "nomeMecanico";
 }

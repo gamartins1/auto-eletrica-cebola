@@ -20,6 +20,15 @@ public class Mecanico {
 
     private boolean ativo;
 
+    public Mecanico(String nomeMecanico, boolean isAtivo) {
+        this.nomeMecanico = nomeMecanico;
+        this.setAtivo(ativo);
+    }
+
+    public Mecanico() {
+
+    }
+
     public Long getIdMecanico() {
         return idMecanico;
     }

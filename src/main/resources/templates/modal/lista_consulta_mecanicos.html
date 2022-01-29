@@ -28,11 +28,11 @@
     <section>
         <div class="container container-car-service">
             <div class="card shadow-sm bg-white rounded div-cliente" style="margin-top: 20px;" th:each="mecanico : ${mecanicos}">
+                <div class="action-icons pull-right">
+                    <a th:href="${(#mvc.url('MC#redirectEditarMecanicoForm').arg(0, mecanico.idMecanico)).build()}"><i class="bi bi-pencil"></i></a>
+                </div>
                 <div class="card-body">
                     <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${mecanico.nomeMecanico}"></span></h5></a>
-                </div>
-                <div class="d-grid gap-2 d-md-block btn-group-actions">
-<!--                    <a th:href="${(#mvc.url('CC#redirectEditarClienteForm').arg(0, cliente.idCliente)).build()}"><i class="bi bi-pencil"></i></a>-->
                 </div>
             </div>
         </div>

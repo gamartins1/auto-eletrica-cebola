@@ -8,6 +8,8 @@ public class ModelAttributeKeys {
     public static final String ID_CLIENTE = "idCliente";
     public static final String ID_VEICULO = "idVeiculo";
     public static final String ID_SERVICO = "idServico";
+    public static final String ID_MECANICO = "idMecanico";
+    public static final String IS_ATIVO = "isAtivo";
     public static final String DESCRICAO_SERVICOS = "descricaoServicos";
     public static final String CLIENTE = "cliente";
     public static final String QUANTIDADE_CLIENTES = "quantidadeClientes";

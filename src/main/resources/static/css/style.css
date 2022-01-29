@@ -8,3 +8,9 @@
     width: 70%;
     padding-bottom: 30px;
 }
+
+.action-icons {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+}

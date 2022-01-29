@@ -54,4 +54,15 @@ public class ModelAttributeKeys {
     public static final String MECANICOS = "mecanicos";
 
     public static final String QUANTIDADE_MECANICOS = "quantidadeMecanicos";
+
+    public static final String DESCRICAO_PECA = "descricaoPeca";
+
+    public static final String QUANTIDADE_PECA = "quantidadePeca";
+
+    public static final String TEMPO_GARANTIA = "tempoGarantia";
+
+    public static final String PRECO_COMPRA = "precoCompra";
+
+    public static final String PRECO_VENDA = "precoVenda";
+
 }

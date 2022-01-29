@@ -28,6 +28,8 @@ public class PecaEstoque {
     @Column(columnDefinition="Decimal(10,2) default '000.00'")
     private double valorVendaPecaEstoque;
 
+    private boolean ativo;
+
     public Long getIdPecaEstoque() {
         return idPecaEstoque;
     }
@@ -74,5 +76,13 @@ public class PecaEstoque {
 
     public void setValorVendaPecaEstoque(double valorVendaPecaEstoque) {
         this.valorVendaPecaEstoque = valorVendaPecaEstoque;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

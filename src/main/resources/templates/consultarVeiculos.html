@@ -67,7 +67,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuPecas">
                         <li><a class="dropdown-item" th:href="@{cadastrarPeca}">Cadastrar uma peça do estoque</a></li>
-                        <!--                        <li><a class="dropdown-item" th:href="@{consultarServicos}">Consultar peças</a></li>-->
+                        <li><a class="dropdown-item" th:href="@{consultarPecas}">Consultar peças</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -104,7 +104,7 @@
             </datalist>
 
             <span class="input-group-text input-search-cliente" id="inputGroup-sizing-sm-modelo">Modelo</span>
-            <input id="modeloVeiculo" list="data-list-clientes-nomes" name="modeloVeiculo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm-modelo">
+            <input id="modeloVeiculo" list="data-list-modelos-nomes" name="modeloVeiculo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm-modelo">
             <datalist id="data-list-modelos-nomes">
                 <option th:each="modeloVeiculo : ${modelos}" th:attr="value=${modeloVeiculo}">
             </datalist>

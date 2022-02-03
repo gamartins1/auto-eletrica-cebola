@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#content-lista-pecas").load("/newConsultaPecasPadrao");
 
     $("#form-cadastrar-pecas").submit(function (event) {
         //stop submit the form event. Do this manually using ajax post function
@@ -48,4 +49,10 @@ $(document).ready(function() {
 
     });
 
+    $("#btn-search-peca").on("click", function () {
+        var nomePeca = $('#nomePeca').val();
+
+        $("#content-lista-pecas").load("peca/reSearchPecaUsingParams", {nomePeca : nomePeca});
+
+    });
 });

@@ -78,7 +78,7 @@ public class VeiculoController {
 
         List <String> clientesNomes = this.clienteService.findAll().stream().map(Cliente::getNomeCliente).collect(Collectors.toList());
         List <String> placas = this.veiculoService.findAll().stream().map(Veiculo::getPlacaVeiculo).collect(Collectors.toList());
-        List<String> modelos = this.veiculoService.findAll().stream().map(Veiculo::getModeloVeiculo).collect(Collectors.toList());
+        List <String> modelos = this.veiculoService.findAll().stream().map(Veiculo::getModeloVeiculo).collect(Collectors.toList());
 
         m.addAttribute("placas", placas);
         m.addAttribute("clientesNomes", clientesNomes);

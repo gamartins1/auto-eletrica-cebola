@@ -25,7 +25,7 @@ public class PecaEstoqueServiceImpl implements PecaEstoqueService {
 
     @Override
     public List <PecaEstoque> findByName(String nome) {
-        return null;
+        return this.pecaEstoqueRepository.findByName(nome);
     }
 
     @Override

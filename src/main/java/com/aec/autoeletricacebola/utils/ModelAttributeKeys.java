@@ -53,6 +53,8 @@ public class ModelAttributeKeys {
 
     /** P **/
     public static final String PLACA_VEICULO = "placaVeiculo";
+    public static final String PECAS = "pecas";
+    public static final String PECAS_LISTA = "pecasLista";
     public static final String PECAS_SERVICO = "pecasServico";
     public static final String PRECO_COMPRA = "precoCompra";
     public static final String PRECO_VENDA = "precoVenda";

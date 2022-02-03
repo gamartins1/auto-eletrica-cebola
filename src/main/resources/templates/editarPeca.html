@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Auto Elétrica Cebola</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <!--CSS-->
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/menuStyle.css" th:href="@{/css/menuStyle.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/cadastroServico.css" th:href="@{/css/cadastroServico.css}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/radiobuttonStyle.css" th:href="@{/css/radiobuttonStyle.css}" />
+
+    <!--JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/peca/peca.js}"></script>
+
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid container-navbar-menu">
+        <a class="navbar-brand" href="#"><img th:src="@{/img/Avatar.png}" src="../static/img/Avatar.png" alt="" class="d-inline-block align-text-top img-icon-logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{menu}">Página Principal</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle " href="#" id="dropDownMenuClientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Clientes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Cadastrar cliente</a></li>
+                        <li><a class="dropdown-item" th:href="@{consultaClientes}">Consultar clientes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuVeiculos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Veículos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
+                        <li><a class="dropdown-item" th:href="@{cadastrarVeiculo}">Cadastrar veículo</a></li>
+                        <li><a class="dropdown-item" th:href="@{consultarVeiculos}">Consultar veículos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuServicos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Serviços
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuServicos">
+                        <li><a class="dropdown-item" th:href="@{cadastrarServico}">Registrar novo serviço</a></li>
+                        <li><a class="dropdown-item" th:href="@{consultarServicos}">Consultar serviços</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="dropDownMenuPecas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Peças
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuPecas">
+                        <li><a class="dropdown-item" th:href="@{cadastrarPeca}">Cadastrar uma peça do estoque</a></li>
+                        <li><a class="dropdown-item" th:href="@{consultarPecas}">Consultar peças</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuMecanico" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mecânico
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuMecanico">
+                        <li><a class="dropdown-item" th:href="@{cadastrarMecanico}">Cadastrar Mecânico</a></li>
+                        <li><a class="dropdown-item" th:href="@{consultarMecanicos}">Consultar Mecânicos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuAdministracao" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administração
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropDownMenuAdministracao">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-outline-light">Sair</button>
+    </div>
+</nav>
+<h6 class="text-content-identifier-page">Cadastro de peças para o estoque</h6>
+<div class="container container-main list-group-item">
+    <form class="row g-3 needs-validation" id="form-editar-peca" th:attr="name=${peca.idPecaEstoque}">
+        <div class="modal-body">
+
+            <h6 class="modal-title titles-cadastro">Peça</h6>
+            <div class="col-md-6 position-relative">
+                <label for="descricaoPeca" class="form-label">Peça</label>
+                <input type="text" class="form-control" id="descricaoPeca" name="descricaoPeca" th:attr="value=${peca.nomePecaEstoque}">
+
+                <label for="quantidadePeca" class="form-label">Quantidade em estoque</label>
+                <input type="number" class="form-control" id="quantidadePeca" name="quantidadePeca" th:attr="value=${peca.quantidadePecaEstoque}">
+
+                <label for="tempoGarantia" class="form-label">Tempo de garantia</label>
+                <input type="text" class="form-control" id="tempoGarantia" name="tempoGarantia" th:attr="value=${peca.tempoGarantiaPecaEstoque}">
+
+                <label for="precoCompra" class="form-label">Preço de compra</label>
+                <input type="number" step="0.01" data-decimals="4" class="form-control" id="precoCompra" name="precoCompra" th:attr="value=${peca.valorCompraPecaEstoque}">
+
+                <label for="precoVenda" class="form-label">Preço de venda</label>
+                <input type="number" step="0.01" data-decimals="4" class="form-control" id="precoVenda" name="precoVenda" th:attr="value=${peca.valorVendaPecaEstoque}">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="btnEditarPeca">Editar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+    </form>
+</div>
+<div id="toastSucesso" role="alert" style="position: relative; min-height: 50px; background-color: #90EE90;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Alteração realizado</strong>
+    </div>
+    <div class="toast-body">
+        Sucesso ao atualizar nova peça
+    </div>
+</div>
+<div id="toastErro" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Erro ao atualizar</strong>
+    </div>
+    <div class="toast-body">
+        Não foi possível atualizar a peça. Verifique as informações e tente novamente
+    </div>
+</div>
+<div id="toastErroCamposVazios" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Erro ao atualizar</strong>
+    </div>
+    <div class="toast-body">
+        Não foi possível atualizar a peça. Há campos vazios que precisam ser preenchidos
+    </div>
+</div>
+<div id="toastErroPreco" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Erro ao atualizar devido aos preços</strong>
+    </div>
+    <div class="toast-body">
+        Não foi possível atualizar a peça. O preço de compra é maior que o preço de venda
+    </div>
+</div>
+
+<!--Esse modal representa a tela de cadastro de cliente que é chamada dentro do menu-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div th:replace="/modal/cadastro_cliente::modalCadastrarCliente"></div>
+</div>
+</body>
+</html>

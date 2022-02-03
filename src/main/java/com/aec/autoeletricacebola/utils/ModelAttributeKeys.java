@@ -27,6 +27,7 @@ public class ModelAttributeKeys {
     /** I **/
     public static final String ID_CLIENTE = "idCliente";
     public static final String ID_MECANICO = "idMecanico";
+    public static final String ID_PECA = "idPeca";
     public static final String ID_SERVICO = "idServico";
     public static final String ID_VEICULO = "idVeiculo";
     public static final String IS_ATIVO = "isAtivo";
@@ -53,6 +54,7 @@ public class ModelAttributeKeys {
 
     /** P **/
     public static final String PLACA_VEICULO = "placaVeiculo";
+    public static final String PECA = "peca";
     public static final String PECAS = "pecas";
     public static final String PECAS_LISTA = "pecasLista";
     public static final String PECAS_SERVICO = "pecasServico";

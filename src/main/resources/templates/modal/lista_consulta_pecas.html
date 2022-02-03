@@ -30,7 +30,7 @@
         <div class="container container-car-service ">
             <div class="card shadow-sm bg-white rounded div-cliente list-group-item list-group-item-action" style="margin-top: 20px;" th:each="peca : ${pecas}">
                 <div class="client-icons pull-right">
-<!--                    <a th:href="${(#mvc.url('PC#redirectEditarVeiculoForm').arg(0, peca.idPecaEstoque)).build()}"><i class="bi bi-pencil"></i></a>-->
+                    <a th:href="${(#mvc.url('PEC#redirectEditarPecaForm').arg(0, peca.idPecaEstoque)).build()}"><i class="bi bi-pencil"></i></a>
                 </div>
 
                 <div class="card-body">

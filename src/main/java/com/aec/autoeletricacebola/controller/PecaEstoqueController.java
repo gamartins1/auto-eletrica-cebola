@@ -2,6 +2,8 @@ package com.aec.autoeletricacebola.controller;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.DESCRICAO_PECA;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_PECA;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECA;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_LISTA;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PRECO_COMPRA;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -100,6 +103,41 @@ public class PecaEstoqueController {
 
         m.addAttribute(PECAS_LISTA, pecasEstoque);
         return "modal/lista_consulta_pecas :: pecasLista";
+    }
+
+    @GetMapping("/editarPeca")
+    @RequestMapping(value = "/editarPeca/{idPeca}", method = RequestMethod.GET)
+    public ModelAndView redirectEditarPecaForm(@PathVariable("idPeca") Long id) {
+        ModelAndView modelAndView = new ModelAndView("editarPeca");
+        PecaEstoque pecaEstoque = this.pecaEstoqueService.findById(id);
+
+        modelAndView.addObject(PECA, pecaEstoque);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "editarPeca/peca/{idPeca}/editarUmaPeca", method = RequestMethod.POST)
+    public @ResponseBody
+    String editarPeca(@RequestBody Map atributosPeca, BindingResult result, RedirectAttributes attributes, @PathVariable String idPeca) {
+
+        if(idPeca == null) {
+            return "";
+        }
+
+        Long idDaPeca = Long.parseLong((String) atributosPeca.get(ID_PECA));
+
+        PecaEstoque pecaEstoque = this.pecaEstoqueService.findById(idDaPeca);
+        pecaEstoque.setAtivo(true);
+        pecaEstoque.setNomePecaEstoque((String) atributosPeca.get(DESCRICAO_PECA));
+        pecaEstoque.setQuantidadePecaEstoque(Integer.parseInt((String) atributosPeca.get(QUANTIDADE_PECA)));
+        pecaEstoque.setTempoGarantiaPecaEstoque((String) atributosPeca.get(TEMPO_GARANTIA));
+        pecaEstoque.setValorCompraPecaEstoque(Double.parseDouble(((String) atributosPeca.get(PRECO_COMPRA)).replace(",", ".")));
+        pecaEstoque.setValorVendaPecaEstoque(Double.parseDouble(((String) atributosPeca.get(PRECO_VENDA)).replace(",", ".")));
+
+        pecaEstoque = this.pecaEstoqueService.save(pecaEstoque);
+        System.out.println("Peça alteradca com sucesso. ID: " + pecaEstoque.getIdPecaEstoque());
+
+        return "Peça editada com sucesso";
     }
 
 }

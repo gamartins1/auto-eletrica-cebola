@@ -35,6 +35,7 @@ public class ModelAttributeKeys {
     /** J **/
     /** K **/
     /** L **/
+    public static final String LOGIN_USUARIO = "loginUsuario";
 
     /** M **/
     public static final String MAOS_DE_OBRA_SERVICO = "maosDeObraServico";
@@ -46,6 +47,7 @@ public class ModelAttributeKeys {
     /** N **/
     public static final String NOME_CLIENTE = "nomeCliente";
     public static final String NOME_MECANICO = "nomeMecanico";
+    public static final String NOME_USUARIO = "nomeUsuario";
     public static final String NOTA_SERVICO = "notaServico";
     public static final String NUMERO_ENDERECO_CLIENTE = "numeroEnderecoCliente";
 
@@ -73,6 +75,7 @@ public class ModelAttributeKeys {
     public static final String RUA_ENDERECO_CLIENTE = "ruaEnderecoCliente";
 
     /** S **/
+    public static final String SENHA_USUARIO = "senhaUsuario";
     public static final String SERVICO = "servico";
     public static final String SERVICOS = "servicos";
     public static final String SERVICOS_LISTA = "servicosLista";

@@ -2,6 +2,7 @@ package com.aec.autoeletricacebola.service.login;
 
 import com.aec.autoeletricacebola.model.Usuario;
 import com.aec.autoeletricacebola.repository.UsuarioRepository;
+import com.aec.autoeletricacebola.service.usuario.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +10,11 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    UsuarioService usuarioService;
 
     @Override
     public Usuario findUserLogin(Usuario usuario) {
 
-        return usuarioRepository.findUserLogin(usuario.getUserUsuario(), usuario.getSenhaUsuario());
+        return usuarioService.findUserLogin(usuario.getUserUsuario(), usuario.getSenhaUsuario());
     }
 }

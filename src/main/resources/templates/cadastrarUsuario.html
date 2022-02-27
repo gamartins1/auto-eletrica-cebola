@@ -18,9 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/usuario/usuario.js}"></script>
     <script type="text/javascript" th:src="@{/js/servico/servico.js}"></script>
     <script type="text/javascript" th:src="@{/js/veiculo/veiculo.js}"></script>
-
 
 </head>
 <body>
@@ -45,7 +45,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="dropDownMenuVeiculos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuVeiculos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Veículos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuClientes">
@@ -81,7 +81,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropDownMenuAdministracao" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle active" href="#" id="dropDownMenuAdministracao" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Administração
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropDownMenuAdministracao">
@@ -93,34 +93,25 @@
         <button type="button" class="btn btn-outline-light">Sair</button>
     </div>
 </nav>
-<h6 class="text-content-identifier-page">Cadastro de um novo veículo</h6>
+<h6 class="text-content-identifier-page">Cadastro de um novo usuário</h6>
 <div class="container container-main list-group-item">
-    <form class="row g-3 needs-validation" id="form-cadastrar-veiculo">
+    <form class="row g-3 needs-validation" id="form-cadastrar-usuario">
         <div class="modal-body">
+
+            <h6 class="modal-title titles-cadastro">Usuário</h6>
             <div class="col-md-6 position-relative">
-                <label for="pickerCliente"><h6 class="modal-title titles-cadastro">Cliente</h6></label><br>
-                <div class="col-8">
-                    <input list="data-list-clientes" class=" form-control" id="pickerCliente">
-                </div>
-                <datalist id="data-list-clientes">
-                    <option th:each="cliente : ${clientes}" th:attr="id=${cliente.idCliente}, value=${cliente.nomeCliente}">
-                </datalist>
-            </div>
+                <label for="nomeUsuario" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario">
 
-            <h6 class="modal-title titles-cadastro">Veículo</h6>
-            <div class="col-md-6 position-relative">
-                <label for="modeloVeiculo" class="form-label">Modelo</label>
-                <input type="text" class="form-control" id="modeloVeiculo" name="modeloVeiculo">
+                <label for="loginUsuario" class="form-label">Login</label>
+                <input type="text" class="form-control" id="loginUsuario" name="loginUsuario">
 
-                <label for="placaVeiculo" class="form-label">Placa</label>
-                <input type="text" class="form-control" id="placaVeiculo" name="placaVeiculo">
-
-                <label for="observacoesVeiculo" class="form-label">Observações</label>
-                <textarea class="form-control" id="observacoesVeiculo" name="observacoesVeiculo"></textarea>
+                <label for="senhaUsuario" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="senhaUsuario" name="senhaUsuario">
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" id="btnCadastrarNovoVeiculo">Cadastrar</button>
+            <button type="submit" class="btn btn-primary" id="btnCadastrarNovoUsuario">Cadastrar</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         </div>
     </form>
@@ -130,7 +121,7 @@
         <strong class="mr-auto">Cadastro realizado</strong>
     </div>
     <div class="toast-body">
-        Sucesso ao cadastrar novo veículo
+        Sucesso ao cadastrar novo usuário
     </div>
 </div>
 
@@ -139,7 +130,16 @@
         <strong class="mr-auto">Erro ao cadastrar</strong>
     </div>
     <div class="toast-body">
-        Não foi possível cadastrar o veículo. Verifique as informações e tente novamente
+        Não foi possível cadastrar o usuário. Verifique as informações e tente novamente
+    </div>
+</div>
+
+<div id="toastErroUserJaCadastrado" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Erro ao cadastrar - Login já cadastrado</strong>
+    </div>
+    <div class="toast-body">
+        Não foi possível cadastrar o usuário. Já temos cadastrado um usuário com esse login
     </div>
 </div>
 

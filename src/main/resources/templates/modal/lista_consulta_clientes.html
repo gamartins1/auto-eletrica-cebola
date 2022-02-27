@@ -41,6 +41,9 @@
             <span th:text="${cliente.enderecoCliente.ruaEnderecoCliente} + ', ' + ${cliente.enderecoCliente.numeroEnderecoCliente} + ' - ' + ${cliente.enderecoCliente.bairroEnderecoCliente} + ', ' + ${cliente.enderecoCliente.cidadeEnderecoCliente} + ' CEP: ' + ${cliente.enderecoCliente.cepEnderecoCliente}"></span>
         </small>
     </div>
+    <div class="modal-footer">
+        <a th:href="@{~/menu}"><button type="button" class="btn btn-secondary">Voltar</button></a>
+    </div>
 </div>
 </body>
 </html>

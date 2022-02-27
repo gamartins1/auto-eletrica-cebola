@@ -125,7 +125,7 @@
                             <li class="list-group-item" th:each="veiculo, userStat : ${cliente.veiculosCliente}" th:attr="id='veiculo'+${userStat.index}">
                                 <div class="d-flex justify-content-between">
                                     <div class="col-md-8 flex-grow-1">
-                                        <a href="#" class="carname-link"><h6 class="descricoes-servicos-values text-muted items-search-service" ><span th:text="${veiculo.modeloVeiculo}"></span></h6></a>
+                                        <a th:href="${(#mvc.url('VC#redirectEditarVeiculoForm').arg(0, veiculo.idVeiculo)).build()}" class="carname-link"><h6 class="descricoes-servicos-values text-muted items-search-service" ><span th:text="${veiculo.modeloVeiculo}"></span></h6></a>
                                     </div>
                                 </div>
                             </li>

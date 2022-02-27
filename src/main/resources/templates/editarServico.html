@@ -245,7 +245,7 @@
                 <div class="modal-footer">
                     <h6>Valor final: <b>R$<span id="lbl-valor-final-servico" th:text="${servico.valorFinalServico}"></span></b></h6>
                     <button id="btnSalvarEdicaoServico" type="submit" class="btn btn-primary">Salvar Serviço</button>
-                    <button type="button" class="btn btn-secondary">Cancelar</button>
+                    <a th:href="@{~/consultarServicos}"><button type="button" class="btn btn-secondary">Cancelar</button></a>
                 </div>
             </form>
         </div>

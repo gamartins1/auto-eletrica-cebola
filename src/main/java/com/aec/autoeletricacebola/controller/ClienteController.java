@@ -1,6 +1,7 @@
 package com.aec.autoeletricacebola.controller;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
+import static com.aec.autoeletricacebola.utils.ClienteUtils.calcClientRate;
 import static com.aec.autoeletricacebola.utils.ClienteUtils.initializeClient;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.BAIRRO_ENDERECO_CLIENTE;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.CEP_ENDERECO_CLIENTE;
@@ -36,6 +37,7 @@ import com.aec.autoeletricacebola.repository.ClienteRepository;
 import com.aec.autoeletricacebola.repository.EnderecoClienteRepository;
 import com.aec.autoeletricacebola.repository.TelefoneClienteRepository;
 import com.aec.autoeletricacebola.repository.VeiculoRepository;
+import com.aec.autoeletricacebola.service.servico.ServicoService;
 import com.aec.autoeletricacebola.utils.ClienteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,6 +69,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteUtils clienteUtils;
+
+    @Autowired
+    private ServicoService servicoService;
 
     @RequestMapping(value = "cliente/saveWithCarAndPhone", method = RequestMethod.POST)
     public String saveClientWithCarAndPhone(Cliente cliente, Veiculo veiculo, EnderecoCliente enderecoCliente, TelefoneCliente telefoneCliente, BindingResult result, RedirectAttributes attributes) {
@@ -169,6 +174,10 @@ public class ClienteController {
         ModelAndView modelAndView = new ModelAndView("consultaCliente");
         Cliente cliente = this.clienteRepository.findById(id).get();
 
+        //Formata a nota média do cliente
+        List<Servico> servicosCliente = this.servicoService.findServicesByClientId(id);
+
+        modelAndView.addObject("notaCliente", calcClientRate(servicosCliente));
         modelAndView.addObject("cliente", cliente);
 
         return modelAndView;

@@ -103,6 +103,9 @@
             <div class="card-body">
                 <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${cliente.nomeCliente}"></span></h5></a>
                 <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                    Nota do cliente: <b><span th:if="${notaCliente != null}" th:text="${notaCliente}"></span></b>
+                </p>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
                     Endereço: <b><span th:if="${cliente.enderecoCliente != null}" th:text="${cliente.enderecoCliente.ruaEnderecoCliente} + ', ' + ${cliente.enderecoCliente.numeroEnderecoCliente} + ' - ' + ${cliente.enderecoCliente.bairroEnderecoCliente} + ', ' + ${cliente.enderecoCliente.cidadeEnderecoCliente} + ' CEP: ' + ${cliente.enderecoCliente.cepEnderecoCliente}"></span></b>
                 </p>
 

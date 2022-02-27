@@ -25,6 +25,11 @@ public class ServicoServiceImpl implements ServicoService {
     }
 
     @Override
+    public List <Servico> findServicesByClientId(Long id) {
+        return this.servicoRepository.findServicesByClientId(id);
+    }
+
+    @Override
     public Servico findById(Long id) {
         return servicoRepository.findById(id).get();
     }

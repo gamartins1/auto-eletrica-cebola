@@ -14,6 +14,9 @@ public interface ServicoRepository extends JpaRepository <Servico, Long> {
     @Query(value = "SELECT * FROM TB_SERVICO WHERE status_atual_servico = '" + ABERTO + "'", nativeQuery = true)
     List<Servico> findByServicesUnfinished();
 
+    @Query(value = "SELECT * FROM TB_SERVICO WHERE cliente_id_cliente = ?1", nativeQuery = true)
+    List<Servico> findServicesByClientId(Long id);
+
     @Query(value = "SELECT tb_servico.* FROM tb_servico INNER JOIN tb_veiculo ON tb_servico.veiculo_id_veiculo = tb_veiculo.id_veiculo WHERE tb_veiculo.placa_veiculo LIKE %?1%", nativeQuery = true)
     List<Servico> findByCarPlate(String plate);
 

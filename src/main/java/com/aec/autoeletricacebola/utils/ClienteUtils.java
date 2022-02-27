@@ -3,9 +3,11 @@ package com.aec.autoeletricacebola.utils;
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_TIME_FORMAT;
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.aec.autoeletricacebola.model.Cliente;
 import com.aec.autoeletricacebola.model.DescricaoServico;
@@ -25,6 +27,7 @@ public class ClienteUtils {
     @Autowired
     private TelefoneClienteService telefoneClienteService;
 
+    private static final DecimalFormat df = new DecimalFormat("0.0");
     /**
      * Seta no cliente os dados que não vem do front-end
      * @param cliente
@@ -51,5 +54,15 @@ public class ClienteUtils {
         telefonesCliente = this.telefoneClienteService.saveAll(telefonesCliente);
 
         return telefonesCliente;
+    }
+
+    public static String calcClientRate(List<Servico> services) {
+        String clientRate = "5.0";
+
+        if(services != null && services.size() > 0) {
+            double sumRates = services.stream().mapToDouble(servico -> (servico.getNotaServico().getNotaServico())).sum();
+            clientRate = df.format(sumRates / services.size());
+        }
+        return clientRate;
     }
 }

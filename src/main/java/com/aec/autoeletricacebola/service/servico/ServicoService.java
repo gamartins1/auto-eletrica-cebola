@@ -10,6 +10,7 @@ public interface ServicoService {
     Servico findById(Long id);
     List <Servico> findAll();
     List <Servico> findByServicesUnfinished();
+    List<Servico> findServicesByClientId(Long id);
 
     List<Servico> findByCarPlate(String plate);
     List<Servico> findByCarPlateWhereDateFrom(String plate, Date dateStart);

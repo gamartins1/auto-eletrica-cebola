@@ -210,7 +210,10 @@
                     <div class="div-add-descricao div-add-mao-de-obra">
                         <div class="col-6 input-group input-group-sm mb-3">
                             <div class="col">
-                                <input class="form-control" id="inputDescPeca" placeholder="Peça usada" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe a peça utilizada no serviço">
+                                <input class="form-control" list="data-list-pecas-nomes" id="inputDescPeca" placeholder="Peça usada" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe a peça utilizada no serviço">
+                                <datalist id="data-list-pecas-nomes">
+                                    <option th:each="pecaNome : ${pecasNomes}" th:attr="value=${pecaNome}">
+                                </datalist>
                             </div>
                             <div class="col-md-2">
                                 <input type="number" class="form-control" id="inputQtdPeca" placeholder="Quantidade" aria-describedby="basic-addon2">

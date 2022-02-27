@@ -7,9 +7,12 @@ import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_CLIENTE;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_SERVICO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_VEICULO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MAOS_DE_OBRA_SERVICO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MECANICOS;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.NOTA_SERVICO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_NOMES;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_SERVICO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_SERVICOS;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICOS;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICOS_LISTA;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.VALOR_FINAL_SERVICO;
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
 import com.aec.autoeletricacebola.model.Cliente;
 import com.aec.autoeletricacebola.model.Mecanico;
 import com.aec.autoeletricacebola.model.NotaServico;
+import com.aec.autoeletricacebola.model.PecaEstoque;
 import com.aec.autoeletricacebola.model.Servico;
 import com.aec.autoeletricacebola.model.TelefoneCliente;
 import com.aec.autoeletricacebola.model.Veiculo;
@@ -36,6 +40,7 @@ import com.aec.autoeletricacebola.repository.DescricaoServicoRepository;
 import com.aec.autoeletricacebola.repository.VeiculoRepository;
 import com.aec.autoeletricacebola.service.mecanico.MecanicoService;
 import com.aec.autoeletricacebola.service.nota_servico.NotaServicoService;
+import com.aec.autoeletricacebola.service.peca_estoque.PecaEstoqueService;
 import com.aec.autoeletricacebola.service.servico.ServicoService;
 import com.aec.autoeletricacebola.service.telefone_cliente.TelefoneClienteService;
 import com.aec.autoeletricacebola.utils.ServicoUtils;
@@ -79,6 +84,9 @@ public class ServicoController {
     @Autowired
     private NotaServicoService notaServicoService;
 
+    @Autowired
+    private PecaEstoqueService pecaEstoqueService;
+
     @GetMapping("/cadastrarServico")
     @RequestMapping(value = "/cadastrarServico", method = RequestMethod.GET)
     public ModelAndView redirectCadastrarServicoForm() {
@@ -118,13 +126,16 @@ public class ServicoController {
 
     @GetMapping("/finalizarServico")
     @RequestMapping(value = "/finalizarServico/{idServico}", method = RequestMethod.GET)
-    public ModelAndView redirectFinalizarServicoForm(@PathVariable("idServico") Long id) {
+    public ModelAndView redirectFinalizarServicoForm(@PathVariable(ID_SERVICO) Long id) {
         ModelAndView modelAndView = new ModelAndView("finalizarServico");
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();
 
-        modelAndView.addObject("servico", servico);
-        modelAndView.addObject("mecanicos", mecanicos);
+        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeAndValor).collect(Collectors.toList());
+
+        modelAndView.addObject(PECAS_NOMES, pecasNomes);
+        modelAndView.addObject(SERVICO, servico);
+        modelAndView.addObject(MECANICOS, mecanicos);
 
         return modelAndView;
     }
@@ -166,13 +177,15 @@ public class ServicoController {
 
     @GetMapping("/editarServico")
     @RequestMapping(value = "/editarServico/{idServico}", method = RequestMethod.GET)
-    public ModelAndView redirectEditarServicoForm(@PathVariable("idServico") Long id) {
+    public ModelAndView redirectEditarServicoForm(@PathVariable(ID_SERVICO) Long id) {
         ModelAndView modelAndView = new ModelAndView("editarServico");
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();
+        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeAndValor).collect(Collectors.toList());
 
-        modelAndView.addObject("servico", servico);
-        modelAndView.addObject("mecanicos", mecanicos);
+        modelAndView.addObject(PECAS_NOMES, pecasNomes);
+        modelAndView.addObject(SERVICO, servico);
+        modelAndView.addObject(MECANICOS, mecanicos);
 
         return modelAndView;
     }
@@ -208,7 +221,7 @@ public class ServicoController {
 
     @GetMapping("/consultarServico")
     @RequestMapping(value = "/consultarServico/{idServico}", method = RequestMethod.GET)
-    public ModelAndView redirectConsultarServicoForm(@PathVariable("idServico") Long id) {
+    public ModelAndView redirectConsultarServicoForm(@PathVariable(ID_SERVICO) Long id) {
         ModelAndView modelAndView = new ModelAndView("consultarServico");
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();

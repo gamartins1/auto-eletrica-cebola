@@ -10,5 +10,6 @@ public interface PecaEstoqueService {
     List <PecaEstoque> findAllIncludesInactives();
     List <PecaEstoque> findByName(String nome);
     PecaEstoque findById(Long id);
+    PecaEstoque findOneByName(String nome);
     PecaEstoque save(PecaEstoque pecaEstoque);
 }

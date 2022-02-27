@@ -3,6 +3,16 @@ $(document).ready(function() {
     $("#telefoneCliente").mask("(00)00000-0000");
     $("#content-lista-servicos").load("/newConsultaServicosPadrao");
 
+    $("#inputDescPeca").on('input', function () {
+        var nomePeca = this.value;
+        if($('#data-list-pecas-nomes option').filter(function(){
+            return this.value.toUpperCase() === nomePeca.toUpperCase();
+        }).length) {
+            $("#inputDescPeca").val(nomePeca.split(" - ")[0]);
+            $("#inputValorPeca").val(nomePeca.split(" - ")[1]);
+        }
+    });
+
     $("input[type='radio']").click(function(){
         var sim = $("input[type='radio']:checked").val();
         if (sim < 3) {
@@ -93,12 +103,16 @@ $(document).ready(function() {
             return;
         }
 
-        var textoLI = descricao + " - R$" + valor + " (único). Garantia de " + garantia + ". Quantidade " + quantidade
+        var textoLI = descricao + " - R$" + valor + " (único)."
 
-        var _li = `<li class='list-group-item' id='${idNewLI}'><div class='d-flex justify-content-between'><div class='col-md-8 flex-grow-1'><h6 class='pecas-servicos-values' id='${idTextoLI}'>${textoLI}</h6></div><div><h6 onclick="removerLIDecrementarValorFinal('${idNewLI}', '${idTextoLI}')"><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6></div></div></li>`;
-        $("#list-descricoes-pecas").append(_li);
+        if(isPecaNova(quantidade, textoLI, garantia)) {
+            textoLI += " Garantia de " + garantia + ". Quantidade " + quantidade
 
-        incrementarValorFinal(valor, quantidade);
+            var _li = `<li class='list-group-item' id='${idNewLI}'><div class='d-flex justify-content-between'><div class='col-md-8 flex-grow-1'><h6 class='pecas-servicos-values' id='${idTextoLI}'>${textoLI}</h6></div><div><h6 onclick="removerLIDecrementarValorFinal('${idNewLI}', '${idTextoLI}')"><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6></div></div></li>`;
+            $("#list-descricoes-pecas").append(_li);
+
+            incrementarValorFinal(valor, quantidade);
+        }
 
         $('#inputDescPeca').val("");
         $('#inputQtdPeca').val("");
@@ -319,4 +333,32 @@ function incrementarValorFinal(valorAdicionado, quantidade) {
     var novoValorFinal = valorAntigo + valor;
     objValorTotalAtual.innerText = novoValorFinal.toFixed(2).replace(".", ",");
 
+}
+
+function isPecaNova(quantidade, peca, garantia) {
+    var toReturn = null;
+    $("#list-descricoes-pecas li").each(function() {
+        var descricaoPeca = $(this).text();
+        
+        if(descricaoPeca.indexOf(peca) !== -1) {
+            var id = $(this).attr('id');
+            var textoId = 'textoPeca' + id.split('peca')[1];
+
+            removerLIDecrementarValorFinal(id, textoId);
+
+            var valor = descricaoPeca.split(" (único)")[0].split("R$")[1];
+            quantidade = parseInt(quantidade) + parseInt(descricaoPeca.split("Quantidade ")[1]);
+
+            peca += " Garantia de " + garantia + ". Quantidade " + quantidade
+
+            var _li = `<li class='list-group-item' id='${id}'><div class='d-flex justify-content-between'><div class='col-md-8 flex-grow-1'><h6 class='pecas-servicos-values' id='${textoId}'>${peca}</h6></div><div><h6 onclick="removerLIDecrementarValorFinal('${id}', '${textoId}')"><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6></div></div></li>`;
+            $("#list-descricoes-pecas").append(_li);
+
+            incrementarValorFinal(valor, quantidade);
+            toReturn = false;
+            return false;
+        }
+    });
+
+    return toReturn == null;
 }

@@ -34,6 +34,11 @@ public class PecaEstoqueServiceImpl implements PecaEstoqueService {
     }
 
     @Override
+    public PecaEstoque findOneByName(String nome) {
+        return this.pecaEstoqueRepository.findOneByName(nome);
+    }
+
+    @Override
     public PecaEstoque save(PecaEstoque pecaEstoque) {
         return this.pecaEstoqueRepository.save(pecaEstoque);
     }

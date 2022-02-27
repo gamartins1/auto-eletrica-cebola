@@ -12,11 +12,13 @@ import java.util.List;
 import com.aec.autoeletricacebola.model.DescricaoServico;
 import com.aec.autoeletricacebola.model.MaoDeObraServico;
 import com.aec.autoeletricacebola.model.Mecanico;
+import com.aec.autoeletricacebola.model.PecaEstoque;
 import com.aec.autoeletricacebola.model.PecaServico;
 import com.aec.autoeletricacebola.model.Servico;
 import com.aec.autoeletricacebola.service.descricao_servico.DescricaoServicoService;
 import com.aec.autoeletricacebola.service.mao_de_obra.MaoDeObraService;
 import com.aec.autoeletricacebola.service.mecanico.MecanicoService;
+import com.aec.autoeletricacebola.service.peca_estoque.PecaEstoqueService;
 import com.aec.autoeletricacebola.service.peca_servico.PecaServicoService;
 import com.aec.autoeletricacebola.service.servico.ServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,10 @@ public class ServicoUtils {
 
     @Autowired
     private PecaServicoService pecaServicoService;
+
+    @Autowired
+    private PecaEstoqueService pecaEstoqueService;
+
 
     public List <MaoDeObraServico> criarMaosDeObraServico(Servico servico, List<String> maosDeObra) {
         List<MaoDeObraServico> maosDeObraServico = new ArrayList <>();
@@ -80,6 +86,22 @@ public class ServicoUtils {
     public List<PecaServico> criarPecasServico(Servico servico, List<String> pecasServico) {
         List<PecaServico> pecas = new ArrayList <>();
 
+        //Se já tiver peças salvas, eu removo-as, mais pra frente serão adicionadas de novo
+        if(servico.getPecasServico() != null) {
+
+            for(PecaServico pecaServico : servico.getPecasServico()) {
+                //Quando a peça do serviço tem cadastro do estoque, eu reincremento a quantidade utilizada para não ter divergência
+                if(pecaServico.getPecaEstoque() != null) {
+                    PecaEstoque pecaEstoque = pecaServico.getPecaEstoque();
+                    pecaEstoque.addPecaEstoque(pecaServico.getQuantidadePecaServico());
+                    this.pecaEstoqueService.save(pecaEstoque);
+                }
+            }
+
+            //Limpo as peças utilizadas anteriormente
+            servico.setPecasServico(new ArrayList <>());
+        }
+
         for(String peca : pecasServico) {
             PecaServico pecaServico = new PecaServico();
 
@@ -91,6 +113,20 @@ public class ServicoUtils {
             pecaServico.setQuantidadePecaServico(quantidadePecasServico(peca));
             pecaServico.setServico(servico);
 
+            //Buscar a peça pelo nome dela, se tiver cadastrada diminuir a quantidade e setar na pecaServico
+            PecaEstoque pecaEstoque = this.pecaEstoqueService.findOneByName(descricaoPeca);
+
+            if(pecaEstoque != null) {
+                pecaServico.setPecaEstoque(pecaEstoque);
+
+                // Gambiarra, o certo é o usuário não usar uma quantidade maior
+                // de uma peça do que a quantidade cadastrada no estoque, porém
+                // vamos deixar isso passar e simplesmente zerar o estoque
+                pecaEstoque.setQuantidadePecaEstoque(pecaEstoque.getQuantidadePecaEstoque() < pecaServico.getQuantidadePecaServico() ? 0 : pecaEstoque.getQuantidadePecaEstoque() - pecaServico.getQuantidadePecaServico());
+
+                pecaEstoque = this.pecaEstoqueService.save(pecaEstoque);
+                System.out.println("Peça do estoque atualizada. Quantidade atual em estoque: " + pecaEstoque.getQuantidadePecaEstoque());
+            }
             pecas.add(pecaServico);
         }
 

@@ -57,6 +57,7 @@ public class ModelAttributeKeys {
     public static final String PECA = "peca";
     public static final String PECAS = "pecas";
     public static final String PECAS_LISTA = "pecasLista";
+    public static final String PECAS_NOMES = "pecasNomes";
     public static final String PECAS_SERVICO = "pecasServico";
     public static final String PRECO_COMPRA = "precoCompra";
     public static final String PRECO_VENDA = "precoVenda";
@@ -72,6 +73,7 @@ public class ModelAttributeKeys {
     public static final String RUA_ENDERECO_CLIENTE = "ruaEnderecoCliente";
 
     /** S **/
+    public static final String SERVICO = "servico";
     public static final String SERVICOS = "servicos";
     public static final String SERVICOS_LISTA = "servicosLista";
 

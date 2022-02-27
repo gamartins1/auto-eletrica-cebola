@@ -54,6 +54,10 @@ public class PecaEstoque {
         this.quantidadePecaEstoque = quantidadePecaEstoque;
     }
 
+    public void addPecaEstoque(int quantidadePecaEstoque) {
+        this.quantidadePecaEstoque += quantidadePecaEstoque;
+    }
+
     public String getTempoGarantiaPecaEstoque() {
         return tempoGarantiaPecaEstoque;
     }
@@ -84,5 +88,9 @@ public class PecaEstoque {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public String getNomeAndValor() {
+        return this.nomePecaEstoque + " - " + this.valorVendaPecaEstoque;
     }
 }

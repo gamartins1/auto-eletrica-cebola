@@ -44,10 +44,10 @@
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
                         <span th:if="${servico.notaServico != null}" th:text="'Nota atribuída ao serviço ' + ${servico.notaServico.notaServico}"></span>
                     </p>
-                    <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
-                    <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                    <a th:href="${(#mvc.url('VC#redirectEditarVeiculoForm').arg(0, servico.veiculo.idVeiculo)).build()}" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
+                    <a th:href="${(#mvc.url('CC#redirectConsultarClienteForm').arg(0, servico.cliente.idCliente)).build()}" style="text-decoration: none;"><p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
                         Cliente: <b><span th:text="${servico.cliente.nomeCliente}"></span></b>
-                    </p>
+                    </p></a>
                     <p class="card-subtitle mb-2 text-muted" style="font-size: 0.75rem;">
                         Placa: <b><span th:text="${servico.veiculo.placaVeiculo}"></span></b>
                     </p>

@@ -20,10 +20,7 @@ import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.FECHADO;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -131,7 +128,7 @@ public class ServicoController {
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();
 
-        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeAndValor).collect(Collectors.toList());
+        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeValorAndGarantia).collect(Collectors.toList());
 
         modelAndView.addObject(PECAS_NOMES, pecasNomes);
         modelAndView.addObject(SERVICO, servico);
@@ -181,7 +178,7 @@ public class ServicoController {
         ModelAndView modelAndView = new ModelAndView("editarServico");
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();
-        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeAndValor).collect(Collectors.toList());
+        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeValorAndGarantia).collect(Collectors.toList());
 
         modelAndView.addObject(PECAS_NOMES, pecasNomes);
         modelAndView.addObject(SERVICO, servico);

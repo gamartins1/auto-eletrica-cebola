@@ -21,6 +21,7 @@ import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.TELEFONES_CLIE
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.VALOR_FINAL_SERVICO;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.VEICULOS;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
+import static org.thymeleaf.util.StringUtils.isEmpty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +43,8 @@ import com.aec.autoeletricacebola.utils.ClienteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -79,6 +82,8 @@ public class ClienteController {
         cliente = clienteRepository.save(initializeClient(cliente));
 
         telefoneCliente.setCliente(cliente);
+        telefoneCliente.setAtivo(true);
+        telefoneCliente.setObservacoesTelefoneCliente(isEmpty(telefoneCliente.getObservacoesTelefoneCliente()) ? EMPTY : telefoneCliente.getObservacoesTelefoneCliente());
         telefoneCliente = this.telefoneClienteRepository.save(telefoneCliente);
 
         cliente.addTelefoneCliente(telefoneCliente);
@@ -196,7 +201,7 @@ public class ClienteController {
 
     @RequestMapping(value = "editarCliente/cliente/{idCliente}/editarUmCliente", method = RequestMethod.POST)
     public @ResponseBody
-    String editarServico(@RequestBody Map atributosCliente, BindingResult result, RedirectAttributes attributes, @PathVariable String idCliente) {
+    String editarUmCliente(@RequestBody Map atributosCliente, BindingResult result, RedirectAttributes attributes, @PathVariable String idCliente) {
 
         if(idCliente == null) {
             return "";

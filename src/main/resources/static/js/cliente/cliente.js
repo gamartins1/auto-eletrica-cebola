@@ -12,7 +12,7 @@ $(document).ready(function() {
 
     $("#cepEnderecoCliente").mask("00000-000");
     $("#telefoneCliente").mask("(00)00000-0000");
-    $("#placaVeiculo").mask("AAA-0A00");
+    $(".placaVeiculo").mask("AAA-0A00");
 
     function limpa_formulário_cep() {
         // Limpa valores do formulário de cep.

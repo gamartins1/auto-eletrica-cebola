@@ -16,7 +16,7 @@ public class AutoEletricaCebolaRegexConstants {
 
     public static final String CIFRAO = "R\\$";
 
-    public static final String GARANTIA_DE = "Garantia de" + ESPACO;
+    public static final String GARANTIA_DE = "Garantia de";
 
     public static final String QUANTIDADE = "Quantidade" + ESPACO;
 }

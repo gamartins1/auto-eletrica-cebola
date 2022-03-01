@@ -11,7 +11,7 @@ $(document).ready(function() {
         const precoCompra = $('#precoCompra').val();
         const precoVenda = $('#precoVenda').val();
 
-        if(descricaoPeca === "" || quantidadePeca === "" || tempoGarantia === "" || precoCompra === "" || precoVenda === "") {
+        if(descricaoPeca === "" || quantidadePeca === "" || precoCompra === "" || precoVenda === "") {
             $('#toastErro').toast('show');
             return;
         }
@@ -72,7 +72,7 @@ $(document).ready(function() {
             $('#toastErroPreco').toast('show');
             return;
         }
-        if(descricaoPeca === "" || quantidadePeca === "" || tempoGarantia === "" || precoCompra === "" || precoVenda === "") {
+        if(descricaoPeca === "" || quantidadePeca === "" || precoCompra === "" || precoVenda === "") {
             $('#toastErroCamposVazios').toast('show');
             return;
         }

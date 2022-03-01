@@ -10,6 +10,7 @@ $(document).ready(function() {
         }).length) {
             $("#inputDescPeca").val(nomePeca.split(" - ")[0]);
             $("#inputValorPeca").val(nomePeca.split(" - ")[1]);
+            $('#inputGarantiaPeca').val(nomePeca.split(" - ")[2]);
         }
     });
 
@@ -69,7 +70,7 @@ $(document).ready(function() {
         var garantia = $('#inputGarantiaMaoDeObra').val();
         var valor = $('#inputValorMaoDeObra').val();
 
-        if(descricao === "" || mecanico === "" || garantia === "" || valor === "") {
+        if(descricao === "" || mecanico === "" || valor === "") {
             alert('Preencha todos os campos referentes a mão de obra para adicioná-la ao serviço.');
             return;
         }
@@ -98,7 +99,7 @@ $(document).ready(function() {
         var garantia = $('#inputGarantiaPeca').val();
         var valor = $('#inputValorPeca').val();
 
-        if(descricao === "" || quantidade === "" || garantia === "" || valor === "") {
+        if(descricao === "" || quantidade === "" || valor === "") {
             alert('Preencha todos os campos da peça utilizada para adicionar ao serviço.');
             return;
         }

@@ -90,7 +90,7 @@ public class PecaEstoque {
         this.ativo = ativo;
     }
 
-    public String getNomeAndValor() {
-        return this.nomePecaEstoque + " - " + this.valorVendaPecaEstoque;
+    public String getNomeValorAndGarantia() {
+        return this.nomePecaEstoque + " - " + this.valorVendaPecaEstoque + " - " + this.tempoGarantiaPecaEstoque;
     }
 }

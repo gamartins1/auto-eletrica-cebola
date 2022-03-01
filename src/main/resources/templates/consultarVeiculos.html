@@ -108,7 +108,7 @@
             </datalist>
 
             <span class="input-group-text input-search-cliente" id="inputGroup-sizing-sm-placa">Placa</span>
-            <input id="placaVeiculo" name="placaVeiculo" list="data-list-clientes-placas" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm-placa">
+            <input id="placaVeiculo" name="placaVeiculo" list="data-list-clientes-placas" class="form-control placaVeiculo" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm-placa">
             <datalist id="data-list-clientes-placas">
                 <option th:each="placa : ${placas}" th:attr="value=${placas}">
             </datalist>

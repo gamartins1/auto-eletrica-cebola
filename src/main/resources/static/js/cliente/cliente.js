@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //Carrega os clientes ao renderizar a página
-    $("#content-lista-clientes").load("/newConsultaCliente");
+    $("#content-lista-clientes").load("newConsultaCliente");
 
     $(window).keydown(function(event){
         if(event.keyCode == 13) {
@@ -73,7 +73,7 @@ $(document).ready(function() {
     $("#btn-search-cliente").on("click", function () {
         var telefoneCliente = $('#telefoneCliente').val();
         var nomeCliente = $('#nomeCliente').val();
-        $("#content-lista-clientes").load("/cliente/reSearchClientUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente});
+        $("#content-lista-clientes").load("cliente/reSearchClientUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente});
     });
 
     $("#adicionarNovoTelefone").click(function () {

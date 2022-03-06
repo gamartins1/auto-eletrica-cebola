@@ -95,7 +95,7 @@
 <section class="container section-input-search-cliente">
     <div class="input-group input-group-sm mb-3">
         <form class="input-group input-group-sm mb-3 form-search-client" method="post">
-            <span class="input-group-text input-search-cliente" id="inputGroup-sizing-sm-nome">Nome</span>
+            <span class="input-group-text input-search-cliente" id="inputGroup-sizing-sm-nome">Nome do cliente</span>
             <input id="nomeCliente" list="data-list-clientes-nomes" name="nomeCliente" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm-nome">
             <datalist id="data-list-clientes-nomes">
                 <option th:each="clienteNome : ${clientesNomes}" th:attr="value=${clienteNome}">

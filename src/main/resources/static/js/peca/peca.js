@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#content-lista-pecas").load("/newConsultaPecasPadrao");
+    $("#content-lista-pecas").load("newConsultaPecasPadrao");
 
     $("#form-cadastrar-pecas").submit(function (event) {
         //stop submit the form event. Do this manually using ajax post function

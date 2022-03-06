@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $("#content-lista-veiculos").load("/newConsultaVeiculosPadrao");
+    $("#content-lista-veiculos").load("newConsultaVeiculosPadrao");
     $("#form-cadastrar-veiculo").submit(function (event) {
         //stop submit the form event. Do this manually using ajax post function
         event.preventDefault();

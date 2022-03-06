@@ -1,8 +1,10 @@
 $(document).ready(function() {
     $("#placaVeiculo").mask("AAA-0A00");
     $("#telefoneCliente").mask("(00)00000-0000");
-    $("#content-lista-servicos").load("/newConsultaServicosPadrao");
+    $("#content-lista-servicos").load("newConsultaServicosPadrao");
 
+    //Tentar isso pra ver se essa consulta funciona, no Tomcat deu erro
+    //https://stackoverflow.com/questions/16944723/load-method-in-jquery-give-me-404-not-found-error
     $("#inputDescPeca").on('input', function () {
         var nomePeca = this.value;
         if($('#data-list-pecas-nomes option').filter(function(){
@@ -298,7 +300,7 @@ $(document).ready(function() {
         var dataAte = $('#dataAte').val();
         var dataDe = $('#dataDe').val();
 
-        $("#content-lista-servicos").load("/servico/reSearchServicesUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente, placaVeiculo:placaVeiculo, dataAte:dataAte, dataDe:dataDe});
+        $("#content-lista-servicos").load("servico/reSearchServicesUsingParams", {telefoneCliente:telefoneCliente, nomeCliente:nomeCliente, placaVeiculo:placaVeiculo, dataAte:dataAte, dataDe:dataDe});
     });
 });
 

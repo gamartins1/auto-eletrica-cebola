@@ -63,4 +63,13 @@ public class Usuario {
     public void setSenhaUsuario(String senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Usuario) {
+            Usuario usuario = (Usuario) obj;
+            return usuario.getUserUsuario().equals(this.userUsuario) && usuario.getNomeUsuario().equals(this.nomeUsuario) && usuario.getSenhaUsuario().equals(this.senhaUsuario);
+        }
+        return super.equals(obj);
+    }
 }

@@ -3,6 +3,8 @@ package com.aec.autoeletricacebola.mock;
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_TIME_FORMAT;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
 
+import javax.annotation.PostConstruct;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import com.aec.autoeletricacebola.repository.UsuarioRepository;
 import com.aec.autoeletricacebola.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.util.ListUtils;
 
 @Component
 public class CebolaAutoEletricaDummyData {
@@ -48,6 +51,24 @@ public class CebolaAutoEletricaDummyData {
     @Autowired
     private TelefoneClienteRepository telefoneClienteRepository;
 
+
+    @PostConstruct
+    public void createFirstUser() {
+        List<Usuario> usuariosCadastrados = this.usuarioRepository.findAll();
+
+        Usuario usuarioAdmin = new Usuario();
+        usuarioAdmin.setNomeUsuario("Administrador do Sistema");
+        usuarioAdmin.setUserUsuario("admin");
+        usuarioAdmin.setSenhaUsuario("admin");
+
+        Usuario finalUsuarioAdmin = usuarioAdmin;
+
+        if(ListUtils.isEmpty(usuariosCadastrados) || !usuariosCadastrados.stream().anyMatch(usuario -> usuario.equals(finalUsuarioAdmin))) {
+            usuarioAdmin = this.usuarioRepository.save(usuarioAdmin);
+
+            System.out.println("Criado primeiro usuário para o sistema: Usuário: " + usuarioAdmin.getUserUsuario());
+        }
+    }
 
     //    @PostConstruct
     public void initializeDatabase() {

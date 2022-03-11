@@ -97,6 +97,7 @@ public class ClienteController {
             veiculo = this.veiculoRepository.save(veiculo);
             System.out.println("Veiculo do cliente salvo: " + veiculo.getModeloVeiculo());
         }
+        cliente.addVeiculoCliente(veiculo);
         //Salva mais uma vez pra manter os relacionamentos do JPA
         cliente = this.clienteRepository.save(cliente);
 

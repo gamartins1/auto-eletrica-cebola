@@ -60,6 +60,7 @@ public class CebolaAutoEletricaDummyData {
         usuarioAdmin.setNomeUsuario("Administrador do Sistema");
         usuarioAdmin.setUserUsuario("admin");
         usuarioAdmin.setSenhaUsuario("admin");
+        usuarioAdmin.setAtivo(true);
 
         Usuario finalUsuarioAdmin = usuarioAdmin;
 

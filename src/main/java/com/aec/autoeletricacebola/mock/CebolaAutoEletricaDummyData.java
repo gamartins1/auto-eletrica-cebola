@@ -64,7 +64,7 @@ public class CebolaAutoEletricaDummyData {
 
         Usuario finalUsuarioAdmin = usuarioAdmin;
 
-        if(ListUtils.isEmpty(usuariosCadastrados) || !usuariosCadastrados.stream().anyMatch(usuario -> usuario.equals(finalUsuarioAdmin))) {
+        if(ListUtils.isEmpty(usuariosCadastrados) || usuariosCadastrados.stream().noneMatch(usuario -> usuario.equals(finalUsuarioAdmin))) {
             usuarioAdmin = this.usuarioRepository.save(usuarioAdmin);
 
             System.out.println("Criado primeiro usuário para o sistema: Usuário: " + usuarioAdmin.getUserUsuario());

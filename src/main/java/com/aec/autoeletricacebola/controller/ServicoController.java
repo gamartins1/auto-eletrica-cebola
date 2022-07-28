@@ -2,25 +2,13 @@ package com.aec.autoeletricacebola.controller;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_TIME_FORMAT;
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.DESCRICAO_SERVICOS;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_CLIENTE;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_SERVICO;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_VEICULO;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MAOS_DE_OBRA_SERVICO;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.MECANICOS;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.NOTA_SERVICO;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_NOMES;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_SERVICO;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_SERVICOS;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICO;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICOS;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.SERVICOS_LISTA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.VALOR_FINAL_SERVICO;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.*;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.FECHADO;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -91,7 +79,30 @@ public class ServicoController {
         List <Cliente> clientes = this.clienteRepository.findAll();
         List <Veiculo> veiculos = this.veiculoRepository.findAll();
 
-        modelAndView.addObject("clientes", clientes);
+        Map <Long, String> map = new HashMap <>();
+
+        for(Cliente cliente : clientes) {
+            if(cliente.getTelefoneCliente() == null || cliente.getTelefoneCliente().size() == 0) {
+                map.put(cliente.getIdCliente(), cliente.getNomeCliente());
+            }
+            else {
+                for(TelefoneCliente telefoneCliente : cliente.getTelefoneCliente()) {
+                    if(telefoneCliente.getNumeroTelefoneCliente().equals(EMPTY)) {
+                        map.put(cliente.getIdCliente(), cliente.getNomeCliente());
+                    }
+                    else {
+                        if(map.containsKey(cliente.getIdCliente())) {
+                            map.put(cliente.getIdCliente(), map.get(cliente.getIdCliente()) + ", " + telefoneCliente.getNumeroTelefoneCliente());
+                        }
+                        else {
+                            map.put(cliente.getIdCliente(), cliente.getNomeCliente() + ": " + telefoneCliente.getNumeroTelefoneCliente());
+                        }
+                    }
+                }
+            }
+        }
+
+        modelAndView.addObject("clientes", map);
         modelAndView.addObject("veiculos", veiculos);
 
         return modelAndView;

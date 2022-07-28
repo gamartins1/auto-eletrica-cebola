@@ -104,7 +104,7 @@
                     <input list="data-list-clientes" class=" form-control" id="pickerCliente">
                 </div>
                 <datalist id="data-list-clientes">
-                    <option th:each="cliente : ${clientes}" th:attr="id=${cliente.idCliente}, value=${cliente.nomeCliente}">
+                    <option th:each="cliente : ${clientes}" th:attr="id=${cliente.key}, value=${cliente.value}">
                 </datalist>
             </div>
             <div id="optsVeiculos"></div>

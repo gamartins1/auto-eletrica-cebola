@@ -93,6 +93,7 @@ public class ClienteController {
         cliente.setEnderecoCliente(enderecoCliente);
 
         if(veiculo != null && !veiculo.getModeloVeiculo().isEmpty()) {
+            veiculo.setAtivo(true);
             veiculo.setCliente(cliente);
             veiculo = this.veiculoRepository.save(veiculo);
             System.out.println("Veiculo do cliente salvo: " + veiculo.getModeloVeiculo());

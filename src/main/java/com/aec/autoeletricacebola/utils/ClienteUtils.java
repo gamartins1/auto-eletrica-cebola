@@ -49,9 +49,17 @@ public class ClienteUtils {
             telefoneCliente.setAtivo(true);
             telefoneCliente.setObservacoesTelefoneCliente(EMPTY);
 
-            telefonesCliente.add(telefoneCliente);
+            final TelefoneCliente finalTelefoneCliente = telefoneCliente;//Para usar no stream precisa ser final
+            if(cliente.getTelefoneCliente().stream().noneMatch(tel -> tel.getNumeroTelefoneCliente().equals(finalTelefoneCliente.getNumeroTelefoneCliente()))) {
+                telefoneCliente = this.telefoneClienteService.save(telefoneCliente);
+                telefonesCliente.add(telefoneCliente);
+            }
+            else {
+                final TelefoneCliente finalTelefoneCliente1 = telefoneCliente;//Para usar no stream precisa ser final
+                telefonesCliente.add(cliente.getTelefoneCliente().stream().filter(t -> t.getNumeroTelefoneCliente().equals(finalTelefoneCliente1.getNumeroTelefoneCliente())).findFirst().get());
+            }
+
         }
-        telefonesCliente = this.telefoneClienteService.saveAll(telefonesCliente);
 
         return telefonesCliente;
     }

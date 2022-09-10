@@ -2,6 +2,7 @@ $(document).ready(function() {
     $("#placaVeiculo").mask("AAA-0A00");
     $("#telefoneCliente").mask("(00)00000-0000");
     $("#content-lista-servicos").load("newConsultaServicosPadrao");
+    $("#content-lista-servicos-pagamento-pendente").load("newConsultaServicosPagamentoPendentePadrao");
 
     $("#inputDescPeca").on('input', function () {
         var nomePeca = this.value;

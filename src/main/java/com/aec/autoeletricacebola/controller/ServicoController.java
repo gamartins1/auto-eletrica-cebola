@@ -234,8 +234,19 @@ public class ServicoController {
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();
 
-        modelAndView.addObject("servico", servico);
+        modelAndView.addObject(SERVICO, servico);
         modelAndView.addObject("mecanicos", mecanicos);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/consultarServicoPagamentoPendente")
+    @RequestMapping(value = "/consultarServicoPagamentoPendente/{idServico}", method = RequestMethod.GET)
+    public ModelAndView redirectConsultarServicoPagamentoPendenteForm(@PathVariable(ID_SERVICO) Long id) {
+        ModelAndView modelAndView = new ModelAndView("receberPagamentoServico");
+        Servico servico = servicoService.findById(id);
+
+        modelAndView.addObject(SERVICO, servico);
 
         return modelAndView;
     }
@@ -246,9 +257,38 @@ public class ServicoController {
         ModelAndView modelAndView = new ModelAndView("consultarServicos");
         List<Servico> servicos = servicoService.findAll();
 
-        modelAndView.addObject("servico", servicos);
+        modelAndView.addObject(SERVICO, servicos);
 
         return modelAndView;
+    }
+
+    @GetMapping("/consultarServicosPagamentoPendente")
+    @RequestMapping(value = "/consultarServicosPagamentoPendente", method = RequestMethod.GET)
+    public ModelAndView redirectConsultarServicosPagamentoPendenteForm() {
+        ModelAndView modelAndView = new ModelAndView("consultarServicosPagamentoPendente");
+        List<Servico> servicos = servicoService.findAll();
+
+        modelAndView.addObject(SERVICO, servicos);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/newConsultaServicosPagamentoPendentePadrao")
+    public String redirectConsultaServicosPagamentoPendentePadrao(Model m) {
+        List <Servico> servicos = this.servicoService.findAll();
+
+        List <String> clientesNomes = this.clienteRepository.findAll().stream().map(Cliente::getNomeCliente).collect(Collectors.toList());
+        List <String> placas = this.veiculoRepository.findAll().stream().map(Veiculo::getPlacaVeiculo).collect(Collectors.toList());
+        List <String> telefones = this.telefoneClienteService.findAll().stream().map(TelefoneCliente::getNumeroTelefoneCliente).collect(Collectors.toList());
+
+        m.addAttribute("telefones", telefones);
+        m.addAttribute("placas", placas);
+        m.addAttribute("clientesNomes", clientesNomes);
+        m.addAttribute("servicos", servicos);
+        m.addAttribute("quantidadeServicos", servicos.size());
+
+        m.addAttribute("servicosPagamentoPendenteLista", servicos);
+        return "modal/lista_consulta_servicos_pagamento_pendente :: servicosPagamentoPendenteLista";
     }
 
     @GetMapping("/newConsultaServicosPadrao")

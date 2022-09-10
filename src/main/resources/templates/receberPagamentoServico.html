@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/cadastroCliente.css" th:href="@{/css/cadastroCliente.css}" />
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/consultaCliente.css" th:href="@{/css/consultaCliente.css}" />
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/cadastroServico.css" th:href="@{/css/cadastroServico.css}" />
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/servico.css" th:href="@{/css/servico.css}" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
 
@@ -96,32 +97,27 @@
         <a th:href="@{/login}"><button type="button" class="btn btn-outline-light">Sair</button></a>
     </div>
 </nav>
-<h6 class="text-content-identifier-page">Editar um serviço</h6>
-<div id="toastSucesso" role="alert" style="position: relative; min-height: 50px; background-color: #90EE90;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
-    <div class="toast-header">
-        <strong class="mr-auto">Serviço editado</strong>
-    </div>
-    <div class="toast-body">
-        Sucesso ao editar o serviço
-    </div>
-</div>
-
-<div id="toastErro" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
-    <div class="toast-header">
-        <strong class="mr-auto">Erro ao editar serviço</strong>
-    </div>
-    <div class="toast-body">
-        Não foi possível editar o serviço. Verifique as informações e tente novamente
-    </div>
-</div>
-
+<h6 class="text-content-identifier-page">Receber pagamento de um serviço</h6>
 <section>
     <div class="container container-car-service">
         <div class="card shadow-sm bg-white rounded div-cliente" style="margin-top: 20px;">
             <div class="card-body">
-                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
                     Serviço aberto em <span th:text="${servico.aberturaServico}"></span>
                 </p>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                    Status atual do serviço: <span th:text="${servico.statusAtualServico}"></span>
+                </p>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                    <span th:if="${servico.encerramentoServico != null}" th:text="'Serviço finalizado em ' + ${servico.encerramentoServico}"></span>
+                </p>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem; margin-bottom: 30px;">
+                    <span th:text="${servico.encerramentoServico} ? 'Valor final do serviço: R$' + ${servico.valorFinalServico} : 'Valor parcial do serviço: R$' + ${servico.valorFinalServico} "></span>
+                </p>
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
+                    <span th:if="${servico.notaServico != null}" th:text="'Nota atribuída ao serviço ' + ${servico.notaServico.notaServico}"></span>
+                </p>
+
                 <a href="#" class="carname-link"><h5 class="card-title"><span th:text="${servico.veiculo.modeloVeiculo}"></span></h5></a>
                 <p class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">
                     Cliente: <b><span th:text="${servico.cliente.nomeCliente}"></span></b>
@@ -137,27 +133,15 @@
                 </div>
             </div>
 
-            <form method="post" id="form-editar-servico" th:attr="name=${servico.idServico}">
+            <form method="post" id="form-receber-pagamento" th:attr="name=${servico.idServico}">
                 <div>
-                    <label><h6 class="modal-title titles-cadastro">Serviços solicitados/problemas relatados</h6></label>
-                    <div class="div-add-descricao">
-                        <div class="col-6">
-                            <input class="form-control" id="inputDescServico" placeholder="Descreva o serviço solicitado pelo cliente" aria-describedby="basic-addon2">
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-primary btn-sm" id="adicionarNovaDescricaoServico">Adicionar</button>
-                        </div>
-                    </div>
-
+                    <label><h5 class="modal-title titles-cadastro">Serviços solicitados/problemas relatados</h5></label>
                     <div class="col-8 list-group-servicos-solicitados">
                         <ul class="list-group list-group-flush" id="list-descricoes-servicos">
                             <li class="list-group-item" th:each="descricaoServico, userStat : ${servico.descricaoServico}" th:attr="id='descServico'+${userStat.index}">
                                 <div class="d-flex justify-content-between">
                                     <div class="col-md-8 flex-grow-1">
-                                        <h6 class="descricoes-servicos-values"><span th:text="${descricaoServico.descricaoDoServico}"></span></h6>
-                                    </div>
-                                    <div>
-                                        <h6 th:onclick="|removerLI('descServico${userStat.index}');|" ><span class="badge bg-primary rounded-pill"><i class="bi bi-x-circle"></i></span></h6>
+                                        <h6 class="descricoes-servicos-values text-muted items-search-service" ><span th:text="${descricaoServico.descricaoDoServico}"></span></h6>
                                     </div>
                                 </div>
                             </li>
@@ -165,39 +149,13 @@
                     </div>
                 </div>
                 <div>
-                    <label><h6 class="modal-title titles-cadastro">Descrição de mão de obra</h6></label>
-                    <div class="div-add-descricao div-add-mao-de-obra">
-                        <div class="col-2 input-group input-group-sm mb-3">
-                            <div class="col">
-                                <input class="form-control" id="inputDescMaoDeObra" placeholder="Mão de obra realizada" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Descreva a de mão de obra realizada">
-                            </div>
-                            <div class="col">
-                                <input id="inputMecanicoMaoDeObra" list="data-list-mecanicos" class=" form-control" placeholder="Mecânico responsável" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Mecânico responsável pelo serviço">
-                            </div>
-                            <datalist id="data-list-mecanicos">
-                                <option th:each="mecanico : ${mecanicos}" th:attr="id=${mecanico.idMecanico}, value= ${mecanico.idMecanico} + ' - ' + ${mecanico.nomeMecanico}">
-                            </datalist>
-                            <div class="col-md-2">
-                                <input class="form-control" id="inputGarantiaMaoDeObra" placeholder="Garantia" aria-describedby="basic-addon2">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="number" step="0.1" data-decimals="3" class="form-control" id="inputValorMaoDeObra" placeholder="Valor" aria-describedby="basic-addon2">
-                            </div>
-                            <div class="col col-lg-2">
-                                <button type="button" class="btn btn-primary btn-sm" id="adicionarNovaMaoDeObra">Adicionar</button>
-                            </div>
-                        </div>
-                    </div>
-
+                    <label><h5 class="modal-title titles-cadastro">Descrição de mão de obra</h5></label>
                     <div class="col-8 list-group-servicos-solicitados">
                         <ul class="list-group list-group-flush" id="list-descricoes-mao-de-obra">
                             <li class="list-group-item" th:each="maoDeObraServico, userStat : ${servico.maoDeObraServico}" th:attr="id='maoDeObra'+${userStat.index}">
                                 <div class="d-flex justify-content-between">
                                     <div class="col-md-8 flex-grow-1">
-                                        <h6 class="maosdeobra-servicos-values"><span th:attr="id='textoMaoObra'+${userStat.index}" th:text="${maoDeObraServico.descricaoMaoDeObraServico} + ' - R$' + ${maoDeObraServico.valorMaoDeObraServico} + ' (único). Garantia de ' + ${maoDeObraServico.tempoGarantiaMaoDeObraServico} + '. Realizado por: ' + ${maoDeObraServico.mecanico.idMecanico} + ' - ' + ${maoDeObraServico.mecanico.nomeMecanico}"></span></h6>
-                                    </div>
-                                    <div>
-                                        <h6 th:onclick="|removerLIDecrementarValorFinal('maoDeObra${userStat.index}', 'textoMaoObra${userStat.index}');|"><span class="badge bg-primary rounded-pill"><i class="bi bi-x-circle"></i></span></h6>
+                                        <h6 class="maosdeobra-servicos-values text-muted items-search-service" style="text-decoration: none"><span th:attr="id='textoMaoObra'+${userStat.index}" th:text="${maoDeObraServico.descricaoMaoDeObraServico} + ' - R$' + ${maoDeObraServico.valorMaoDeObraServico} + ' (único). Garantia de ' + ${maoDeObraServico.tempoGarantiaMaoDeObraServico} + '. Realizado por: ' + ${maoDeObraServico.mecanico.idMecanico} + ' - ' + ${maoDeObraServico.mecanico.nomeMecanico}"></span></h6>
                                     </div>
                                 </div>
                             </li>
@@ -205,68 +163,52 @@
                     </div>
                 </div>
                 <div>
-                    <label><h6 class="modal-title titles-cadastro">Peças</h6></label>
-                    <div class="div-add-descricao div-add-mao-de-obra">
-                        <div class="col-6 input-group input-group-sm mb-3">
-                            <div class="col">
-                                <input class="form-control" list="data-list-pecas-nomes" id="inputDescPeca" placeholder="Peça usada" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe a peça utilizada no serviço">
-                                <datalist id="data-list-pecas-nomes">
-                                    <option th:each="pecaNome : ${pecasNomes}" th:attr="id=${pecaNome.key}, value=${pecaNome.value}">
-                                </datalist>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="number" class="form-control" id="inputQtdPeca" placeholder="Quantidade" aria-describedby="basic-addon2">
-                            </div>
-                            <div class="col-md-2">
-                                <input class="form-control" id="inputGarantiaPeca" placeholder="Garantia" aria-describedby="basic-addon2">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="number" step="0.1" data-decimals="3" class="form-control" id="inputValorPeca" placeholder="Valor" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe o valor unitário da peça">
-                            </div>
-                            <div class="col col-lg-2">
-                                <button type="button" class="btn btn-primary btn-sm" id="adicionarNovaPeca">Adicionar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <label><h5 class="modal-title titles-cadastro">Peças</h5></label>
                     <div class="col-8 list-group-servicos-solicitados">
                         <ul class="list-group list-group-flush" id="list-descricoes-pecas">
                             <li class="list-group-item"  th:each="pecaServico, userStat : ${servico.pecasServico}" th:attr="id='peca'+${userStat.index}">
                                 <div class="d-flex justify-content-between">
                                     <div class="col-md-8 flex-grow-1">
-                                        <h6 class="pecas-servicos-values"><span th:attr="id='textoPeca'+${userStat.index}, id-peca-servico=${pecaServico.pecaEstoque} ? ${pecaServico.pecaEstoque.idPecaEstoque} : ''" th:text="${pecaServico.nomePecaEstoque} + ' - R$' + ${pecaServico.valorPeca} + ' (único). Garantia de ' + ${pecaServico.tempoGarantiaPecaServico} + '. Quantidade ' + ${pecaServico.quantidadePecaServico}"></span></h6>
-                                    </div>
-                                    <div>
-                                        <h6 th:onclick="|removerLIDecrementarValorFinal('peca${userStat.index}', 'textoPeca${userStat.index}');|"><span class="badge bg-primary rounded-pill"><i class="bi bi-x-circle"></i></span></h6>
+                                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:attr="id='textoPeca'+${userStat.index}" th:text="${pecaServico.nomePecaEstoque} + ' - R$' + ${pecaServico.valorPeca} + ' (único). Garantia de ' + ${pecaServico.tempoGarantiaPecaServico} + '. Quantidade ' + ${pecaServico.quantidadePecaServico}"></span></h6>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <button type="button" th:onclick="|buscarQuantidadeEstoquePeca();|" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bd-example-modal-sm">Estoque das peças utilizadas</button>
-
-                    <div class="modal fade" id="bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-sm">
-                            <div class="modal-content">
-                                <div id="divQtdEstoquePecasUsadasNoServico">
-                                    <span id="lblQtdEstoquePecasUsadasNoServico">Quantidade em estoque das peças utilizadas</span>
+                </div>
+                <div>
+                    <label><h5 class="modal-title titles-cadastro">Histórico de pagamentos</h5></label>
+                    <div class="col-8 list-group-servicos-solicitados">
+                        <ul class="list-group list-group-flush" id="list-historico-pagamentos">
+                            <li class="list-group-item"  th:each="pecaServico, userStat : ${servico.pecasServico}" th:attr="id='peca'+${userStat.index}">
+                                <div class="d-flex justify-content-between">
+                                    <div class="col-md-8 flex-grow-1">
+                                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:attr="id='textoPeca'+${userStat.index}" th:text="${pecaServico.nomePecaEstoque} + ' - R$' + ${pecaServico.valorPeca} + ' (único). Garantia de ' + ${pecaServico.tempoGarantiaPecaServico} + '. Quantidade ' + ${pecaServico.quantidadePecaServico}"></span></h6>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <label><h5 class="modal-title titles-cadastro">Receber</h5></label>
+                    <div class="col-8 list-group-servicos-solicitados">
+                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor total do serviço: ' + ${servico.valorFinalServico}"></span></h6>
+                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor previamente recebido: ' + ${servico.valorFinalServico}"></span></h6>
+                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor em aberto: ' + ${servico.valorFinalServico}"></span></h6>
+
+                        <label for="valorRecebido" class="form-label"><h5 class="modal-title titles-cadastro">Valor recebido</h5></label>
+                        <input type="number" step="0.01" data-decimals="4" class="form-control" id="valorRecebido" name="valorRecebido" th:attr="value=${servico.valorFinalServico}">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <h6>Valor final: <b>R$<span id="lbl-valor-final-servico" th:text="${servico.valorFinalServico}"></span></b></h6>
-                    <button id="btnSalvarEdicaoServico" type="submit" class="btn btn-primary">Salvar Serviço</button>
-                    <a th:href="@{/consultarServicos}"><button type="button" class="btn btn-secondary">Cancelar</button></a>
+                    <button type="submit" class="btn btn-primary" id="btnReceberPagamento">Receber Pagamento</button>
+                    <a th:href="@{/menu}"><button type="button" class="btn btn-secondary">Voltar</button></a>
                 </div>
             </form>
         </div>
     </div>
 </section>
-<!--Esse modal representa a tela de cadastro de cliente que é chamada dentro do menu-->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div th:replace="/modal/cadastro_cliente::modalCadastrarCliente"></div>
-</div>
 </body>
 <script>
     $(function () {

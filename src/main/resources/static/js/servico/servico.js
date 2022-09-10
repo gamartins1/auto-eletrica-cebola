@@ -3,8 +3,6 @@ $(document).ready(function() {
     $("#telefoneCliente").mask("(00)00000-0000");
     $("#content-lista-servicos").load("newConsultaServicosPadrao");
 
-    //Tentar isso pra ver se essa consulta funciona, no Tomcat deu erro
-    //https://stackoverflow.com/questions/16944723/load-method-in-jquery-give-me-404-not-found-error
     $("#inputDescPeca").on('input', function () {
         var nomePeca = this.value;
         if($('#data-list-pecas-nomes option').filter(function(){
@@ -106,12 +104,20 @@ $(document).ready(function() {
             return;
         }
 
+        var idPecaEstoque = ""
+        var itemPecaEstoque = descricao + " - " + valor + " - " + garantia;
+        var idPecaSelecionada = document.querySelector("#data-list-pecas-nomes option[value='" + itemPecaEstoque + "']");
+
+        if(idPecaSelecionada != null) {
+            idPecaEstoque = idPecaSelecionada.id;
+        }
+
         var textoLI = descricao + " - R$" + valor + " (único)."
 
         if(isPecaNova(quantidade, textoLI, garantia)) {
             textoLI += " Garantia de " + garantia + ". Quantidade " + quantidade
 
-            var _li = `<li class='list-group-item' id='${idNewLI}'><div class='d-flex justify-content-between'><div class='col-md-8 flex-grow-1'><h6 class='pecas-servicos-values' id='${idTextoLI}'>${textoLI}</h6></div><div><h6 onclick="removerLIDecrementarValorFinal('${idNewLI}', '${idTextoLI}')"><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6></div></div></li>`;
+            var _li = `<li class='list-group-item' id='${idNewLI}'><div class='d-flex justify-content-between'><div class='col-md-8 flex-grow-1'><h6 class='pecas-servicos-values'><span id='${idTextoLI}' id-peca-servico='${idPecaEstoque}'>${textoLI}</span></h6></div><div><h6 onclick="removerLIDecrementarValorFinal('${idNewLI}', '${idTextoLI}')"><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6></div></div></li>`;
             $("#list-descricoes-pecas").append(_li);
 
             incrementarValorFinal(valor, quantidade);
@@ -347,6 +353,14 @@ function isPecaNova(quantidade, peca, garantia) {
             var id = $(this).attr('id');
             var textoId = 'textoPeca' + id.split('peca')[1];
 
+
+            var itemPecaEstoque = $('#inputDescPeca').val() + " - " + $('#inputValorPeca').val() + " - " + $('#inputGarantiaPeca').val();
+            var idPecaSelecionada = document.querySelector("#data-list-pecas-nomes option[value='" + itemPecaEstoque + "']").id;
+
+            if(idPecaSelecionada == null) {
+                idPecaSelecionada = "";
+            }
+
             removerLIDecrementarValorFinal(id, textoId);
 
             var valor = descricaoPeca.split(" (único)")[0].split("R$")[1];
@@ -354,7 +368,8 @@ function isPecaNova(quantidade, peca, garantia) {
 
             peca += " Garantia de " + garantia + ". Quantidade " + quantidade
 
-            var _li = `<li class='list-group-item' id='${id}'><div class='d-flex justify-content-between'><div class='col-md-8 flex-grow-1'><h6 class='pecas-servicos-values' id='${textoId}'>${peca}</h6></div><div><h6 onclick="removerLIDecrementarValorFinal('${id}', '${textoId}')"><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6></div></div></li>`;
+            var _li = `<li class='list-group-item' id='${id}'><div class='d-flex justify-content-between'><div class='col-md-8 flex-grow-1'><h6 class='pecas-servicos-values'><span id='${textoId}' id-peca-servico='${idPecaSelecionada}'>${peca}</span></h6></div><div><h6 onclick="removerLIDecrementarValorFinal('${id}', '${textoId}')"><span class='badge bg-primary rounded-pill'><i class='bi bi-x-circle'></i></span></h6></div></div></li>`;
+
             $("#list-descricoes-pecas").append(_li);
 
             incrementarValorFinal(valor, quantidade);
@@ -364,4 +379,54 @@ function isPecaNova(quantidade, peca, garantia) {
     });
 
     return toReturn == null;
+}
+
+function buscarQuantidadeEstoquePeca() {
+    $("#lblQtdEstoquePecasUsadasNoServico").siblings().remove();
+    var idPecas = [];
+    var pecasServico = document.querySelectorAll('[id-peca-servico]');
+
+    pecasServico.forEach(function(peca){
+        var idPeca = Number(peca.getAttribute("id-peca-servico"));
+
+        if(!isNaN(idPeca)) {
+            idPecas.push(idPeca);
+        }
+    });
+
+    if(idPecas.length !== 0) {
+        const objRequest = {idPecas: idPecas};
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "/peca/obterQuantidadeEstoquePecas",
+            data: JSON.stringify(objRequest),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            error: function (e) {
+                if(e.responseText != "") {
+
+                }
+            },
+            success: function (data,status,xhr) {
+                if(data != null) {
+                    var corQuantidade = "list-group-item-light";
+                    data.forEach(function(dataPeca){
+                        var quantidadeEstoque = parseInt(dataPeca.quantidadePecaEstoque);
+                        if(quantidadeEstoque < 7) {
+                            corQuantidade = "list-group-item-danger";
+                        }
+
+                        var valor = dataPeca.nomePecaEstoque + ' - Quantidade restante: ' + quantidadeEstoque;
+                        var newLine = ('<a class="list-group-item list-group-item-action ' + corQuantidade + '" value="' + valor + '">' + valor + '</a>');
+
+                        $('#divQtdEstoquePecasUsadasNoServico').append(newLine);
+                    });
+                }
+
+            }
+
+        });
+    }
 }

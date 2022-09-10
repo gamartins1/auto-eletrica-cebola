@@ -1,15 +1,7 @@
 package com.aec.autoeletricacebola.controller;
 
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.DESCRICAO_PECA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.ID_PECA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PECAS_LISTA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PRECO_COMPRA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.PRECO_VENDA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.QUANTIDADE_PECA;
-import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.TEMPO_GARANTIA;
+import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.*;
 
 import java.util.List;
 import java.util.Map;
@@ -17,9 +9,11 @@ import java.util.stream.Collectors;
 
 import com.aec.autoeletricacebola.model.PecaEstoque;
 import com.aec.autoeletricacebola.service.peca_estoque.PecaEstoqueService;
+import com.aec.autoeletricacebola.service.peca_servico.PecaServicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +23,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.StringUtils;
 
 @Controller
 public class PecaEstoqueController {
 
     @Autowired
     private PecaEstoqueService pecaEstoqueService;
+
+    @Autowired
+    private PecaServicoService pecaServicoService;
 
     @GetMapping("/cadastrarPeca")
     @RequestMapping(value = "/cadastrarPeca", method = RequestMethod.GET)
@@ -140,4 +138,39 @@ public class PecaEstoqueController {
         return "Peça editada com sucesso";
     }
 
+    @RequestMapping(value = "peca/obterQuantidadeEstoquePeca", method = RequestMethod.POST)
+    public @ResponseBody
+    String obterQuantidadeEstoquePeca(@RequestBody Map atributosPeca) {
+
+        if(StringUtils.isEmpty((String)atributosPeca.get(ID_PECA))) {
+            return EMPTY;
+        }
+
+        Long idPeca = Long.parseLong((String) atributosPeca.get(ID_PECA));
+
+        PecaEstoque pecaEstoque = this.pecaEstoqueService.findById(idPeca);
+
+        if(pecaEstoque != null) {
+            return String.valueOf(pecaEstoque.getQuantidadePecaEstoque());
+        }
+
+        return EMPTY;
+    }
+
+    @RequestMapping(value = "peca/obterQuantidadeEstoquePecas", method = RequestMethod.POST)
+    public @ResponseBody
+    List<PecaEstoque> obterQuantidadeEstoquePecas(@RequestBody Map atributosPeca) {
+
+        if(ObjectUtils.isEmpty(atributosPeca.get(ID_PECAS))) {
+            return null;
+        }
+
+        List<Long> longs = ((List<Integer>)atributosPeca.get(ID_PECAS)).stream().mapToLong(Integer::longValue).boxed().collect(Collectors.toList());
+        List<PecaEstoque> pecasEstoque = this.pecaEstoqueService.findAllById(longs);
+
+
+//        List<PecaEstoque> pecasEstoque = pecasServico.stream().map(PecaServico::getPecaEstoque).filter(Objects::nonNull).collect(Collectors.toList());
+
+        return pecasEstoque;
+    }
 }

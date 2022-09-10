@@ -19,6 +19,11 @@ public class PecaEstoqueServiceImpl implements PecaEstoqueService {
     }
 
     @Override
+    public List <PecaEstoque> findAllById(List <Long> ids) {
+        return this.pecaEstoqueRepository.findAllById(ids);
+    }
+
+    @Override
     public List <PecaEstoque> findAllIncludesInactives() {
         return this.pecaEstoqueRepository.findAllIncludesInactives();
     }

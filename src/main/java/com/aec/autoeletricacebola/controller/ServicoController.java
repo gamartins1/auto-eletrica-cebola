@@ -139,7 +139,7 @@ public class ServicoController {
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();
 
-        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeValorAndGarantia).collect(Collectors.toList());
+        Map <Long, String> pecasNomes = this.pecaEstoqueService.findAll().stream().collect(Collectors.toMap(PecaEstoque::getIdPecaEstoque, PecaEstoque::getNomeValorAndGarantia));
 
         modelAndView.addObject(PECAS_NOMES, pecasNomes);
         modelAndView.addObject(SERVICO, servico);
@@ -189,7 +189,7 @@ public class ServicoController {
         ModelAndView modelAndView = new ModelAndView("editarServico");
         Servico servico = servicoService.findById(id);
         List<Mecanico> mecanicos = mecanicoService.findAll();
-        List <String> pecasNomes = this.pecaEstoqueService.findAll().stream().map(PecaEstoque::getNomeValorAndGarantia).collect(Collectors.toList());
+        Map <Long, String> pecasNomes = this.pecaEstoqueService.findAll().stream().collect(Collectors.toMap(PecaEstoque::getIdPecaEstoque, PecaEstoque::getNomeValorAndGarantia));
 
         modelAndView.addObject(PECAS_NOMES, pecasNomes);
         modelAndView.addObject(SERVICO, servico);

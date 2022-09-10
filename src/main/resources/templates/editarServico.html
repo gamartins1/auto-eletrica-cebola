@@ -210,7 +210,7 @@
                             <div class="col">
                                 <input class="form-control" list="data-list-pecas-nomes" id="inputDescPeca" placeholder="Peça usada" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe a peça utilizada no serviço">
                                 <datalist id="data-list-pecas-nomes">
-                                    <option th:each="pecaNome : ${pecasNomes}" th:attr="value=${pecaNome}">
+                                    <option th:each="pecaNome : ${pecasNomes}" th:attr="id=${pecaNome.key}, value=${pecaNome.value}">
                                 </datalist>
                             </div>
                             <div class="col-md-2">
@@ -232,7 +232,7 @@
                             <li class="list-group-item"  th:each="pecaServico, userStat : ${servico.pecasServico}" th:attr="id='peca'+${userStat.index}">
                                 <div class="d-flex justify-content-between">
                                     <div class="col-md-8 flex-grow-1">
-                                        <h6 class="pecas-servicos-values"><span th:attr="id='textoPeca'+${userStat.index}" th:text="${pecaServico.nomePecaEstoque} + ' - R$' + ${pecaServico.valorPeca} + ' (único). Garantia de ' + ${pecaServico.tempoGarantiaPecaServico} + '. Quantidade ' + ${pecaServico.quantidadePecaServico}"></span></h6>
+                                        <h6 class="pecas-servicos-values"><span th:attr="id='textoPeca'+${userStat.index}, id-peca-servico=${pecaServico.pecaEstoque} ? ${pecaServico.pecaEstoque.idPecaEstoque} : ''" th:text="${pecaServico.nomePecaEstoque} + ' - R$' + ${pecaServico.valorPeca} + ' (único). Garantia de ' + ${pecaServico.tempoGarantiaPecaServico} + '. Quantidade ' + ${pecaServico.quantidadePecaServico}"></span></h6>
                                     </div>
                                     <div>
                                         <h6 th:onclick="|removerLIDecrementarValorFinal('peca${userStat.index}', 'textoPeca${userStat.index}');|"><span class="badge bg-primary rounded-pill"><i class="bi bi-x-circle"></i></span></h6>
@@ -240,6 +240,17 @@
                                 </div>
                             </li>
                         </ul>
+                    </div>
+                    <button type="button" th:onclick="|buscarQuantidadeEstoquePeca();|" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bd-example-modal-sm">Estoque das peças utilizadas</button>
+
+                    <div class="modal fade" id="bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div id="divQtdEstoquePecasUsadasNoServico">
+                                    <span id="lblQtdEstoquePecasUsadasNoServico">Quantidade em estoque das peças utilizadas</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -251,6 +262,10 @@
         </div>
     </div>
 </section>
+<!--Esse modal representa a tela de cadastro de cliente que é chamada dentro do menu-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div th:replace="/modal/cadastro_cliente::modalCadastrarCliente"></div>
+</div>
 </body>
 <script>
     $(function () {

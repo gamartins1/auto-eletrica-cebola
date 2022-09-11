@@ -5,19 +5,24 @@ import static com.aec.autoeletricacebola.utils.AutoEletricaCebolaRegexConstants.
 import static com.aec.autoeletricacebola.utils.AutoEletricaCebolaStringSplitUtils.quantidadePecasServico;
 import static com.aec.autoeletricacebola.utils.AutoEletricaCebolaStringSplitUtils.tempoGarantiaItemServico;
 import static com.aec.autoeletricacebola.utils.AutoEletricaCebolaStringSplitUtils.valorItemServico;
+import static com.aec.autoeletricacebola.utils.StatusServicoConstants.FECHADO;
+import static com.aec.autoeletricacebola.utils.StatusServicoConstants.PAGAMENTO_PENDENTE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.aec.autoeletricacebola.model.DescricaoServico;
 import com.aec.autoeletricacebola.model.MaoDeObraServico;
 import com.aec.autoeletricacebola.model.Mecanico;
+import com.aec.autoeletricacebola.model.PagamentosServico;
 import com.aec.autoeletricacebola.model.PecaEstoque;
 import com.aec.autoeletricacebola.model.PecaServico;
 import com.aec.autoeletricacebola.model.Servico;
 import com.aec.autoeletricacebola.service.descricao_servico.DescricaoServicoService;
 import com.aec.autoeletricacebola.service.mao_de_obra.MaoDeObraService;
 import com.aec.autoeletricacebola.service.mecanico.MecanicoService;
+import com.aec.autoeletricacebola.service.pagamento_servico.PagamentoServicoService;
 import com.aec.autoeletricacebola.service.peca_estoque.PecaEstoqueService;
 import com.aec.autoeletricacebola.service.peca_servico.PecaServicoService;
 import com.aec.autoeletricacebola.service.servico.ServicoService;
@@ -45,6 +50,19 @@ public class ServicoUtils {
     @Autowired
     private PecaEstoqueService pecaEstoqueService;
 
+    @Autowired
+    private PagamentoServicoService pagamentoServicoService;
+
+    public List<PagamentosServico> registrarPagamentoServico(Servico servico, double valorRecebido) {
+        List<PagamentosServico> pagamentosRecebidos = servico.getPagamentosServico();
+
+        if(pagamentosRecebidos == null) {
+            pagamentosRecebidos = new ArrayList <>();
+        }
+        pagamentosRecebidos.add(new PagamentosServico(valorRecebido, servico));
+
+        return this.pagamentoServicoService.saveAll(pagamentosRecebidos);
+    }
 
     public List <MaoDeObraServico> criarMaosDeObraServico(Servico servico, List<String> maosDeObra) {
         List<MaoDeObraServico> maosDeObraServico = new ArrayList <>();
@@ -132,5 +150,11 @@ public class ServicoUtils {
 
         pecas = this.pecaServicoService.saveAll(pecas);
         return pecas;
+    }
+
+    public static String obterStatusAtualPagamentoServico(double valorFinalServico, List<PagamentosServico> pagamentosRecebidos) {
+        double valorTotalJaRecebido = pagamentosRecebidos.stream().map(PagamentosServico::getValorPagamentoServico).collect(Collectors.toList()).stream().mapToDouble(Double::doubleValue).sum();
+
+        return valorTotalJaRecebido >= valorFinalServico ? FECHADO : PAGAMENTO_PENDENTE;
     }
 }

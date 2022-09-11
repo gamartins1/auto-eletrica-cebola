@@ -54,6 +54,9 @@ public class Servico {
     @OneToMany(targetEntity = MaoDeObraServico.class)
     private List maoDeObraServico;
 
+    @OneToMany(targetEntity = PagamentosServico.class)
+    private List<PagamentosServico> pagamentosServico;
+
     @OneToOne
     private NotaServico notaServico;
 
@@ -167,6 +170,14 @@ public class Servico {
 
     public void setDataEncerramentoServico(Date dataEncerramentoServico) {
         this.dataEncerramentoServico = dataEncerramentoServico;
+    }
+
+    public List <PagamentosServico> getPagamentosServico() {
+        return pagamentosServico;
+    }
+
+    public void setPagamentosServico(List <PagamentosServico> pagamentosServico) {
+        this.pagamentosServico = pagamentosServico;
     }
 
     public Servico(Cliente cliente, Veiculo veiculo, String aberturaServico, String statusAtualServico, Date dataAberturaServico) {

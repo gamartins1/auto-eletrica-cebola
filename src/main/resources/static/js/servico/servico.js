@@ -185,7 +185,12 @@ $(document).ready(function() {
 
         var idServico = document.forms['form-finalizar-servico'].name;
         var valorFinalServico = document.getElementById('lbl-valor-final-servico').innerText;
+        var valorRecebidoServico = $('#inputValorRecebidoServico').val();;
         var notaServico = $("input[type='radio']:checked").val();
+
+        if(notaServico == null) {
+            notaServico = "0.0";
+        }
 
         var descricaoServicos = [];
         var descricoes = document.getElementsByClassName("descricoes-servicos-values");
@@ -205,7 +210,7 @@ $(document).ready(function() {
             pecasServico[i] = pecas[i].innerText;
         }
 
-        const objRequest = {idServico : idServico, descricaoServicos : descricaoServicos, maosDeObraServico : maosDeObraServico, pecasServico : pecasServico, valorFinalServico : valorFinalServico, notaServico : notaServico};
+        const objRequest = {idServico : idServico, descricaoServicos : descricaoServicos, maosDeObraServico : maosDeObraServico, pecasServico : pecasServico, valorFinalServico : valorFinalServico, notaServico : notaServico, valorRecebidoServico : valorRecebidoServico};
 
         $("#btnFinalizarServico").prop("disabled", true);
 
@@ -317,6 +322,7 @@ function removerLI(id) {
 
 function removerLIDecrementarValorFinal(id, idTextoPeca) {
     var objValorTotalAtual = document.getElementById('lbl-valor-final-servico');
+    var valorRecebidoServico = $('#inputValorRecebidoServico').val();
 
     var textoLI = document.getElementById(idTextoPeca).innerText;
 
@@ -332,17 +338,24 @@ function removerLIDecrementarValorFinal(id, idTextoPeca) {
     var valorFinal = parseFloat(objValorTotalAtual.innerText.replace(",", ".")) - valorSubtraido;
 
     objValorTotalAtual.innerText = valorFinal.toFixed(2).replace(".", ",");
+    if(valorRecebidoServico != null) {
+        $('#inputValorRecebidoServico').val(novoValorFinal.toFixed(2));
+    }
     removerLI(id);
 }
 
 function incrementarValorFinal(valorAdicionado, quantidade) {
     var objValorTotalAtual = document.getElementById('lbl-valor-final-servico');
+    var valorRecebidoServico = $('#inputValorRecebidoServico').val();
 
     var valor = parseFloat(valorAdicionado) * parseInt(quantidade)
     var valorAntigo = parseFloat(objValorTotalAtual.innerText.replace(",", "."));
     var novoValorFinal = valorAntigo + valor;
     objValorTotalAtual.innerText = novoValorFinal.toFixed(2).replace(".", ",");
 
+    if(valorRecebidoServico != null) {
+        $('#inputValorRecebidoServico').val(novoValorFinal.toFixed(2));
+    }
 }
 
 function isPecaNova(quantidade, peca, garantia) {

@@ -3,8 +3,10 @@ package com.aec.autoeletricacebola.controller;
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLICATION_DATE_TIME_FORMAT;
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.*;
+import static com.aec.autoeletricacebola.utils.ServicoUtils.obterStatusAtualPagamentoServico;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.FECHADO;
+import static com.aec.autoeletricacebola.utils.StatusServicoConstants.PAGAMENTO_PENDENTE;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -16,18 +18,19 @@ import java.util.stream.Collectors;
 import com.aec.autoeletricacebola.model.Cliente;
 import com.aec.autoeletricacebola.model.Mecanico;
 import com.aec.autoeletricacebola.model.NotaServico;
+import com.aec.autoeletricacebola.model.PagamentosServico;
 import com.aec.autoeletricacebola.model.PecaEstoque;
 import com.aec.autoeletricacebola.model.Servico;
 import com.aec.autoeletricacebola.model.TelefoneCliente;
 import com.aec.autoeletricacebola.model.Veiculo;
-import com.aec.autoeletricacebola.repository.ClienteRepository;
-import com.aec.autoeletricacebola.repository.DescricaoServicoRepository;
-import com.aec.autoeletricacebola.repository.VeiculoRepository;
+import com.aec.autoeletricacebola.service.cliente.ClienteService;
+import com.aec.autoeletricacebola.service.descricao_servico.DescricaoServicoService;
 import com.aec.autoeletricacebola.service.mecanico.MecanicoService;
 import com.aec.autoeletricacebola.service.nota_servico.NotaServicoService;
 import com.aec.autoeletricacebola.service.peca_estoque.PecaEstoqueService;
 import com.aec.autoeletricacebola.service.servico.ServicoService;
 import com.aec.autoeletricacebola.service.telefone_cliente.TelefoneClienteService;
+import com.aec.autoeletricacebola.service.veiculo.VeiculoService;
 import com.aec.autoeletricacebola.utils.ServicoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,13 +52,13 @@ public class ServicoController {
     private ServicoService servicoService;
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
 
     @Autowired
-    private VeiculoRepository veiculoRepository;
+    private VeiculoService veiculoService;
 
     @Autowired
-    private DescricaoServicoRepository descricaoServicoRepository;
+    private DescricaoServicoService descricaoServicoService;
 
     @Autowired
     private MecanicoService mecanicoService;
@@ -76,8 +79,8 @@ public class ServicoController {
     @RequestMapping(value = "/cadastrarServico", method = RequestMethod.GET)
     public ModelAndView redirectCadastrarServicoForm() {
         ModelAndView modelAndView = new ModelAndView("cadastrarServico");
-        List <Cliente> clientes = this.clienteRepository.findAll();
-        List <Veiculo> veiculos = this.veiculoRepository.findAll();
+        List <Cliente> clientes = this.clienteService.findAll();
+        List <Veiculo> veiculos = this.veiculoService.findAll();
 
         Map <Long, String> map = new HashMap <>();
 
@@ -118,8 +121,8 @@ public class ServicoController {
         Long idCliente = Long.parseLong((String) descricaoServicos.get(ID_CLIENTE));
         Long idVeiculo = Long.parseLong((String) descricaoServicos.get(ID_VEICULO));
 
-        Cliente cliente = clienteRepository.findById(idCliente).get();
-        Veiculo veiculo = veiculoRepository.findById(idVeiculo).get();
+        Cliente cliente = clienteService.findById(idCliente);
+        Veiculo veiculo = veiculoService.findById(idVeiculo);
 
         Servico servico = new Servico(cliente, veiculo, LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT), ABERTO, new Date(System.currentTimeMillis()));
 
@@ -160,6 +163,7 @@ public class ServicoController {
         Servico servico = servicoService.findById(idDoServico);
 
         double valorFinal = Double.parseDouble(((String) atributosServico.get(VALOR_FINAL_SERVICO)).replace(",", "."));
+        double valorRecebido = Double.parseDouble(((String) atributosServico.get(VALOR_RECEBIDO_SERVICO)).replace(",", "."));
 
         if(valorFinal < 0) {
             return EMPTY;
@@ -172,10 +176,16 @@ public class ServicoController {
         servico.setDescricaoServico(this.servicoUtils.criarDescricoesServico(servico, (List <String>) atributosServico.get(DESCRICAO_SERVICOS)));
         servico.setMaoDeObraServico(this.servicoUtils.criarMaosDeObraServico(servico, (List<String>) atributosServico.get(MAOS_DE_OBRA_SERVICO)));
         servico.setPecasServico(this.servicoUtils.criarPecasServico(servico, (List<String>) atributosServico.get(PECAS_SERVICO)));
+
+        List<PagamentosServico> pagamentosRecebidos = this.servicoUtils.registrarPagamentoServico(servico, valorRecebido);
+        servico.setPagamentosServico(pagamentosRecebidos);
+
+        String statusAtualServico = valorRecebido >= valorFinal ? FECHADO : obterStatusAtualPagamentoServico(valorFinal, pagamentosRecebidos);
+
         servico.setValorFinalServico(valorFinal);
         servico.setEncerramentoServico(LocalDateTime.now().format(APPLICATION_DATE_TIME_FORMAT));
         servico.setDataEncerramentoServico(new Date(System.currentTimeMillis()));
-        servico.setStatusAtualServico(FECHADO);
+        servico.setStatusAtualServico(statusAtualServico);
 
         servico = this.servicoService.save(servico);
         System.out.println("Serviço salvo e finalizado. Id: " + servico.getIdServico());
@@ -277,8 +287,8 @@ public class ServicoController {
     public String redirectConsultaServicosPagamentoPendentePadrao(Model m) {
         List <Servico> servicos = this.servicoService.findAll();
 
-        List <String> clientesNomes = this.clienteRepository.findAll().stream().map(Cliente::getNomeCliente).collect(Collectors.toList());
-        List <String> placas = this.veiculoRepository.findAll().stream().map(Veiculo::getPlacaVeiculo).collect(Collectors.toList());
+        List <String> clientesNomes = this.clienteService.findAll().stream().map(Cliente::getNomeCliente).collect(Collectors.toList());
+        List <String> placas = this.veiculoService.findAll().stream().map(Veiculo::getPlacaVeiculo).collect(Collectors.toList());
         List <String> telefones = this.telefoneClienteService.findAll().stream().map(TelefoneCliente::getNumeroTelefoneCliente).collect(Collectors.toList());
 
         m.addAttribute("telefones", telefones);
@@ -295,8 +305,8 @@ public class ServicoController {
     public String redirectConsultaServicosPadrao(Model m) {
         List <Servico> servicos = this.servicoService.findAll();
 
-        List <String> clientesNomes = this.clienteRepository.findAll().stream().map(Cliente::getNomeCliente).collect(Collectors.toList());
-        List <String> placas = this.veiculoRepository.findAll().stream().map(Veiculo::getPlacaVeiculo).collect(Collectors.toList());
+        List <String> clientesNomes = this.clienteService.findAll().stream().map(Cliente::getNomeCliente).collect(Collectors.toList());
+        List <String> placas = this.veiculoService.findAll().stream().map(Veiculo::getPlacaVeiculo).collect(Collectors.toList());
         List <String> telefones = this.telefoneClienteService.findAll().stream().map(TelefoneCliente::getNumeroTelefoneCliente).collect(Collectors.toList());
 
         m.addAttribute("telefones", telefones);

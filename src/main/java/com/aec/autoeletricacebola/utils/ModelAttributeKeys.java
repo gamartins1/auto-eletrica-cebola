@@ -89,6 +89,7 @@ public class ModelAttributeKeys {
 
     /** V **/
     public static final String VALOR_FINAL_SERVICO = "valorFinalServico";
+    public static final String VALOR_RECEBIDO_SERVICO = "valorRecebidoServico";
     public static final String VEICULOS = "veiculos";
     public static final String VEICULOS_LISTA = "veiculosLista";
 

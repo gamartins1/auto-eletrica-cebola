@@ -289,7 +289,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <h6>Valor recebido: <b>R$<input type="number" step="0.01" data-decimals="3" class="form-control" th:attr="value=${servico.valorFinalServico}" id="inputValorRecebidoServico" placeholder="Valor" aria-describedby="basic-addon2" data-toggle="tooltip" data-placement="top" title="Informe o valor que foi recebido pelo serviço"></b></h6>
                     <h6>Valor final: <b>R$<span id="lbl-valor-final-servico" th:text="${servico.valorFinalServico}"></span></b></h6>
+                </div>
+                <div class="modal-footer">
                     <button id="btnFinalizarServico" type="submit" class="btn btn-primary">Finalizar Serviço</button>
                     <a th:href="@{/menu}"><button type="button" class="btn btn-secondary">Cancelar</button></a>
                 </div>

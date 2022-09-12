@@ -35,6 +35,9 @@ public class PagamentosServico {
     @JoinColumn(name = "servico_id_servico")
     private Servico servico;
 
+    public PagamentosServico() {
+
+    }
 
     public PagamentosServico(double valorPagamentoServico, Servico servico) {
         this.valorPagamentoServico = valorPagamentoServico;

@@ -180,10 +180,10 @@
                     <label><h5 class="modal-title titles-cadastro">Histórico de pagamentos</h5></label>
                     <div class="col-8 list-group-servicos-solicitados">
                         <ul class="list-group list-group-flush" id="list-historico-pagamentos">
-                            <li class="list-group-item"  th:each="pecaServico, userStat : ${servico.pecasServico}" th:attr="id='peca'+${userStat.index}">
+                            <li class="list-group-item" th:each="pagamentoServico : ${servico.pagamentosServico}">
                                 <div class="d-flex justify-content-between">
                                     <div class="col-md-8 flex-grow-1">
-                                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:attr="id='textoPeca'+${userStat.index}" th:text="${pecaServico.nomePecaEstoque} + ' - R$' + ${pecaServico.valorPeca} + ' (único). Garantia de ' + ${pecaServico.tempoGarantiaPecaServico} + '. Quantidade ' + ${pecaServico.quantidadePecaServico}"></span></h6>
+                                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:attr="id='idPagamento'+${pagamentoServico.idPagamentoServico}" th:text="'R$' + ${pagamentoServico.valorPagamentoServico} + ' recebido em ' + ${pagamentoServico.dataRecebimentoPagamentoServico}"></span></h6>
                                     </div>
                                 </div>
                             </li>
@@ -194,21 +194,42 @@
                     <label><h5 class="modal-title titles-cadastro">Receber</h5></label>
                     <div class="col-8 list-group-servicos-solicitados">
                         <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor total do serviço: ' + ${servico.valorFinalServico}"></span></h6>
-                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor previamente recebido: ' + ${servico.valorFinalServico}"></span></h6>
-                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor em aberto: ' + ${servico.valorFinalServico}"></span></h6>
+                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor previamente recebido: ' + ${valorRecebidoServico}"></span></h6>
+                        <h6 class="pecas-servicos-values text-muted items-search-service"><span th:text="'Valor em aberto: ' + ${valorAbertoServico}"></span></h6>
 
                         <label for="valorRecebido" class="form-label"><h5 class="modal-title titles-cadastro">Valor recebido</h5></label>
-                        <input type="number" step="0.01" data-decimals="4" class="form-control" id="valorRecebido" name="valorRecebido" th:attr="value=${servico.valorFinalServico}">
+                        <input type="number" step="0.1" data-decimals="4" class="form-control" id="valorRecebido" name="valorRecebido">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" id="btnReceberPagamento">Receber Pagamento</button>
-                    <a th:href="@{/menu}"><button type="button" class="btn btn-secondary">Voltar</button></a>
+                    <a th:href="@{/consultarServicosPagamentoPendente}"><button type="button" class="btn btn-secondary">Voltar</button></a>
                 </div>
             </form>
         </div>
     </div>
 </section>
+<div id="toastSucesso" role="alert" style="position: relative; min-height: 50px; background-color: #90EE90;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Pagamento recebido</strong>
+    </div>
+    <div class="toast-body">
+        Sucesso ao receber pagamento pelo serviço
+    </div>
+</div>
+
+<div id="toastErro" role="alert" style="position: relative; min-height: 50px; background-color: #DB3737;" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-auto">Erro ao receber pagamento</strong>
+    </div>
+    <div class="toast-body">
+        Não foi possível registrar o recebimento do pagamento do serviço. Verifique o valor informado e tente novamente
+    </div>
+</div>
+<!--Esse modal representa a tela de cadastro de cliente que é chamada dentro do menu-->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div th:replace="/modal/cadastro_cliente::modalCadastrarCliente"></div>
+</div>
 </body>
 <script>
     $(function () {

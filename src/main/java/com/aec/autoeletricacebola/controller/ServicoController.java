@@ -4,11 +4,12 @@ import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.APPLI
 import static com.aec.autoeletricacebola.utils.CebolaAutoEletricaConstants.EMPTY;
 import static com.aec.autoeletricacebola.utils.ModelAttributeKeys.*;
 import static com.aec.autoeletricacebola.utils.ServicoUtils.obterStatusAtualPagamentoServico;
+import static com.aec.autoeletricacebola.utils.ServicoUtils.obterValorTotalRecebidoServico;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.FECHADO;
-import static com.aec.autoeletricacebola.utils.StatusServicoConstants.PAGAMENTO_PENDENTE;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -237,6 +238,32 @@ public class ServicoController {
         return "Servico editado com sucesso";
     }
 
+    @RequestMapping(value = "consultarServicoPagamentoPendente/servico/{idServico}/receberPagamentoServico", method = RequestMethod.POST)
+    public @ResponseBody String receberPagamento(@RequestBody Map atributosServico, BindingResult result, RedirectAttributes attributes, @PathVariable String idServico) {
+
+        if(idServico == null) {
+            return "";
+        }
+
+        Long idDoServico = Long.parseLong((String) atributosServico.get(ID_SERVICO));
+
+        Servico servico = servicoService.findById(idDoServico);
+
+        double valorRecebido = Double.parseDouble(((String) atributosServico.get(VALOR_RECEBIDO_SERVICO)).replace(",", "."));
+
+        if(valorRecebido < 0) {
+            return EMPTY;
+        }
+
+        servico.setPagamentosServico(this.servicoUtils.registrarPagamentoServico(servico, valorRecebido));
+        servico.setStatusAtualServico(obterStatusAtualPagamentoServico(servico.getValorFinalServico(), servico.getPagamentosServico()));
+
+        servico = this.servicoService.save(servico);
+        System.out.println("Pagamento recebido, serviço salvo. Id: " + servico.getIdServico());
+
+        return "Pagamento recebido com sucesso";
+    }
+
     @GetMapping("/consultarServico")
     @RequestMapping(value = "/consultarServico/{idServico}", method = RequestMethod.GET)
     public ModelAndView redirectConsultarServicoForm(@PathVariable(ID_SERVICO) Long id) {
@@ -255,6 +282,12 @@ public class ServicoController {
     public ModelAndView redirectConsultarServicoPagamentoPendenteForm(@PathVariable(ID_SERVICO) Long id) {
         ModelAndView modelAndView = new ModelAndView("receberPagamentoServico");
         Servico servico = servicoService.findById(id);
+
+        double valorRecebido = obterValorTotalRecebidoServico(servico.getPagamentosServico());
+
+        DecimalFormat format = new DecimalFormat("0.0");
+        modelAndView.addObject(VALOR_ABERTO_SERVICO, format.format(servico.getValorFinalServico() - valorRecebido));
+        modelAndView.addObject(VALOR_RECEBIDO_SERVICO, String.valueOf(valorRecebido).replace(".", ","));
 
         modelAndView.addObject(SERVICO, servico);
 
@@ -276,7 +309,7 @@ public class ServicoController {
     @RequestMapping(value = "/consultarServicosPagamentoPendente", method = RequestMethod.GET)
     public ModelAndView redirectConsultarServicosPagamentoPendenteForm() {
         ModelAndView modelAndView = new ModelAndView("consultarServicosPagamentoPendente");
-        List<Servico> servicos = servicoService.findAll();
+        List<Servico> servicos = servicoService.findByServicesUnpaid();
 
         modelAndView.addObject(SERVICO, servicos);
 
@@ -285,15 +318,8 @@ public class ServicoController {
 
     @GetMapping("/newConsultaServicosPagamentoPendentePadrao")
     public String redirectConsultaServicosPagamentoPendentePadrao(Model m) {
-        List <Servico> servicos = this.servicoService.findAll();
+        List <Servico> servicos = this.servicoService.findByServicesUnpaid();
 
-        List <String> clientesNomes = this.clienteService.findAll().stream().map(Cliente::getNomeCliente).collect(Collectors.toList());
-        List <String> placas = this.veiculoService.findAll().stream().map(Veiculo::getPlacaVeiculo).collect(Collectors.toList());
-        List <String> telefones = this.telefoneClienteService.findAll().stream().map(TelefoneCliente::getNumeroTelefoneCliente).collect(Collectors.toList());
-
-        m.addAttribute("telefones", telefones);
-        m.addAttribute("placas", placas);
-        m.addAttribute("clientesNomes", clientesNomes);
         m.addAttribute("servicos", servicos);
         m.addAttribute("quantidadeServicos", servicos.size());
 

@@ -25,6 +25,11 @@ public class ServicoServiceImpl implements ServicoService {
     }
 
     @Override
+    public List <Servico> findByServicesUnpaid() {
+        return this.servicoRepository.findByServicesUnpaid();
+    }
+
+    @Override
     public List <Servico> findServicesByClientId(Long id) {
         return this.servicoRepository.findServicesByClientId(id);
     }

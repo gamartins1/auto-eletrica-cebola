@@ -185,7 +185,7 @@ $(document).ready(function() {
 
         var idServico = document.forms['form-finalizar-servico'].name;
         var valorFinalServico = document.getElementById('lbl-valor-final-servico').innerText;
-        var valorRecebidoServico = $('#inputValorRecebidoServico').val();;
+        var valorRecebidoServico = $('#inputValorRecebidoServico').val();
         var notaServico = $("input[type='radio']:checked").val();
 
         if(notaServico == null) {
@@ -304,6 +304,42 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#form-receber-pagamento").submit(function (event) {
+        event.preventDefault();
+        var idServico = document.forms['form-receber-pagamento'].name;
+        var valorRecebidoServico = $('#valorRecebido').val();
+
+        const objRequest = {idServico: idServico, valorRecebidoServico: valorRecebidoServico};
+
+        $("#btnReceberPagamento").prop("disabled", true);
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: "servico/" + idServico + "/receberPagamentoServico",
+            data: JSON.stringify(objRequest),
+            dataType: 'json',
+            cache: false,
+            timeout: 600000,
+            error: function (e) {
+                if(e.responseText == "Pagamento recebido com sucesso") {
+                    $('#toastSucesso').toast('show');
+
+                    setTimeout(function() {
+                        window.location.href = "/menu";
+                    }, 3500);
+                }
+                else {
+                    $('#toastErro').toast('show');
+                    console.log("ERROR : ", e.responseText);
+                }
+
+                $("#btnReceberPagamento").prop("disabled", false);
+            }
+        });
+
+        });
 
     $("#btn-search-servicos").on("click", function () {
         var telefoneCliente = $('#telefoneCliente').val();

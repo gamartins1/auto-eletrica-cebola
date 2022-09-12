@@ -153,8 +153,10 @@ public class ServicoUtils {
     }
 
     public static String obterStatusAtualPagamentoServico(double valorFinalServico, List<PagamentosServico> pagamentosRecebidos) {
-        double valorTotalJaRecebido = pagamentosRecebidos.stream().map(PagamentosServico::getValorPagamentoServico).collect(Collectors.toList()).stream().mapToDouble(Double::doubleValue).sum();
+        return obterValorTotalRecebidoServico(pagamentosRecebidos) >= valorFinalServico ? FECHADO : PAGAMENTO_PENDENTE;
+    }
 
-        return valorTotalJaRecebido >= valorFinalServico ? FECHADO : PAGAMENTO_PENDENTE;
+    public static double obterValorTotalRecebidoServico(List<PagamentosServico> pagamentosRecebidos) {
+        return pagamentosRecebidos.stream().map(PagamentosServico::getValorPagamentoServico).collect(Collectors.toList()).stream().mapToDouble(Double::doubleValue).sum();
     }
 }

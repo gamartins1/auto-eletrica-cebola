@@ -1,6 +1,7 @@
 package com.aec.autoeletricacebola.repository;
 
 import static com.aec.autoeletricacebola.utils.StatusServicoConstants.ABERTO;
+import static com.aec.autoeletricacebola.utils.StatusServicoConstants.PAGAMENTO_PENDENTE;
 
 import java.sql.Date;
 import java.util.List;
@@ -13,6 +14,9 @@ public interface ServicoRepository extends JpaRepository <Servico, Long> {
 
     @Query(value = "SELECT * FROM TB_SERVICO WHERE status_atual_servico = '" + ABERTO + "'", nativeQuery = true)
     List<Servico> findByServicesUnfinished();
+
+    @Query(value = "SELECT * FROM TB_SERVICO WHERE status_atual_servico = '" + PAGAMENTO_PENDENTE + "'", nativeQuery = true)
+    List<Servico> findByServicesUnpaid();
 
     @Query(value = "SELECT * FROM TB_SERVICO WHERE cliente_id_cliente = ?1", nativeQuery = true)
     List<Servico> findServicesByClientId(Long id);

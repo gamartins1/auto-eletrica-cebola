@@ -285,9 +285,9 @@ public class ServicoController {
 
         double valorRecebido = obterValorTotalRecebidoServico(servico.getPagamentosServico());
 
-        DecimalFormat format = new DecimalFormat("0.0");
-        modelAndView.addObject(VALOR_ABERTO_SERVICO, format.format(servico.getValorFinalServico() - valorRecebido));
-        modelAndView.addObject(VALOR_RECEBIDO_SERVICO, String.valueOf(valorRecebido).replace(".", ","));
+        DecimalFormat format = new DecimalFormat("0.00");
+        modelAndView.addObject(VALOR_ABERTO_SERVICO, format.format(servico.getValorFinalServico() - valorRecebido).replace(".", ","));
+        modelAndView.addObject(VALOR_RECEBIDO_SERVICO, format.format(valorRecebido).replace(".", ","));
 
         modelAndView.addObject(SERVICO, servico);
 

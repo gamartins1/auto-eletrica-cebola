@@ -33,7 +33,7 @@ $(document).ready(function() {
     $("#pickerCliente").change(function (){
         var idCliente = $('#data-list-clientes option[value="' + $('#pickerCliente').val() + '"]').attr("id");
 
-        $("#optsVeiculos").load("/cliente/getVeiculosCliente", {idCliente:idCliente});
+        $("#optsVeiculos").load("cliente/getVeiculosCliente", {idCliente:idCliente});
     });
 
     $("#adicionarNovaDescricaoServico").click(function () {
